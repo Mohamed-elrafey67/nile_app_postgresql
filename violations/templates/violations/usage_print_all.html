@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير سجلات الاستغلال - {{ violation.code }}</title>
+    <style>
+        @page { size: A4 landscape; margin: 1cm; }
+        body { font-family: 'Segoe UI', 'Arial', sans-serif; font-size: 9pt; line-height: 1.4; color: #222; }
+        .header { text-align: center; border-bottom: 3px double #0d3b6e; padding-bottom: 10px; margin-bottom: 15px; }
+        .header h1 { font-size: 14pt; margin: 0; color: #0d3b6e; }
+        .header h2 { font-size: 11pt; margin: 4px 0; color: #1a6ea8; }
+        .header .meta { font-size: 8pt; color: #888; margin-top: 4px; }
+        .summary-box { background: #eaf2f8; padding: 12px; border-radius: 6px; margin: 12px 0; }
+        .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; text-align: center; }
+        .summary-item { background: #fff; padding: 8px; border-radius: 4px; }
+        .summary-label { font-size: 7.5pt; color: #666; }
+        .summary-value { font-size: 12pt; font-weight: bold; color: #0d3b6e; }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 8.5pt; }
+        th, td { padding: 5px 6px; text-align: center; border: 1px solid #ccc; vertical-align: top; }
+        th { background: #0d3b6e; color: #fff; font-weight: 700; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .badge-approved { background: #d4edda; color: #155724; padding: 1px 8px; border-radius: 8px; font-size: 7.5pt; }
+        .badge-pending { background: #fff3cd; color: #856404; padding: 1px 8px; border-radius: 8px; font-size: 7.5pt; }
+        .total-row { background: #d5f5e3 !important; font-weight: bold; }
+        .sub-table { width: 100%; font-size: 7.5pt; border: none; margin: 2px 0; }
+        .sub-table td { border: 1px solid #ddd; padding: 2px 4px; font-size: 7pt; }
+        .sub-table th { background: #eaf2f8; color: #0d3b6e; font-size: 7pt; padding: 2px 4px; }
+        .usage-block { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background: #fafbfd; }
+        .usage-header { font-weight: 700; color: #0d3b6e; font-size: 10pt; border-bottom: 1px solid #1a6ea8; padding-bottom: 5px; margin-bottom: 8px; }
+        .grand-footer { background: #0d3b6e; color: #fff; padding: 10px; border-radius: 6px; text-align: center; font-size: 12pt; font-weight: 700; }
+        .no-print { text-align: center; margin: 12px; }
+        .no-print button { padding: 8px 22px; font-size: 12pt; background: #0d3b6e; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+        @media print {
+            .no-print { display: none; }
+            body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .usage-block { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print()">🖨️ طباعة التقرير</button>
+    </div>
+
+    <div class="header">
+        <h1>نظام توثيق أراضي طرح النهر</h1>
+        <h2>تقرير سجلات استغلال قطعة الأرض</h2>
+        <div class="meta">
+            كود القطعة: <strong>{{ violation.code }}</strong> |
+            المحافظة: {{ violation.governorate.name_ar|default:"—" }} |
+            المركز: {{ violation.district_name|default:"—" }} |
+            القرية: {{ violation.village|default:"—" }}
+        </div>
+        <div class="meta">تم الطباعة: {{ print_date|date:"Y/m/d H:i" }}</div>
+    </div>
+
+    <div class="summary-box">
+        <div class="summary-grid">
+            <div class="summary-item"><div class="summary-label">المساحة الإجمالية</div><div class="summary-value">{{ summary.total_area|floatformat:2 }} م²</div></div>
+            <div class="summary-item"><div class="summary-label">عدد سجلات الاستغلال</div><div class="summary-value">{{ summary.count }}</div></div>
+            <div class="summary-item"><div class="summary-label">إجمالي المحسوب</div><div class="summary-value">{{ summary.total_calculated|floatformat:2 }} ج</div></div>
+            <div class="summary-item"><div class="summary-label">قبل 17/10/2021</div><div class="summary-value">{{ summary.total_before_2021|floatformat:2 }} ج</div></div>
+            <div class="summary-item"><div class="summary-label">الإجمالي الكلي</div><div class="summary-value">{{ summary.total_grand|floatformat:2 }} ج</div></div>
+        </div>
+    </div>
+
+    {% for item in usage_data %}
+    {% with u=item.usage %}
+    <div class="usage-block">
+        <div class="usage-header">
+            <span>سجل #{{ forloop.counter }}: {{ u.occupant_name }}</span>
+            <span style="float:left;font-size:8pt;font-weight:normal;">
+                {% if u.status == 'approved' %}<span class="badge-approved">معتمد</span>{% else %}<span class="badge-pending">{{ u.get_status_display }}</span>{% endif %}
+            </span>
+        </div>
+
+        <table style="margin-bottom:6px;">
+            <tr>
+                <th>الأساس</th>
+                <th>نوع الاستغلال</th>
+                <th>المنطقة</th>
+                <th>المساحة (م²)</th>
+                <th>من</th>
+                <th>إلى</th>
+                <th>المدة (يوم)</th>
+                <th>السعر (ج/م²/سنة)</th>
+                <th>المحسوب (ج)</th>
+                <th>قبل 2021 (ج)</th>
+                <th>الإجمالي (ج)</th>
+            </tr>
+            <tr>
+                <td>{% if u.basis == '148' %}<span style="color:#27ae60;font-weight:700;">ترخيص</span>{% else %}<span style="color:#e74c3c;font-weight:700;">مخالفة</span>{% endif %}</td>
+                <td>{{ u.usage_type.name|default:"—" }}</td>
+                <td>{{ u.get_zone_display }}</td>
+                <td>{{ u.area|floatformat:2 }}</td>
+                <td>{{ u.date_from|date:"Y/m/d" }}</td>
+                <td>{% if u.is_ongoing %}مستمر{% else %}{{ u.date_to|date:"Y/m/d"|default:"—" }}{% endif %}</td>
+                <td>{{ u.days }}</td>
+                <td>{{ u.rate_per_year|floatformat:2 }}</td>
+                <td>{{ u.calculated_value|floatformat:2 }}</td>
+                <td>{{ u.amount_before_2021|floatformat:2 }}</td>
+                <td><strong>{{ u.total_amount|floatformat:2 }}</strong></td>
+            </tr>
+        </table>
+
+        <!-- جدول الحساب التفصيلي -->
+        {% if item.breakdown %}
+        <table class="sub-table">
+            <thead>
+                <tr>
+                    <th>القرار</th>
+                    <th>من</th>
+                    <th>إلى</th>
+                    <th>أيام</th>
+                    <th>السعر (ج/م²/سنة)</th>
+                    <th>القيمة/م² (ج)</th>
+                    <th>القيمة (ج)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in item.breakdown %}
+                <tr>
+                    <td style="font-size:6.5pt;">{{ row.decision }}</td>
+                    <td>{{ row.date_from|date:"Y/m/d" }}</td>
+                    <td>{{ row.date_to|date:"Y/m/d" }}</td>
+                    <td>{{ row.days }}</td>
+                    <td>{{ row.rate|floatformat:4 }}</td>
+                    <td>{{ row.value_per_m2|floatformat:4 }}</td>
+                    <td>{{ row.value|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if u.notes %}
+        <div style="margin-top:4px;font-size:7.5pt;color:#888;">ملاحظات: {{ u.notes }}</div>
+        {% endif %}
+    </div>
+    {% endwith %}
+    {% empty %}
+    <div style="text-align:center;padding:30px;color:#888;">لا توجد سجلات استغلال لهذه القطعة</div>
+    {% endfor %}
+
+    <div class="grand-footer">
+        الإجمالي الكلي لسجلات الاستغلال: {{ summary.total_grand|floatformat:2 }} جنيه مصري
+    </div>
+
+    <div style="margin-top:20px;text-align:center;font-size:8pt;color:#888;border-top:1px solid #ddd;padding-top:8px;">
+        <p>نظام توثيق أراضي طرح النهر | وزارة الموارد المائية والري</p>
+    </div>
+</body>
+</html>
