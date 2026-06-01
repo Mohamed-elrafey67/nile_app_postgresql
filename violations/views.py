@@ -3,10 +3,11 @@ import json
 import os
 import tempfile
 import zipfile
+from datetime import datetime
 from django.db import models
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -1192,6 +1193,8 @@ def usage_list_api(request, pk):
             'notes':           u.notes,
             'created_by':      u.created_by.get_full_name() or u.created_by.username if u.created_by else '—',
             'created_at':      u.created_at.strftime('%Y-%m-%d') if u.created_at else None,
+            'used_decision':   u.used_decision.decision_number if u.used_decision else None,
+            'rate_factor':     float(u.usage_type.rate_factor) if u.usage_type else 1.0,
         })
 
     approved = [u for u in usages if u.status == 'approved']
@@ -1249,11 +1252,12 @@ def usage_add_api(request, pk):
         if data.get('usage_type_id'):
             usage_type = UsageType.objects.filter(pk=data['usage_type_id']).first()
 
-        # الفئة السنوية من نوع الاستغلال + المنطقة
+        # الفئة السنوية من نوع الاستغلال + المنطقة (مع مراعاة rate_factor)
         zone = data.get('zone', 'other')
         rate = 0
         if usage_type:
             rate = usage_type.get_rate(zone)
+            rate = rate * float(usage_type.rate_factor)
 
         status = 'approved' if role in ('supervisor', 'manager') else 'pending'
 
@@ -1344,37 +1348,70 @@ def usage_calculate_preview(request, pk):
                                  'total_value': 0, 'days_total': 0, 'area': area})
 
         days_total = (date_to - date_from).days
-        total = round(days_total * (rate / 365.0) * area, 2)
+        basis = ut.decision if ut else '149'
 
-        # تفصيل واحد بالقرارات المتعاقبة
-        decisions = MinistryDecision.objects.filter(
-            date_from__lte=date_to
-        ).order_by('date_from')
+        qs = MinistryDecision.objects.filter(
+            Q(date_to__isnull=True) | Q(date_to__gt=date_from)
+        ).order_by('-order', '-date_from')
         breakdown = []
+        covered = []
+        total_per_m2 = 0.0
 
-        for dec in decisions:
+        for dec in qs:
             d_start = dec.date_from
-            d_end   = dec.date_to or date_to
-            overlap_start = max(date_from, d_start)
-            overlap_end   = min(date_to, d_end)
-            if overlap_start > overlap_end:
+            d_end = dec.date_to or date_to
+            dec_num = str(dec.decision_number)
+            if basis and ('148 لسنة' in dec_num or '149 لسنة' in dec_num):
+                companion_prefix = '149 لسنة' if basis == '148' else '148 لسنة'
+                if companion_prefix in dec_num:
+                    continue
+            eff_start = max(date_from, d_start)
+            eff_end = min(date_to, d_end)
+            if eff_start >= eff_end:
                 continue
-            days      = (overlap_end - overlap_start).days
-            val_per_m2= days * (rate / 365.0)
+            skip = False
+            for cf, ct in covered:
+                if eff_start >= cf and eff_end <= ct:
+                    skip = True
+                    break
+            if skip:
+                continue
+            for cf, ct in covered:
+                if eff_start < ct and eff_end > cf:
+                    if eff_end > ct:
+                        eff_end = ct
+            if eff_start >= eff_end:
+                continue
+            covered.append((eff_start, eff_end))
+            days = (eff_end - eff_start).days
+            dec_rate = dec.get_rate(zone) if dec else None
+            if dec_rate is not None:
+                r = dec_rate
+            else:
+                r = rate
+                if ut:
+                    r = r * float(ut.rate_factor)
+                if r == 0:
+                    continue
+            val_per_m2 = days * (r / 365.0)
+            total_per_m2 += val_per_m2
             breakdown.append({
                 'decision':    dec.decision_number,
-                'date_from':   overlap_start.strftime('%Y-%m-%d'),
-                'date_to':     overlap_end.strftime('%Y-%m-%d'),
+                'date_from':   eff_start.strftime('%Y-%m-%d'),
+                'date_to':     eff_end.strftime('%Y-%m-%d'),
                 'days':        days,
-                'rate':        rate,
+                'rate':        r,
                 'value_per_m2':round(val_per_m2, 4),
             })
+
+        breakdown.reverse()
+        total_value = round(total_per_m2 * area, 2)
 
         return JsonResponse({
             'success':      True,
             'breakdown':    breakdown,
-            'total_per_m2': round(days_total * (rate / 365.0), 4),
-            'total_value':  total,
+            'total_per_m2': round(total_per_m2, 4),
+            'total_value':  total_value,
             'days_total':   days_total,
             'area':         area,
         })
@@ -1393,6 +1430,7 @@ def usage_types_api(request):
         'id', 'name', 'article', 'decision',
         'rate_warraq', 'rate_aswan', 'rate_other',
         'rate_urban_in', 'rate_urban_out',
+        'rate_factor',
     ))
     return JsonResponse({'types': types})
 
@@ -1402,35 +1440,64 @@ def usage_types_api(request):
 # ══════════════════════════════════════════════════════════════════
 
 def _calc_usage_breakdown(u):
-    """حساب تفصيل مقابل الانتفاع لسجل استغلال — يستخدم سعر النوع حسب المنطقة"""
+    """حساب تفصيل مقابل الانتفاع — أعلى ترتيب قرار أولاً، مع تجنب التكرار"""
     from datetime import date as date_type
     end_date = u.date_to or date_type.today()
     start = u.date_from
     if not u.usage_type:
         return []
-    rate = u.usage_type.get_rate(u.zone)
-    if rate == 0:
-        return []
-    decisions = MinistryDecision.objects.filter(date_from__lte=end_date).order_by('date_from')
+    qs = MinistryDecision.objects.filter(
+        Q(date_to__isnull=True) | Q(date_to__gt=start)
+    ).order_by('-order', '-date_from')
     rows = []
-    for dec in decisions:
+    covered = []
+    basis = getattr(u, 'basis', None)
+    for dec in qs:
         d_start = dec.date_from
         d_end = dec.date_to or end_date
-        overlap_start = max(start, d_start)
-        overlap_end = min(end_date, d_end)
-        if overlap_start > overlap_end:
+        dec_num = str(dec.decision_number)
+        if basis and ('148 لسنة' in dec_num or '149 لسنة' in dec_num):
+            companion_prefix = '149 لسنة' if basis == '148' else '148 لسنة'
+            if companion_prefix in dec_num:
+                continue
+        eff_start = max(start, d_start)
+        eff_end = min(end_date, d_end)
+        if eff_start >= eff_end:
             continue
-        days = (overlap_end - overlap_start).days
+        skip = False
+        for cf, ct in covered:
+            if eff_start >= cf and eff_end <= ct:
+                skip = True
+                break
+        if skip:
+            continue
+        for cf, ct in covered:
+            if eff_start < ct and eff_end > cf:
+                if eff_end > ct:
+                    eff_end = ct
+        if eff_start >= eff_end:
+            continue
+        covered.append((eff_start, eff_end))
+        days = (eff_end - eff_start).days
+        dec_rate = dec.get_rate(u.zone)
+        if dec_rate is not None:
+            rate = dec_rate
+        else:
+            rate = u.usage_type.get_rate(u.zone)
+            if rate == 0:
+                continue
+            rate = rate * float(u.usage_type.rate_factor)
         val_per_m2 = days * (rate / 365.0)
         rows.append({
             'decision': dec.decision_number,
-            'date_from': overlap_start,
-            'date_to': overlap_end,
+            'date_from': eff_start,
+            'date_to': eff_end,
             'days': days,
             'rate': rate,
             'value_per_m2': round(val_per_m2, 4),
             'value': round(val_per_m2 * u.area, 2),
         })
+    rows.reverse()
     return rows
 
 
@@ -1699,3 +1766,58 @@ def satellite_compare_api(request):
     if result.get('before'): result['before']['bounds'] = bounds
     if result.get('after'):  result['after']['bounds']  = bounds
     return JsonResponse(result)
+
+
+@login_required(login_url='login')
+def satellite_change_api(request):
+    """كشف التغيير بين سنوات متعددة"""
+    lat = request.GET.get('lat')
+    lng = request.GET.get('lng')
+    if not lat or not lng:
+        return JsonResponse({'error': 'lat,lng مطلوبان'}, status=400)
+    try:
+        lat, lng = float(lat), float(lng)
+    except ValueError:
+        return JsonResponse({'error': 'lat,lng غير صحيحين'}, status=400)
+
+    years_str = request.GET.get('years', '2020,2022,2024,2026')
+    years = sorted(set(int(y) for y in years_str.split(',') if y.strip()))
+    if len(years) < 2:
+        return JsonResponse({'error': 'يحتاج سنتين على الأقل'}, status=400)
+
+    result = satellite_svc.compute_change_detection(lat, lng, years)
+    return JsonResponse(result)
+
+
+@login_required(login_url='login')
+def satellite_report_api(request, pk):
+    """تقرير PDF مقارن بالأقمار الصناعية"""
+    from .exports import export_satellite_report
+    v = get_object_or_404(Violation, pk=pk)
+
+    years_str = request.GET.get('years', '2020,2022,2024,2026')
+    years = sorted(set(int(y) for y in years_str.split(',') if y.strip()))
+
+    buf = export_satellite_report(v, years)
+    filename = f'satellite_report_{v.code}_{datetime.now():%Y%m%d}.pdf'
+    return HttpResponse(buf, content_type='application/pdf',
+                        headers={'Content-Disposition': f'attachment; filename="{filename}"'})
+
+
+@login_required(login_url='login')
+def satellite_report_html(request, pk):
+    """تقرير HTML مقارن بالأقمار الصناعية (يفتح في نافذة مستقلة)"""
+    from .services import satellite as sat_svc
+    v = get_object_or_404(Violation, pk=pk)
+
+    years_str = request.GET.get('years', '2020,2022,2024,2026')
+    years = sorted(set(int(y) for y in years_str.split(',') if y.strip()))
+
+    now = datetime.now().strftime('%Y-%m-%d %H:%M')
+    result = sat_svc.compute_change_detection(v.latitude, v.longitude, years)
+
+    return render(request, 'violations/satellite_report.html', {
+        'violation': v,
+        'result': result,
+        'now': now,
+    })

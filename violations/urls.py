@@ -58,4 +58,7 @@ urlpatterns = [
     path('api/chatbot/',                         views.chatbot_api,           name='chatbot'),
     path('api/satellite/search/',                 views.satellite_search_api,  name='satellite_search'),
     path('api/satellite/compare/',                views.satellite_compare_api, name='satellite_compare'),
+    path('api/satellite/change/',                 views.satellite_change_api,  name='satellite_change'),
+    path('api/satellite/report/<int:pk>/',        views.satellite_report_api,  name='satellite_report'),
+    path('satellite/report/<int:pk>/',            views.satellite_report_html, name='satellite_report_html'),
 ]

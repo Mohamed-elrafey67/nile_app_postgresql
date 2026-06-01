@@ -1,0 +1,48 @@
+
+Candara (C:\Windows\Fonts\Candarab.ttf):
+  U+0627 (standard): NO
+  U+0644 (standard): NO
+  U+0631 (standard): NO
+  U+0645 (standard): NO
+  U+0632 (standard): NO
+  U+FE8D (presentation): NO
+  U+FEDF (presentation): NO
+  U+FEB4 (presentation): NO
+  U+FEFC (presentation): NO
+  U+FEE1 (presentation): NO
+
+Arial (C:\Windows\Fonts\arial.ttf):
+  U+0627 (standard): NO
+  U+0644 (standard): NO
+  U+0631 (standard): NO
+  U+0645 (standard): NO
+  U+0632 (standard): NO
+  U+FE8D (presentation): NO
+  U+FEDF (presentation): NO
+  U+FEB4 (presentation): NO
+  U+FEFC (presentation): NO
+  U+FEE1 (presentation): NO
+
+ArabicTypesetting (C:\Windows\Fonts\arabtype.ttf):
+  U+0627 (standard): NO
+  U+0644 (standard): NO
+  U+0631 (standard): NO
+  U+0645 (standard): NO
+  U+0632 (standard): NO
+  U+FE8D (presentation): NO
+  U+FEDF (presentation): NO
+  U+FEB4 (presentation): NO
+  U+FEFC (presentation): NO
+  U+FEE1 (presentation): NO
+
+TraditionalArabic (C:\Windows\Fonts\ARABSQ.TTF):
+  U+0627 (standard): NO
+  U+0644 (standard): NO
+  U+0631 (standard): NO
+  U+0645 (standard): NO
+  U+0632 (standard): NO
+  U+FE8D (presentation): NO
+  U+FEDF (presentation): NO
+  U+FEB4 (presentation): NO
+  U+FEFC (presentation): NO
+  U+FEE1 (presentation): NO

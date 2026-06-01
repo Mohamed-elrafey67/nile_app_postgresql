@@ -1,0 +1,20 @@
+plain text
+  orig: 'الرمز:'
+  reshape: 'ﺍﻟﺮﻣﺰ:'
+  display: ':ﺰﻣﺮﻟﺍ'
+
+html text
+  orig: '<b>الرمز:</b> 1234'
+  reshape: '<b>ﺍﻟﺮﻣﺰ:</b> 1234'
+  display: '<b>ﺰﻣﺮﻟﺍ:</b> 1234'
+
+complex html
+  orig: '<b>الرمز:</b> ABC<br/><b>المحافظة:</b> DEF'
+  reshape: '<b>ﺍﻟﺮﻣﺰ:</b> ABC<br/><b>ﺍﻟﻤﺤﺎﻓﻈﺔ:</b> DEF'
+  display: '<b>ﺰﻣﺮﻟﺍ:</b> ABC<br/><b>ﺔﻈﻓﺎﺤﻤﻟﺍ:</b> DEF'
+
+Has <b>: True
+Has </b>: True
+Has <br/>: True
+
+PDF size: 572070 bytes

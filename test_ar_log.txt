@@ -1,0 +1,22 @@
+arabic_reshaper version: 3.0.0
+file: C:\Users\Eng.Mohamed El-Rafey\miniconda3\Lib\site-packages\arabic_reshaper\__init__.py
+Original: 'السلام عليكم'
+Reshaped: 'ﺍﻟﺴﻼﻡ ﻋﻠﻴﻜﻢ'
+Original length: 12
+Reshaped length: 11
+Original chars: ['0x627', '0x644', '0x633', '0x644', '0x627', '0x645', '0x20', '0x639', '0x644', '0x64a', '0x643', '0x645']
+Reshaped chars: ['0xfe8d', '0xfedf', '0xfeb4', '0xfefc', '0xfee1', '0x20', '0xfecb', '0xfee0', '0xfef4', '0xfedc', '0xfee2']
+
+Shape changed - reshaping works!
+Display: 'ﻢﻜﻴﻠﻋ ﻡﻼﺴﻟﺍ'
+Display length: 11
+
+HTML text after processing: '<b>ﺰﻣﺮﻟﺍ:</b> 1234 | <b>ﺔﻈﻓﺎﺤﻤﻟﺍ:</b> ﺓﺮﻫﺎﻘﻟﺍ'
+Has <b>: True
+Has </b>: True
+HTML Paragraph PDF saved
+
+All PDFs saved!
+
+test_arabic_detail.pdf size: 20035
+test_para.pdf size: 19980

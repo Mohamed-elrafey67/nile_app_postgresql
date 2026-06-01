@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 
 
@@ -146,6 +147,31 @@ class Violation(models.Model):
         return f"{self.code} | {self.village} ({self.district_name} – {gov})"
 
 
+class SatelliteImage(models.Model):
+    violation   = models.ForeignKey(Violation, on_delete=models.CASCADE,
+                                    null=True, blank=True,
+                                    verbose_name='القطعة')
+    year        = models.IntegerField(verbose_name='السنة', db_index=True)
+    date_acquired = models.DateField(verbose_name='تاريخ الالتقاط')
+    image       = models.ImageField(upload_to='satellite/', verbose_name='الصورة')
+    cloud_cover = models.FloatField(default=0, verbose_name='الغطاء السحابي')
+    bounds_west  = models.FloatField(default=0, verbose_name='حد غرب')
+    bounds_south = models.FloatField(default=0, verbose_name='حد جنوب')
+    bounds_east  = models.FloatField(default=0, verbose_name='حد شرق')
+    bounds_north = models.FloatField(default=0, verbose_name='حد شمال')
+    created_at  = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ التخزين')
+
+    class Meta:
+        verbose_name        = 'صورة قمر صناعي'
+        verbose_name_plural = 'صور الأقمار الصناعية'
+        ordering            = ['-year', '-date_acquired']
+        unique_together     = ['violation', 'year']
+
+    def __str__(self):
+        v = self.violation.code if self.violation else '—'
+        return f'{v} | {self.year} | {self.date_acquired}'
+
+
 class ViolationImage(models.Model):
     violation   = models.ForeignKey(Violation, on_delete=models.CASCADE,
                                     related_name='images', verbose_name='قطعة الأرض')
@@ -230,6 +256,18 @@ class MinistryDecision(models.Model):
     notes           = models.TextField(blank=True, verbose_name='ملاحظات')
     order           = models.PositiveIntegerField(default=0, verbose_name='الترتيب')
 
+    # أسعار المناطق الخاصة بالقرار (تُستخدم عند الحساب بدلاً من سعر UsageType)
+    rate_warraq     = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                          verbose_name='منطقة الوراق')
+    rate_aswan      = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                          verbose_name='أسوان - الأقصر - أسيوط - المنصورة')
+    rate_other      = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                          verbose_name='باقي المحافظات النيلية')
+    rate_urban_in   = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                          verbose_name='داخل الحيز العمراني')
+    rate_urban_out  = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                          verbose_name='خارج الحيز العمراني')
+
     class Meta:
         verbose_name        = 'قرار وزاري'
         verbose_name_plural = 'القرارات الوزارية'
@@ -241,6 +279,18 @@ class MinistryDecision(models.Model):
     @property
     def rate_per_day(self):
         return float(self.rate_per_year) / 365.0
+
+    def get_rate(self, zone):
+        """إرجاع السعر حسب المنطقة من هذا القرار (إذا مضبوط)، أو None"""
+        zone_map = {
+            'warraq':    self.rate_warraq,
+            'aswan':     self.rate_aswan,
+            'other':     self.rate_other,
+            'urban_in':  self.rate_urban_in,
+            'urban_out': self.rate_urban_out,
+        }
+        val = zone_map.get(zone)
+        return float(val) if val is not None else None
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -277,6 +327,9 @@ class UsageType(models.Model):
                                        verbose_name='وحدة الحساب')
     is_active       = models.BooleanField(default=True, verbose_name='مفعّل')
     order           = models.PositiveIntegerField(default=0, verbose_name='الترتيب')
+    rate_factor     = models.DecimalField(max_digits=5, decimal_places=2, default=1.00,
+                                          verbose_name='معامل السعر',
+                                          help_text='1.00 للمخالفة، 0.50 للترخيص (نصف المخالفة)')
 
     class Meta:
         verbose_name        = 'نوع استغلال'
@@ -362,6 +415,10 @@ class ViolationUsage(models.Model):
                                        default='pending', verbose_name='الحالة')
     notes           = models.TextField(blank=True, verbose_name='ملاحظات')
 
+    # القرار الوزاري المُطبَّق
+    used_decision   = models.ForeignKey('MinistryDecision', on_delete=models.SET_NULL,
+                                        null=True, blank=True, verbose_name='القرار الوزاري المُطبَّق')
+
     # التتبع
     created_by      = models.ForeignKey(User, on_delete=models.SET_NULL,
                                         null=True, related_name='usages_created',
@@ -401,23 +458,78 @@ class ViolationUsage(models.Model):
 
     def calculate_value(self):
         """
-        حساب مقابل الانتفاع بناءً على سعر نوع الاستغلال حسب المنطقة.
+        حساب مقابل الانتفاع — أعلى ترتيب قرار أولاً، مع تجنب التكرار.
         """
         if not self.usage_type:
-            return 0
-        rate = self.usage_type.get_rate(self.zone)
-        if rate == 0:
             return 0
 
         from django.utils import timezone
         end_date = self.date_to or timezone.now().date()
-        days = (end_date - self.date_from).days
-        if days <= 0:
-            return 0
+        start = self.date_from
+        total = 0.0
+        basis = getattr(self, 'basis', None)
 
-        return round(days * (rate / 365.0) * self.area, 2)
+        qs = MinistryDecision.objects.filter(
+            Q(date_to__isnull=True) | Q(date_to__gt=start)
+        ).order_by('-order', '-date_from')
+
+        covered = []
+        for dec in qs:
+            d_start = dec.date_from
+            d_end = dec.date_to or end_date
+            dec_num = str(dec.decision_number)
+            if basis and ('148 لسنة' in dec_num or '149 لسنة' in dec_num):
+                companion_prefix = '149 لسنة' if basis == '148' else '148 لسنة'
+                if companion_prefix in dec_num:
+                    continue
+            eff_start = max(start, d_start)
+            eff_end = min(end_date, d_end)
+            if eff_start >= eff_end:
+                continue
+            skip = False
+            for cf, ct in covered:
+                if eff_start >= cf and eff_end <= ct:
+                    skip = True
+                    break
+            if skip:
+                continue
+            for cf, ct in covered:
+                if eff_start < ct and eff_end > cf:
+                    if eff_end > ct:
+                        eff_end = ct
+            if eff_start >= eff_end:
+                continue
+            covered.append((eff_start, eff_end))
+            days = (eff_end - eff_start).days
+            dec_rate = dec.get_rate(self.zone)
+            if dec_rate is not None:
+                rate = dec_rate
+            else:
+                rate = self.usage_type.get_rate(self.zone)
+                if rate == 0:
+                    continue
+                rate = rate * float(self.usage_type.rate_factor)
+            total += days * (rate / 365.0) * self.area
+
+        return round(total, 2)
 
     def save(self, *args, **kwargs):
+        # تعيين القرار الوزاري المُطبَّق تلقائياً
+        if not self.used_decision and self.date_from:
+            qs = MinistryDecision.objects.filter(
+                date_from__lte=self.date_from
+            ).order_by('-date_from')
+            if self.basis == '148':
+                qs = qs.filter(decision_number__contains='148')
+            elif self.basis == '149':
+                qs = qs.filter(decision_number__contains='149')
+            if not qs.exists():
+                # fallback: أي قرار ساري في ذلك التاريخ
+                qs = MinistryDecision.objects.filter(
+                    date_from__lte=self.date_from
+                ).order_by('-date_from')
+            self.used_decision = qs.first()
+
         # حساب تلقائي للقيمة إذا لم تُدخل يدوياً
         if self.calculated_value == 0 and self.area and self.date_from:
             self.calculated_value = self.calculate_value()

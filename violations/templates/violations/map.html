@@ -1279,135 +1279,189 @@ function switchDetailTab(name, el) {
 }
 
 // ══════════════════════════════════════════
-// 🛰️ صور الأقمار الصناعية
+// 🛰️ صور الأقمار الصناعية — النسخة المتطورة
 // ══════════════════════════════════════════
-var _satData = { before: null, after: null };
+var _satData = {};
 
 function loadSatelliteView(violationId) {
   var panel = document.getElementById('detail-panel-satellite');
   panel.innerHTML = '<div style="text-align:center;padding:20px;color:#999;"><i class="fa fa-spinner fa-spin" style="font-size:1.5rem;"></i><br>جاري البحث عن الصور الفضائية...</div>';
 
-  // الحصول على إحداثيات القطعة
   var detail = _currentDetailData;
   if (!detail || !detail.latitude || !detail.longitude) {
     panel.innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">لا توجد إحداثيات لهذه القطعة</div>';
     return;
   }
-
-  var lat = detail.latitude;
-  var lng = detail.longitude;
-
-  fetch('/api/satellite/compare/?lat=' + lat + '&lng=' + lng + '&year_before=2022&year_after=2024')
-    .then(function(r) { return r.json(); })
-    .then(function(d) {
-      _satData.before = d.before || null;
-      _satData.after  = d.after || null;
-      renderSatellitePanel(panel);
-    })
-    .catch(function() {
-      panel.innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">فشل تحميل الصور الفضائية</div>';
-    });
+  _satData.lat = detail.latitude;
+  _satData.lng = detail.longitude;
+  fetchSatChange(panel);
 }
 
-function renderSatellitePanel(panel) {
-  var before = _satData.before;
-  var after  = _satData.after;
+function fetchSatChange(panel) {
+  var lat = _satData.lat, lng = _satData.lng;
+  var checked = document.querySelectorAll('.sat-year-cb:checked');
+  var years = Array.from(checked).map(function(cb) { return cb.value; }).join(',') || '2020,2022,2024,2026';
+  panel.innerHTML = '<div style="text-align:center;padding:20px;color:#999;"><i class="fa fa-spinner fa-spin"></i> جاري تحميل صور الأقمار...</div>';
+  fetch('/api/satellite/change/?lat=' + lat + '&lng=' + lng + '&years=' + years)
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.error) { panel.innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">' + d.error + '</div>'; return; }
+      _satData.result = d;
+      renderSatPanel(panel);
+    })
+    .catch(function() { panel.innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">فشل تحميل الصور الفضائية</div>'; });
+}
 
-  if (!before && !after) {
+function renderSatPanel(panel) {
+  var r = _satData.result;
+  if (!r || !r.images || !r.images.length) {
     panel.innerHTML = '<div style="text-align:center;padding:20px;color:#999;">لا توجد صور متاحة لهذه المنطقة</div>';
     return;
   }
-
-  var html = '<div style="display:flex;flex-direction:column;gap:12px;font-size:.82rem;">';
+  var html = '<div style="display:flex;flex-direction:column;gap:10px;font-size:.82rem;">';
   html += '<div style="font-weight:700;color:#0d3b6e;"><i class="fa fa-satellite"></i> صور الأقمار الصناعية (Sentinel-2)</div>';
 
-  if (after) {
+  // محدد السنوات
+  html += '<div style="background:#f5f7fa;padding:8px 10px;border-radius:6px;font-size:.78rem;">' +
+    '<div style="margin-bottom:4px;color:#555;font-weight:600;">اختر سنوات للمقارنة:</div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+  [2020, 2022, 2024, 2026].forEach(function(y) {
+    var checked = [2020, 2022, 2024, 2026].indexOf(y) >= 0 ? 'checked' : '';
+    html += '<label style="display:flex;align-items:center;gap:3px;cursor:pointer;">' +
+      '<input type="checkbox" class="sat-year-cb" value="' + y + '" ' + checked +
+      ' onchange="fetchSatChange(document.getElementById(\'detail-panel-satellite\'))"> ' + y +
+      '</label>';
+  });
+  html += '</div></div>';
+
+  // السنوات الفردية — لكل سنة صورة
+  html += '<div style="display:flex;flex-direction:column;gap:6px;">';
+  r.images.forEach(function(img) {
     html +=
-      '<div style="background:#e8f5e9;padding:10px 12px;border-radius:8px;border-right:3px solid #4CAF50;">' +
-      '<div style="font-weight:600;margin-bottom:4px;">🟢 بعد — أحدث صورة</div>' +
-      '<div>التاريخ: ' + after.date + '</div>' +
-      '<div>' + (after.cloud_cover != null ? 'الغطاء السحابي: ' + after.cloud_cover + '%' : '') + '</div>' +
-      '<img src="' + after.image_url + '" style="width:100%;max-width:400px;border-radius:6px;margin:6px 0;">' +
-      '<div style="margin-top:4px;"><a href="#" onclick="toggleSatLayer(\'after\');return false;" id="sat-toggle-after" style="color:#2196F3;font-weight:600;">⬜ إظهار على الخريطة</a></div></div>';
-  }
-  if (before) {
-    html +=
-      '<div style="background:#fff3e0;padding:10px 12px;border-radius:8px;border-right:3px solid #FF9800;">' +
-      '<div style="font-weight:600;margin-bottom:4px;">🟠 قبل — صورة قديمة</div>' +
-      '<div>التاريخ: ' + before.date + '</div>' +
-      '<div>' + (before.cloud_cover != null ? 'الغطاء السحابي: ' + before.cloud_cover + '%' : '') + '</div>' +
-      '<img src="' + before.image_url + '" style="width:100%;max-width:400px;border-radius:6px;margin:6px 0;">' +
-      '<div style="margin-top:4px;"><a href="#" onclick="toggleSatLayer(\'before\');return false;" id="sat-toggle-before" style="color:#2196F3;font-weight:600;">⬜ إظهار على الخريطة</a></div></div>';
+      '<div style="background:#fff;border:1px solid #e0e8f0;padding:8px 10px;border-radius:6px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
+      '<span style="font-weight:600;color:#0d3b6e;">سنة ' + img.year + '</span>' +
+      '<a href="#" onclick="toggleSatLayer(\'img_' + img.year + '\',\'' + img.image_url + '\',[' + img.bounds + ']);return false;" ' +
+      'id="sat-toggle-img_' + img.year + '" style="color:#2196F3;font-weight:600;font-size:.75rem;">⬜ إظهار على الخريطة</a></div>' +
+      '<img src="' + img.image_url + '" style="width:100%;max-width:400px;border-radius:4px;cursor:pointer;" ' +
+      'onclick="toggleSatLayer(\'img_' + img.year + '\',\'' + img.image_url + '\',[' + img.bounds + ']);return false;"></div>';
+  });
+  html += '</div>';
+
+  // نتائج كشف التغيير
+  if (r.changes && r.changes.length) {
+    html += '<div style="font-weight:600;color:#0d3b6e;margin-top:4px;">📊 كشف التغيير</div>';
+    r.changes.forEach(function(ch) {
+      var bg = ch.pct_changed > 10 ? '#fff3e0' : '#e8f5e9';
+      var brd = ch.pct_changed > 10 ? '#FF9800' : '#4CAF50';
+      html +=
+        '<div style="background:' + bg + ';padding:8px 10px;border-radius:6px;border-right:3px solid ' + brd + ';">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+        '<span style="font-weight:600;">' + ch.year_from + ' ← ' + ch.year_to + '</span>' +
+        '<a href="#" onclick="toggleSatLayer(\'hm_' + ch.year_from + '_' + ch.year_to + '\',\'' + ch.heatmap_url + '\',[' + r.bounds + ']);return false;" ' +
+        'id="sat-toggle-hm_' + ch.year_from + '_' + ch.year_to + '" style="color:#2196F3;font-weight:600;font-size:.75rem;">⬜ خريطة التغيير</a></div>' +
+        '<div style="font-size:.78rem;color:#555;margin-top:2px;">' +
+        'التغيير: <b>' + ch.pct_changed + '%</b> | مساحة: <b>' + ch.est_area_m2.toLocaleString() + ' م²</b>' +
+        '</div></div>';
+    });
   }
 
-  // التحكم بالشفافية
-  html += '<div style="padding:8px 0;">' +
+  // الإحصائيات التراكمية
+  if (r.stats) {
+    var s = r.stats;
+    html += '<div style="font-weight:600;color:#0d3b6e;margin-top:4px;">📈 إحصائيات كلية</div>' +
+      '<div style="background:#f5f7fa;padding:8px 10px;border-radius:6px;font-size:.78rem;">' +
+      '<div>الفترة: ' + s.first_year + ' ← ' + s.last_year + '</div>' +
+      '<div>متوسط التغيير: <b>' + s.avg_change_pct + '%</b></div>' +
+      '<div>المساحة التقديرية الكلية: <b>' + (s.total_est_area_m2 || 0).toLocaleString() + ' م²</b></div>';
+    if (r.cumulative_heatmap) {
+      html += '<div style="margin-top:4px;"><a href="#" onclick="toggleSatLayer(\'cum\',\'' + r.cumulative_heatmap + '\',[' + r.bounds + ']);return false;" ' +
+        'id="sat-toggle-cum" style="color:#e74c3c;font-weight:600;">🔥 خريطة حرارية تراكمية</a></div>';
+    }
+    html += '</div>';
+  }
+
+  // أزرار الإجراءات
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+    '<button onclick="removeSatLayers()" style="flex:1;background:#fff;border:2px solid #e0e8f0;border-radius:6px;padding:8px 12px;cursor:pointer;font-size:.78rem;font-family:inherit;color:#555;">🗑️ إخفاء الكل</button>' +
+    '<button onclick="generateSatReport()" style="flex:1;background:#0d3b6e;color:#fff;border:none;border-radius:6px;padding:8px 12px;cursor:pointer;font-size:.78rem;font-family:inherit;">📄 تقرير</button></div>';
+
+  // شريط الشفافية
+  html += '<div style="padding:4px 0;">' +
     '<label style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:#555;">' +
     'الشفافية: <input type="range" id="sat-opacity" min="0" max="1" step="0.1" value="0.6" style="flex:1;" oninput="updateSatOpacity(this.value)">' +
     '<span id="sat-opacity-val">60%</span></label></div>';
-
-  // تعليمات
-  html += '<div style="font-size:.72rem;color:#999;background:#f5f5f5;padding:8px 12px;border-radius:6px;">' +
-    '<i class="fa fa-info-circle"></i> عند إظهار الصورة، ستُغلق النافذة تلقائياً لتظهر الطبقة على الخريطة. استخدم شريط الشفافية للمقارنة بين الطبقتين.</div>';
 
   html += '</div>';
   panel.innerHTML = html;
 }
 
-var _satBeforeLayer = null;
-var _satAfterLayer  = null;
+// طبقات الخريطة
+var _satLayers = {};
 
-function toggleSatLayer(type) {
-  var link = document.getElementById('sat-toggle-' + type);
-  var showing = link && link.innerHTML.indexOf('🟩') >= 0;
-
-  if (showing) {
-    if (type === 'before' && _satBeforeLayer) { map.removeLayer(_satBeforeLayer); _satBeforeLayer = null; }
-    if (type === 'after' && _satAfterLayer)   { map.removeLayer(_satAfterLayer);  _satAfterLayer  = null; }
-    if (link) link.innerHTML = '⬜ إظهار على الخريطة';
-  } else {
-    var data = _satData[type];
-    if (!data || !data.image_url || !data.bounds) return;
-    var opacity = parseFloat(document.getElementById('sat-opacity').value) || 0.6;
-    var b = data.bounds; // [west, south, east, north]
-    var bounds = [[b[1], b[0]], [b[3], b[2]]];
-    var layer = L.imageOverlay(data.image_url, bounds, {opacity: opacity});
-    layer.addTo(map);
-    map.fitBounds(bounds, {maxZoom: 16, padding: [20, 20]});
-    if (type === 'before') { _satBeforeLayer = layer; } else { _satAfterLayer = layer; }
-    if (link) link.innerHTML = '🟩 مخفي (اضغط للإخفاء)';
-    closeAllModals();
+function toggleSatLayer(key, url, boundsArr) {
+  var link = document.getElementById('sat-toggle-' + key);
+  if (_satLayers[key]) {
+    map.removeLayer(_satLayers[key]);
+    delete _satLayers[key];
+    if (link) link.innerHTML = link.innerHTML.indexOf('🔥') >= 0 || link.innerHTML.indexOf('خريطة') >= 0 ? '🔥 خريطة التغيير' : '⬜ إظهار على الخريطة';
+    updateSatControl();
+    return;
   }
-  updateSatelliteControl();
+  var opacity = parseFloat(document.getElementById('sat-opacity').value) || 0.6;
+  var b = boundsArr;
+  var bounds = [[b[1], b[0]], [b[3], b[2]]];
+  var layer = L.imageOverlay(url, bounds, {opacity: opacity});
+  layer.addTo(map);
+  map.fitBounds(bounds, {maxZoom: 16, padding: [20, 20]});
+  _satLayers[key] = layer;
+  if (link) link.innerHTML = '🟩 مخفي (اضغط للإخفاء)';
+  closeAllModals();
+  updateSatControl();
 }
 
 function updateSatOpacity(val) {
   document.getElementById('sat-opacity-val').textContent = Math.round(val * 100) + '%';
-  if (_satBeforeLayer) _satBeforeLayer.setOpacity(parseFloat(val));
-  if (_satAfterLayer)  _satAfterLayer.setOpacity(parseFloat(val));
+  Object.keys(_satLayers).forEach(function(k) { _satLayers[k].setOpacity(parseFloat(val)); });
 }
 
-function updateSatelliteControl() {
-  var active = _satBeforeLayer || _satAfterLayer;
+function updateSatControl() {
+  var active = Object.keys(_satLayers).length;
   var existing = document.getElementById('sat-map-control');
   if (existing) existing.remove();
-
   if (active) {
     var div = document.createElement('div');
     div.id = 'sat-map-control';
     div.innerHTML = '<button onclick="removeSatLayers();return false;" title="إخفاء طبقات القمر الصناعي" ' +
       'style="background:#fff;border:2px solid #2196F3;color:#2196F3;border-radius:8px;padding:6px 12px;' +
       'font-size:.78rem;cursor:pointer;font-family:inherit;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.15);">' +
-      '🛰️ إخفاء الطبقات</button>';
+      '🛰️ إخفاء الطبقات (' + active + ')</button>';
     div.style.cssText = 'position:fixed;bottom:150px;left:20px;z-index:9999;';
     document.body.appendChild(div);
   }
 }
 
 function removeSatLayers() {
-  if (_satBeforeLayer) { map.removeLayer(_satBeforeLayer); _satBeforeLayer = null; }
-  if (_satAfterLayer)  { map.removeLayer(_satAfterLayer);  _satAfterLayer  = null; }
-  updateSatelliteControl();
+  Object.keys(_satLayers).forEach(function(k) {
+    map.removeLayer(_satLayers[k]);
+    delete _satLayers[k];
+  });
+  document.querySelectorAll('[id^="sat-toggle-"]').forEach(function(el) {
+    var txt = el.innerHTML;
+    if (txt.indexOf('🟩') >= 0) {
+      if (txt.indexOf('🔥') >= 0 || txt.indexOf('خريطة') >= 0) el.innerHTML = '🔥 خريطة التغيير';
+      else el.innerHTML = '⬜ إظهار على الخريطة';
+    }
+  });
+  updateSatControl();
+}
+
+function generateSatReport() {
+  if (!_currentViolationId) return;
+  var checked = document.querySelectorAll('.sat-year-cb:checked');
+  var years = Array.from(checked).map(function(cb) { return cb.value; }).join(',') || '2020,2022,2024,2026';
+  var url = '/satellite/report/' + _currentViolationId + '/?years=' + years;
+  window.open(url, '_blank');
 }
 
 // ══════════════════════════════════════════
@@ -3096,21 +3150,14 @@ function exportData(fmt) {
   var format = fmt.toLowerCase(); 
   var url = '/api/export/' + format + '/?' + qs;
 
-  // إظهار التنبيه فور الضغط
   showToast('جاري تحضير تقرير ' + fmt + '... سيبدأ التحميل لحظات', 'info');
 
-  // تنفيذ التحميل
   var a = document.createElement('a');
   a.href = url;
-  a.style.display = 'none';
+  a.download = 'report.' + (fmt === 'pdf' ? 'pdf' : 'xlsx');
   document.body.appendChild(a);
   a.click();
-  
-  setTimeout(function() { 
-      document.body.removeChild(a);
-      // تنبيه نجاح اختياري
-      showToast('تم إرسال الطلب للسيرفر بنجاح', 'success');
-  }, 1000);
+  document.body.removeChild(a);
 }
 
 // showDetail — kept for backward compatibility

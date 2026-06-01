@@ -1,7 +1,8 @@
 """
-أدوات تصدير التقارير — Excel و PDF
+أدوات تصدير التقارير — Excel و PDF + تقارير الأقمار الصناعية
 """
 import io
+import os
 from datetime import datetime
 import openpyxl
 from openpyxl.styles import (Font, PatternFill, Alignment, Border, Side,
@@ -12,12 +13,23 @@ from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (SimpleDocTemplate, Table, TableStyle,
-                                 Paragraph, Spacer, HRFlowable)
+                                 Paragraph, Spacer, HRFlowable, Image)
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.enums import TA_RIGHT, TA_CENTER, TA_LEFT
 import os
 
+# ── Arabic text RTL reordering for ReportLab ───────────────────────────
+import re as _re
+def ar(text):
+    """Reorder Arabic text RTL for visual display in ReportLab.
+    Strips <b> tags (bold not needed — use separate styles)."""
+    try:
+        from bidi.algorithm import get_display
+        clean = _re.sub(r'</?b>', '', text)
+        return get_display(clean)
+    except ImportError:
+        return text
 
 # ── COLUMN DEFINITIONS ─────────────────────────────────────────────────────
 COLUMNS = [
@@ -222,11 +234,17 @@ def export_pdf(records, filters=None, user=None):
 
     # Register Arabic font if available
     font_name = 'Helvetica'  # fallback
-    arabic_font_paths = [
+    win_fonts = [
+        'C:\\Windows\\Fonts\\arial.ttf',
+        'C:\\Windows\\Fonts\\tahoma.ttf',
+        'C:\\Windows\\Fonts\\times.ttf',
+        'C:\\Windows\\Fonts\\Candarab.ttf',
+    ]
+    linux_fonts = [
         '/usr/share/fonts/truetype/arabic/ae_AlArabiya.ttf',
         '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
     ]
-    for fp in arabic_font_paths:
+    for fp in win_fonts + linux_fonts:
         if os.path.exists(fp):
             try:
                 pdfmetrics.registerFont(TTFont('Arabic', fp))
@@ -261,15 +279,15 @@ def export_pdf(records, filters=None, user=None):
     elements = []
 
     # Title
-    elements.append(Paragraph('منظومة توثيق أراضي طرح النهر', title_style))
-    elements.append(Paragraph('وزارة الموارد المائية والري — جمهورية مصر العربية', subtitle_style))
+    elements.append(Paragraph(ar('منظومة توثيق أراضي طرح النهر'), title_style))
+    elements.append(Paragraph(ar('وزارة الموارد المائية والري — جمهورية مصر العربية'), subtitle_style))
     elements.append(HRFlowable(width='100%', thickness=2,
                                 color=colors.HexColor('#0D3B6E'), spaceAfter=8))
 
     # Meta info
     now = datetime.now().strftime('%Y-%m-%d %H:%M')
     filter_text = _build_filter_text(filters)
-    meta = f'تاريخ: {now}   |   {filter_text}   |   عدد السجلات: {len(records)}'
+    meta = ar(f'تاريخ: {now}   |   {filter_text}   |   عدد السجلات: {len(records)}')
     elements.append(Paragraph(meta, subtitle_style))
     elements.append(Spacer(1, 0.3*cm))
 
@@ -292,7 +310,7 @@ def export_pdf(records, filters=None, user=None):
         total_area += float(rec.get('area_total', 0) or 0)
 
     # Totals row
-    totals = ['الإجمالي'] + [''] * 9 + [f'{total_area:.1f}', '']
+    totals = [ar('الإجمالي')] + [''] * 9 + [f'{total_area:.1f}', '']
     data.append(totals)
 
     # Column widths proportional
@@ -337,9 +355,148 @@ def export_pdf(records, filters=None, user=None):
     elements.append(Spacer(1, 0.5*cm))
     elements.append(HRFlowable(width='100%', thickness=1,
                                 color=colors.HexColor('#CCCCCC'), spaceAfter=6))
-    summary_text = (f'إجمالي المساحة المتعدى عليها: {total_area:,.2f} م²   |   '
+    summary_text = ar(f'إجمالي المساحة المتعدى عليها: {total_area:,.2f} م²   |   '
                     f'عدد السجلات: {len(records)}')
     elements.append(Paragraph(summary_text, subtitle_style))
+
+    doc.build(elements)
+    buf.seek(0)
+    return buf
+
+
+# ══════════════════════════════════════════════════════════════════
+# 🛰️ SATELLITE REPORT
+# ══════════════════════════════════════════════════════════════════
+def export_satellite_report(violation, years):
+    """تقرير PDF مقارن باستخدام صور الأقمار الصناعية"""
+    from django.conf import settings
+    from .services import satellite as sat_svc
+
+    buf = io.BytesIO()
+    font_name = 'Helvetica'
+    win_fonts = [
+        'C:\\Windows\\Fonts\\arial.ttf',
+        'C:\\Windows\\Fonts\\tahoma.ttf',
+        'C:\\Windows\\Fonts\\times.ttf',
+        'C:\\Windows\\Fonts\\Candarab.ttf',
+    ]
+    linux_fonts = [
+        '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
+    ]
+    for fp in win_fonts + linux_fonts:
+        if os.path.exists(fp):
+            try:
+                pdfmetrics.registerFont(TTFont('ReportFont', fp))
+                font_name = 'ReportFont'
+                break
+            except Exception:
+                pass
+
+    doc = SimpleDocTemplate(
+        buf, pagesize=A4,
+        rightMargin=1.5*cm, leftMargin=1.5*cm,
+        topMargin=2*cm, bottomMargin=2*cm,
+        title=f'التقرير الفضائي — {violation.code}',
+    )
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle('T', fontName=font_name, fontSize=14,
+        textColor=colors.HexColor('#0D3B6E'), alignment=TA_CENTER, spaceAfter=6)
+    sub_style = ParagraphStyle('S', fontName=font_name, fontSize=9,
+        textColor=colors.grey, alignment=TA_CENTER, spaceAfter=4)
+    h3_style = ParagraphStyle('H3', fontName=font_name, fontSize=10,
+        textColor=colors.HexColor('#0D3B6E'), alignment=TA_RIGHT, spaceAfter=6)
+    normal = ParagraphStyle('N', fontName=font_name, fontSize=9, alignment=TA_RIGHT)
+
+    elements = []
+    now = datetime.now().strftime('%Y-%m-%d %H:%M')
+
+    # ── Header ──
+    elements.append(Paragraph(ar('تقرير الرصد الفضائي — أراضي طرح النهر'), title_style))
+    elements.append(Paragraph(ar(f'وزارة الموارد المائية والري | {now}'), sub_style))
+    elements.append(HRFlowable(width='100%', thickness=2,
+        color=colors.HexColor('#0D3B6E'), spaceAfter=8))
+
+    # ── Violation info ──
+    gov = violation.governorate.name_ar if violation.governorate else '—'
+    info_lines = [
+        f'الرمز: {violation.code}',
+        f'المحافظة: {gov} | المركز: {violation.district_name}',
+        f'القرية: {violation.village} | المستغل: {violation.occupant}',
+        f'الإحداثيات: {violation.latitude:.5f}, {violation.longitude:.5f} | '
+        f'المساحة: {violation.area_total:,.1f} م²',
+    ]
+    for line in info_lines:
+        elements.append(Paragraph(ar(line), normal))
+    elements.append(Spacer(1, 0.3*cm))
+
+    # ── Fetch satellite data ──
+    lat, lng = violation.latitude, violation.longitude
+    result = sat_svc.compute_change_detection(lat, lng, years)
+
+    if 'error' in result:
+        elements.append(Paragraph(ar(f'خطأ: {result["error"]}'), normal))
+        doc.build(elements)
+        buf.seek(0)
+        return buf
+
+    # ── Images Section ──
+    elements.append(Paragraph(ar('الصور الفضائية'), h3_style))
+    for img in result.get('images', []):
+        abs_path = os.path.join(settings.MEDIA_ROOT,
+            img['image_url'].replace(settings.MEDIA_URL, '').replace('/', os.sep))
+        if os.path.exists(abs_path):
+            img_w = 14*cm
+            elements.append(Paragraph(ar(f'سنة {img["year"]}'), sub_style))
+            elements.append(Image(abs_path, width=img_w, height=img_w*0.85))
+            elements.append(Spacer(1, 0.2*cm))
+
+    # ── Change Detection Section ──
+    if result.get('changes'):
+        elements.append(Paragraph(ar('كشف التغيير'), h3_style))
+        for ch in result['changes']:
+            elements.append(Paragraph(ar(f'{ch["year_from"]} ← {ch["year_to"]}'), sub_style))
+            text = (
+                f'متوسط الفرق: {ch["mean_diff"]} | '
+                f'نسبة التغيير: {ch["pct_changed"]}% | '
+                f'مساحة تقديرية: {ch["est_area_m2"]:,.1f} م²'
+            )
+            elements.append(Paragraph(ar(text), normal))
+            if ch.get('heatmap_url'):
+                hp = os.path.join(settings.MEDIA_ROOT,
+                    ch['heatmap_url'].replace(settings.MEDIA_URL, '').replace('/', os.sep))
+                if os.path.exists(hp):
+                    elements.append(Image(hp, width=12*cm, height=12*cm*0.85))
+            elements.append(Spacer(1, 0.2*cm))
+
+    # ── Statistics Table ──
+    if result.get('stats'):
+        elements.append(Paragraph(ar('إحصائيات'), h3_style))
+        s = result['stats']
+        stats = [
+            [ar('الفترة'), f'{s["first_year"]} ← {s["last_year"]}'],
+            [ar('متوسط التغيير'), f'{s["avg_change_pct"]}%'],
+            [ar('المساحة التقديرية الكلية'), f'{s["total_est_area_m2"]:,.1f} م²'],
+        ]
+        tbl = Table([[ar('البيان'), ar('القيمة')]] + stats,
+                     colWidths=[8*cm, 8*cm])
+        tbl.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#0D3B6E')),
+            ('TEXTCOLOR', (0,0), (-1,0), colors.white),
+            ('FONTNAME', (0,0), (-1,-1), font_name),
+            ('FONTSIZE', (0,0), (-1,-1), 9),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('GRID', (0,0), (-1,-1), 0.4, colors.HexColor('#CCCCCC')),
+            ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor('#EEF4FB')]),
+        ]))
+        elements.append(tbl)
+
+    # ── Footer ──
+    elements.append(Spacer(1, 0.5*cm))
+    elements.append(HRFlowable(width='100%', thickness=1,
+        color=colors.HexColor('#CCCCCC'), spaceAfter=6))
+    elements.append(Paragraph(ar(
+        f'تم الإنشاء: {now} | المصدر: Sentinel-2 عبر Sentinel Hub'),
+        sub_style))
 
     doc.build(elements)
     buf.seek(0)
