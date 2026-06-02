@@ -63,7 +63,7 @@
     <div class="section">
         <div class="section-title">📋 بيانات الاستغلال</div>
         <div class="row"><span class="label">المستغل:</span><span class="value">{{ usage.occupant_name }}</span></div>
-        <div class="row"><span class="label">أساس الاستغلال:</span><span class="value">{% if usage.basis == '148' %}<span style="color:#27ae60;font-weight:700;">ترخيص (القرار 148)</span>{% else %}<span style="color:#e74c3c;font-weight:700;">مخالفة (القرار 149)</span>{% endif %}</span></div>
+        <div class="row"><span class="label">أساس الاستغلال:</span><span class="value">{% if usage.basis == '148' %}<span style="color:#27ae60;font-weight:700;">ترخيص</span>{% else %}<span style="color:#e74c3c;font-weight:700;">مخالفة</span>{% endif %}</span></div>
         <div class="row"><span class="label">نوع الاستغلال:</span><span class="value">{{ usage.usage_type.name|default:"—" }}</span></div>
         <div class="row"><span class="label">النشاط:</span><span class="value">{{ usage.activity_desc|default:"—" }}</span></div>
         <div class="row"><span class="label">المنطقة الجغرافية:</span><span class="value">{{ usage.get_zone_display }}</span></div>

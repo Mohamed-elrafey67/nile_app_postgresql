@@ -135,7 +135,7 @@ def violations_api(request):
     records = list(qs.values('id','code','governorate__name_ar','governorate__pcode',
         'district_name','village','village_pcode','occupant','basin','description',
         'area_outside','area_public','area_nile_bank','area_total',
-        'latitude','longitude','geo_exact','status','field_notes')[:2000])
+        'latitude','longitude','geo_exact','status','field_notes')[:10000])
     return JsonResponse({'records': records, 'summary': summary, 'role': role})
 
 # ── FILTER OPTIONS ────────────────────────────────────────────────
@@ -576,7 +576,7 @@ def violations_geojson_api(request):
         )
 
     features = []
-    for v in qs[:2000]:
+    for v in qs[:10000]:
         gov_name  = v.governorate.name_ar if v.governorate else ''
         gov_pcode = v.governorate.pcode   if v.governorate else ''
         features.append({

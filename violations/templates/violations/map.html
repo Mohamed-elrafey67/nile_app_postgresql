@@ -388,6 +388,7 @@
   <div class="lyr-title">الطبقات</div>
   <label><input type="checkbox" id="lyr-nile"  checked onchange="toggleLayer('nile')"> أراضي طرح النهر</label>
   <label><input type="checkbox" id="lyr-poly"  checked onchange="toggleLayer('poly')"> حدود القرى</label>
+
 </div>
 
 <!-- LEGEND -->
@@ -402,15 +403,15 @@
     <span>قرية بلا قطع</span>
   </div>
   <div class="leg-item">
-    <div class="leg-dot" style="background:#e74c3c"></div>
+    <div class="leg-sq" style="background:#c0392b;opacity:.7;border:1px solid #922b21"></div>
     <span>> 5000 م²</span>
   </div>
   <div class="leg-item">
-    <div class="leg-dot" style="background:#f39c12"></div>
+    <div class="leg-sq" style="background:#e67e22;opacity:.7;border:1px solid #922b21"></div>
     <span>1000 – 5000 م²</span>
   </div>
   <div class="leg-item">
-    <div class="leg-dot" style="background:#27ae60"></div>
+    <div class="leg-sq" style="background:#27ae60;opacity:.7;border:1px solid #922b21"></div>
     <span>أقل من 1000 م²</span>
   </div>
 </div>
@@ -914,7 +915,8 @@ L.control.layers({
 
 var polyGroup    = L.layerGroup().addTo(map);   // حدود القرى
 var choroGroup   = L.layerGroup();              // خريطة حرارية
-var nileLandLayer = L.layerGroup().addTo(map);  // أراضي طرح النهر (shapefile)
+var nileLandLayer = L.layerGroup().addTo(map);  // أراضي طرح النهر (shapefile polygons)
+var noGeoLayer    = L.layerGroup().addTo(map);  // قطع بدون مضلعات (علامات دائرية)
 
 // ══════════════════════════════════════════
 // STATE
@@ -1128,6 +1130,13 @@ function loadData(params) {
       if (gov && loadedGovGeos[gov]) renderPolygons(gov, loadedGovGeos[gov]);
       // تحديث طبقة أراضي طرح النهر بناء على الفلتر الحالي
       filterNileLandLayer(allRecords);
+      // تحميل علامات القطع التي ليس لها مضلعات
+      loadNoGeoMarkers(params);
+      // إذا كانت نتيجة البحث قطعة واحدة → التوجّه إليها
+      if (allRecords.length === 1) {
+        flyToRecord(allRecords[0]);
+        highlightViolation(allRecords[0].id);
+      }
     });
 }
 
@@ -1193,6 +1202,16 @@ function highlightViolation(id) {
         try { map.flyToBounds(layer.getBounds(), {padding:[60,60], maxZoom:17, duration:0.7}); } catch(e) {}
       }
     });
+  });
+  if (_highlightedLayer) return;
+
+  // أولاً ب: البحث في طبقة العلامات الدائرية (بدون مضلعات)
+  noGeoLayer.eachLayer(function(layer) {
+    if (parseInt(layer._nileId, 10) === numId) {
+      _highlightedLayer = layer;
+      layer.setStyle({ weight: 3.5, color: '#f1c40f', fillColor: '#f39c12', fillOpacity: 0.9 });
+      map.flyTo(layer.getLatLng(), 16, {duration: 0.7});
+    }
   });
   if (_highlightedLayer) return;
 
@@ -1685,11 +1704,11 @@ function buildAddUsageModal(types) {
     '<button type="button" id="au-basis-148" class="bas-btn" onclick="selectUsageBasis(\'148\')"' +
     ' style="flex:1;padding:9px;border:2px solid #27ae60;border-radius:8px;background:#fff;' +
     'color:#27ae60;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;transition:all .2s;">' +
-    '<i class="fa fa-check-circle"></i> ترخيص (القرار 148)</button>' +
+    '<i class="fa fa-check-circle"></i> ترخيص</button>' +
     '<button type="button" id="au-basis-149" class="bas-btn" onclick="selectUsageBasis(\'149\')"' +
     ' style="flex:1;padding:9px;border:2px solid #e74c3c;border-radius:8px;background:#fff;' +
     'color:#e74c3c;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;transition:all .2s;">' +
-    '<i class="fa fa-exclamation-triangle"></i> مخالفة (القرار 149)</button></div></div>' +
+    '<i class="fa fa-exclamation-triangle"></i> مخالفة</button></div></div>' +
 
     '<div class="mf"><label>نوع الاستغلال</label>' +
     '<select id="au-type" disabled onchange="onUsageTypeChange()">' +
@@ -1917,7 +1936,7 @@ function showUsageDetail(usageId, violationId) {
         '<div style="background:#f8f9fa;border-radius:6px;padding:7px 10px;">' +
         '<div style="font-size:.7rem;color:#888;">الأساس</div>' +
         '<div style="font-weight:600;color:' + (rec.basis==='148'?'#27ae60':'#e74c3c') + ';">' +
-        (rec.basis==='148'?'ترخيص (القرار 148)':'مخالفة (القرار 149)') + '</div></div>' +
+        (rec.basis==='148'?'ترخيص':'مخالفة') + '</div></div>' +
         '<div style="background:#f8f9fa;border-radius:6px;padding:7px 10px;">' +
         '<div style="font-size:.7rem;color:#888;">نوع الاستغلال</div>' +
         '<div style="font-weight:600;">' + rec.usage_type_name + '</div></div>' +
@@ -2506,6 +2525,7 @@ function resetFilter() {
   document.getElementById('f-search').value = '';
   document.getElementById('f-area').value   = '';
   polyGroup.clearLayers();
+  noGeoLayer.clearLayers();
   // إعادة كل مضلعات طبقة طرح النهر لألوانها الأصلية
   filterNileLandLayer([]);
   loadData();
@@ -2516,7 +2536,7 @@ function resetFilter() {
 // ══════════════════════════════════════════
 function toggleLayer(name) {
   var checked = document.getElementById('lyr-' + name) && document.getElementById('lyr-' + name).checked;
-  var layers  = { poly: polyGroup, nile: nileLandLayer };
+  var layers  = { poly: polyGroup, nile: nileLandLayer, nogeo: noGeoLayer };
   if (layers[name]) {
     if (checked) map.addLayer(layers[name]);
     else         map.removeLayer(layers[name]);
@@ -2903,18 +2923,13 @@ function loadNileLandLayer(params) {
       nileLandLayer.clearLayers();
       if (!geojson.features || !geojson.features.length) return;
 
-      var maxArea = 1;
-      geojson.features.forEach(function(f) {
-        if ((f.properties.area_total||0) > maxArea) maxArea = f.properties.area_total;
-      });
-
       L.geoJSON(geojson, {
         style: function(feature) {
-          var t = Math.min((feature.properties.area_total||0) / maxArea, 1);
+          var a = feature.properties.area_total || 0;
           return {
             color:       '#922b21',
             weight:      1.5,
-            fillColor:   t > 0.66 ? '#c0392b' : t > 0.33 ? '#e67e22' : '#e74c3c',
+            fillColor:   a > 5000 ? '#c0392b' : a > 1000 ? '#e67e22' : '#27ae60',
             fillOpacity: 0.70,
           };
         },
@@ -2922,10 +2937,10 @@ function loadNileLandLayer(params) {
           var p = feature.properties;
           layer._nilePcode  = p.gov_pcode;
           layer._nileId     = p.id;
+          var a = p.area_total || 0;
           layer._origStyle  = {
             color: '#922b21', weight: 1.5,
-            fillColor: Math.min((p.area_total||0)/maxArea,1) > 0.66 ? '#c0392b' :
-                       Math.min((p.area_total||0)/maxArea,1) > 0.33 ? '#e67e22' : '#e74c3c',
+            fillColor: a > 5000 ? '#c0392b' : a > 1000 ? '#e67e22' : '#27ae60',
             fillOpacity: 0.70
           };
           layer.bindTooltip(
@@ -2941,6 +2956,43 @@ function loadNileLandLayer(params) {
           });
         }
       }).addTo(nileLandLayer);
+    })
+    .catch(function() {});
+}
+
+function loadNoGeoMarkers(params) {
+  params = params || {};
+  params.no_geometry = '1';
+  var qs = new URLSearchParams(params).toString();
+  noGeoLayer.clearLayers();
+  fetch('/api/violations/?' + qs)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      (data.records || []).forEach(function(r) {
+        var lat = parseFloat(r.latitude);
+        var lng = parseFloat(r.longitude);
+        if (!lat && !lng) return;
+        var area = r.area_total || 0;
+        var radius = Math.max(6, Math.min(20, Math.sqrt(area) * 0.3));
+        var marker = L.circleMarker([lat, lng], {
+          radius: radius, weight: 2, opacity: 0.8,
+          color: '#2980b9', fillColor: '#3498db', fillOpacity: 0.6
+        });
+        marker._nileId = r.id;
+        marker._noGeo = true;
+        marker.bindTooltip(
+          '<b>' + r.code + '</b>' +
+          (r.occupant ? '<br>' + r.occupant : '') +
+          '<br>المساحة: <b>' + Math.round(area).toLocaleString('ar') + ' م²</b>' +
+          '<br><span style="color:#e67e22;">⚠ لا يوجد مضلع</span>',
+          {sticky: true, direction: 'top'}
+        );
+        marker.on('click', function(e) {
+          L.DomEvent.stopPropagation(e);
+          openDetailModal(r.id);
+        });
+        noGeoLayer.addLayer(marker);
+      });
     })
     .catch(function() {});
 }
