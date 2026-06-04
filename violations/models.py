@@ -103,7 +103,7 @@ class Violation(models.Model):
     geo_exact = models.BooleanField(default=False, verbose_name='إحداثيات دقيقة')
 
     # ── هندسة القطعة (GeoJSON polygon من الشيب فايل) ─────────────
-    geometry  = models.JSONField(null=True, blank=True, verbose_name='هندسة القطعة (GeoJSON)')
+    geometry  = models.JSONField(null=True, blank=True, verbose_name='هندسة التواجد (GeoJSON)')
 
     # ── الخريطة المساحية الرسمية (PDF) ───────────────────────────
     survey_map = models.FileField(
@@ -133,8 +133,8 @@ class Violation(models.Model):
                                     verbose_name='دفعة الاستيراد')
 
     class Meta:
-        verbose_name        = 'قطعة أرض'
-        verbose_name_plural = 'أراضي طرح النهر'
+        verbose_name        = 'تواجد'
+        verbose_name_plural = 'تواجدات طرح النهر'
         ordering            = ['-submitted_at']
         indexes = [
             models.Index(fields=['governorate', 'district_name']),
@@ -150,7 +150,7 @@ class Violation(models.Model):
 class SatelliteImage(models.Model):
     violation   = models.ForeignKey(Violation, on_delete=models.CASCADE,
                                     null=True, blank=True,
-                                    verbose_name='القطعة')
+                                    verbose_name='التواجد')
     year        = models.IntegerField(verbose_name='السنة', db_index=True)
     date_acquired = models.DateField(verbose_name='تاريخ الالتقاط')
     image       = models.ImageField(upload_to='satellite/', verbose_name='الصورة')
@@ -174,7 +174,7 @@ class SatelliteImage(models.Model):
 
 class ViolationImage(models.Model):
     violation   = models.ForeignKey(Violation, on_delete=models.CASCADE,
-                                    related_name='images', verbose_name='قطعة الأرض')
+                                    related_name='images', verbose_name='التواج')
     image       = models.ImageField(upload_to='violations/%Y/%m/', verbose_name='الصورة')
     caption     = models.CharField(max_length=200, blank=True, verbose_name='وصف الصورة')
     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL,
@@ -191,7 +191,7 @@ class ViolationImage(models.Model):
 
 class ViolationNote(models.Model):
     violation  = models.ForeignKey(Violation, on_delete=models.CASCADE,
-                                   related_name='notes', verbose_name='قطعة الأرض')
+                                   related_name='notes', verbose_name='التواج')
     user       = models.ForeignKey(User, on_delete=models.SET_NULL,
                                    null=True, verbose_name='المستخدم')
     text       = models.TextField(verbose_name='نص الملاحظة')
@@ -246,13 +246,25 @@ class MinistryDecision(models.Model):
     جدول القرارات الوزارية لمقابل الانتفاع.
     يحتوي على كل القرارات من 1987 حتى الآن مع فئاتها السنوية واليومية.
     """
+    BASIS_CHOICES = [
+        ('148', 'ترخيص'),
+        ('149', 'مخالفة'),
+    ]
+
     decision_number = models.CharField(max_length=100, verbose_name='رقم القرار',
                                        help_text='مثال: 14717 لسنة 1987')
+    basis           = models.CharField(max_length=10, choices=BASIS_CHOICES,
+                                       null=True, blank=True, verbose_name='أساس القرار',
+                                       help_text='ترخيص (148) أو مخالفة (149)')
     date_from       = models.DateField(verbose_name='تاريخ البداية')
     date_to         = models.DateField(null=True, blank=True, verbose_name='تاريخ النهاية',
                                        help_text='اتركه فارغاً إذا كان سارياً حتى الآن')
     rate_per_year   = models.DecimalField(max_digits=12, decimal_places=4,
                                           verbose_name='الفئة السنوية (جنيه/م²)')
+    pdf_file        = models.FileField(upload_to='decisions/', null=True, blank=True,
+                                       verbose_name='ملف القرار (PDF)')
+    excel_file      = models.FileField(upload_to='decisions/excel/', null=True, blank=True,
+                                       verbose_name='ملف Excel للأسعار')
     notes           = models.TextField(blank=True, verbose_name='ملاحظات')
     order           = models.PositiveIntegerField(default=0, verbose_name='الترتيب')
 
@@ -274,14 +286,16 @@ class MinistryDecision(models.Model):
         ordering            = ['order', 'date_from']
 
     def __str__(self):
-        return self.decision_number
+        s = f'{self.decision_number}'
+        if self.basis:
+            s += f' — {dict(self.BASIS_CHOICES).get(self.basis, self.basis)}'
+        return s
 
     @property
     def rate_per_day(self):
         return float(self.rate_per_year) / 365.0
 
     def get_rate(self, zone):
-        """إرجاع السعر حسب المنطقة من هذا القرار (إذا مضبوط)، أو None"""
         zone_map = {
             'warraq':    self.rate_warraq,
             'aswan':     self.rate_aswan,
@@ -323,7 +337,7 @@ class UsageType(models.Model):
     rate_urban_out  = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
                                           verbose_name='خارج الحيز العمراني')
 
-    unit            = models.CharField(max_length=20, default='م²',
+    unit            = models.CharField(max_length=100, default='م²',
                                        verbose_name='وحدة الحساب')
     is_active       = models.BooleanField(default=True, verbose_name='مفعّل')
     order           = models.PositiveIntegerField(default=0, verbose_name='الترتيب')
@@ -352,6 +366,59 @@ class UsageType(models.Model):
 
 
 # ══════════════════════════════════════════════════════════════════
+# مناطق القرار الوزاري — لكل قرار مناطق جغرافية خاصة به
+# ══════════════════════════════════════════════════════════════════
+class DecisionRegion(models.Model):
+    """
+    المناطق الجغرافية المحددة لكل قرار وزاري.
+    مثال: "داخل كردون المدن", "خارج كردون المدن", "داخل القاهرة الكبرى"
+    """
+    ministry_decision = models.ForeignKey(MinistryDecision, on_delete=models.CASCADE,
+                                          related_name='regions', verbose_name='القرار الوزاري')
+    name              = models.CharField(max_length=200, verbose_name='اسم المنطقة')
+    order             = models.PositiveIntegerField(default=0, verbose_name='الترتيب')
+
+    class Meta:
+        verbose_name        = 'منطقة قرار'
+        verbose_name_plural = 'مناطق القرارات'
+        unique_together     = ['ministry_decision', 'name']
+        ordering            = ['ministry_decision', 'order', 'name']
+
+    def __str__(self):
+        return f'{self.ministry_decision.decision_number} — {self.name}'
+
+
+# ══════════════════════════════════════════════════════════════════
+# أسعار أنواع الاستغلال لكل قرار وزاري (DecisionUsageRate)
+# ══════════════════════════════════════════════════════════════════
+class DecisionUsageRate(models.Model):
+    """
+    ربط كل قرار وزاري بكل نوع استغلال مع سعر خاص بمنطقة محددة.
+    لكل (قرار + نوع استغلال + منطقة) سعر مستقل.
+    """
+    ministry_decision = models.ForeignKey(MinistryDecision, on_delete=models.CASCADE,
+                                          related_name='usage_rates', verbose_name='القرار الوزاري')
+    usage_type        = models.ForeignKey(UsageType, on_delete=models.CASCADE,
+                                          related_name='decision_rates', verbose_name='نوع الاستغلال')
+    region            = models.ForeignKey(DecisionRegion, on_delete=models.CASCADE,
+                                          null=True, blank=True,
+                                          related_name='usage_rates', verbose_name='المنطقة')
+    rate              = models.DecimalField(max_digits=14, decimal_places=4, null=True, blank=True,
+                                            verbose_name='السعر')
+    unit              = models.CharField(max_length=100, default='م²', verbose_name='وحدة الحساب')
+    is_active         = models.BooleanField(default=True, verbose_name='مفعّل')
+
+    class Meta:
+        verbose_name        = 'سعر استغلال للقرار'
+        verbose_name_plural = 'أسعار الاستغلال لكل قرار'
+        unique_together     = ['ministry_decision', 'usage_type', 'region']
+
+    def __str__(self):
+        region_name = f' — {self.region.name}' if self.region else ''
+        return f'{self.ministry_decision} ← {self.usage_type.name}{region_name}'
+
+
+# ══════════════════════════════════════════════════════════════════
 # سجلات الاستغلال — تتبع كل فترة استغلال لكل قطعة
 # ══════════════════════════════════════════════════════════════════
 class ViolationUsage(models.Model):
@@ -373,7 +440,7 @@ class ViolationUsage(models.Model):
     ]
 
     violation       = models.ForeignKey('Violation', on_delete=models.CASCADE,
-                                        related_name='usages', verbose_name='قطعة الأرض')
+                                        related_name='usages', verbose_name='التواج')
     usage_type      = models.ForeignKey(UsageType, on_delete=models.PROTECT,
                                         null=True, blank=True, verbose_name='نوع الاستغلال')
 
@@ -429,6 +496,13 @@ class ViolationUsage(models.Model):
     created_at      = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ الإدخال')
     updated_at      = models.DateTimeField(auto_now=True, verbose_name='آخر تعديل')
 
+    # تفصيل الحساب لكل قرار
+    decision_breakdown = models.JSONField(
+        default=list, blank=True,
+        verbose_name='تفصيل الحساب حسب القرار',
+        help_text='قائمة: {decision_id, region_id, usage_type_id, days, rate, amount}'
+    )
+
     # استيراد من الملف
     import_source   = models.CharField(max_length=100, blank=True,
                                        verbose_name='مصدر الاستيراد')
@@ -458,8 +532,17 @@ class ViolationUsage(models.Model):
 
     def calculate_value(self):
         """
-        حساب مقابل الانتفاع — أعلى ترتيب قرار أولاً، مع تجنب التكرار.
+        حساب مقابل الانتفاع من decision_breakdown.
+        إذا كان الـ breakdown فارغاً والـ usage_type موجود، يحسب بالطريقة القديمة (fallback).
         """
+        if self.decision_breakdown:
+            total = 0.0
+            for item in self.decision_breakdown:
+                amount = float(item.get('amount', 0))
+                total += amount
+            return round(total, 2)
+
+        # Fallback: الحساب القديم
         if not self.usage_type:
             return 0
 
@@ -530,7 +613,9 @@ class ViolationUsage(models.Model):
                 ).order_by('-date_from')
             self.used_decision = qs.first()
 
-        # حساب تلقائي للقيمة إذا لم تُدخل يدوياً
-        if self.calculated_value == 0 and self.area and self.date_from:
+        # حساب تلقائي للقيمة
+        if self.decision_breakdown:
+            self.calculated_value = self.calculate_value()
+        elif self.calculated_value == 0 and self.area and self.date_from:
             self.calculated_value = self.calculate_value()
         super().save(*args, **kwargs)

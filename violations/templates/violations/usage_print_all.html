@@ -44,10 +44,10 @@
     </div>
 
     <div class="header">
-        <h1>نظام توثيق أراضي طرح النهر</h1>
-        <h2>تقرير سجلات استغلال قطعة الأرض</h2>
+        <h1>نظام توثيق تواجدات طرح النهر</h1>
+        <h2>تقرير سجلات استغلال التواجد</h2>
         <div class="meta">
-            كود القطعة: <strong>{{ violation.code }}</strong> |
+            كود التواجد: <strong>{{ violation.code }}</strong> |
             المحافظة: {{ violation.governorate.name_ar|default:"—" }} |
             المركز: {{ violation.district_name|default:"—" }} |
             القرية: {{ violation.village|default:"—" }}
@@ -140,7 +140,7 @@
     </div>
     {% endwith %}
     {% empty %}
-    <div style="text-align:center;padding:30px;color:#888;">لا توجد سجلات استغلال لهذه القطعة</div>
+    <div style="text-align:center;padding:30px;color:#888;">لا توجد سجلات استغلال لهذا التواجد</div>
     {% endfor %}
 
     <div class="grand-footer">
@@ -148,7 +148,7 @@
     </div>
 
     <div style="margin-top:20px;text-align:center;font-size:8pt;color:#888;border-top:1px solid #ddd;padding-top:8px;">
-        <p>نظام توثيق أراضي طرح النهر | وزارة الموارد المائية والري</p>
+        <p>نظام توثيق تواجدات طرح النهر | وزارة الموارد المائية والري</p>
     </div>
 </body>
 </html>

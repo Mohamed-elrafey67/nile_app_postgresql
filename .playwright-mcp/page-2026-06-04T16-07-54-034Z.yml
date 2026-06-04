@@ -1,0 +1,567 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]: 
+    - heading "منظومة توثيق أراضي طرح النهر جمهورية مصر العربية — وزارة الموارد المائية والري" [level=1] [ref=e6]:
+      - text: منظومة توثيق أراضي طرح النهر
+      - generic [ref=e7]: جمهورية مصر العربية — وزارة الموارد المائية والري
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: "6397"
+        - generic [ref=e11]: إجمالي القطع
+      - generic [ref=e12]:
+        - generic [ref=e13]: 360,775
+        - generic [ref=e14]: المساحة م²
+      - generic [ref=e15]:
+        - generic [ref=e16]: "2"
+        - generic [ref=e17]: محافظات مُدرَجة
+      - generic [ref=e18]:
+        - generic [ref=e19]: "6397"
+        - generic [ref=e20]: مرتبطة جغرافياً
+    - generic [ref=e21]:
+      - button " رفع خريطة المحافظة" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: 
+        - text: رفع خريطة المحافظة
+      - button " في الانتظار" [ref=e24] [cursor=pointer]:
+        - generic [ref=e25]: 
+        - text: في الانتظار
+      - generic [ref=e26]:
+        - generic [ref=e27]: admin
+        - generic [ref=e28]: manager
+      - button " Excel" [ref=e29] [cursor=pointer]:
+        - generic [ref=e30]: 
+        - text: Excel
+      - button " PDF" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: 
+        - text: PDF
+      - link " الإدارة" [ref=e33] [cursor=pointer]:
+        - /url: /admin-dashboard/
+        - generic [ref=e34]: 
+        - text: الإدارة
+      - link "" [ref=e35] [cursor=pointer]:
+        - /url: /logout/
+        - generic [ref=e36]: 
+  - generic [ref=e37]:
+    - generic:
+      - generic:
+        - img
+      - generic:
+        - tooltip "قسم ثان قسم المنيا":
+          - text: قسم ثان
+          - text: قسم المنيا
+    - generic:
+      - generic [ref=e38]:
+        - button "Zoom in" [ref=e39] [cursor=pointer]: +
+        - button "Zoom out" [ref=e40] [cursor=pointer]: −
+      - button "Layers" [ref=e42] [cursor=pointer]
+      - generic [ref=e43]:
+        - link "Leaflet" [ref=e44] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e45]
+          - text: Leaflet
+        - text: "| Esri World Imagery"
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 
+        - text: فلترة
+      - generic [ref=e53] [cursor=pointer]:
+        - generic [ref=e54]: 
+        - text: المحافظات
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: المحافظة
+          - combobox [ref=e59]:
+            - option "— جميع المحافظات —"
+            - option "الدقهلية" [selected]
+            - option "المنيا"
+        - generic [ref=e60]:
+          - generic [ref=e61]: المركز الإداري
+          - combobox [ref=e62]:
+            - option "— جميع المراكز —" [selected]
+        - generic [ref=e63]:
+          - generic [ref=e64]: القرية / المدينة
+          - combobox [ref=e65]:
+            - option "— جميع القرى —" [selected]
+        - generic [ref=e66]:
+          - generic [ref=e67]: وصف الاستغلال
+          - combobox [ref=e68]:
+            - option "— الكل —" [selected]
+        - generic [ref=e69]:
+          - generic [ref=e70]: بحث (اسم / رمز / مستغل)
+          - textbox "ابحث هنا…" [ref=e71]
+        - generic [ref=e72]:
+          - generic [ref=e73]: الحد الأدنى للمساحة (م²)
+          - spinbutton [ref=e74]
+        - generic [ref=e75]:
+          - button " تطبيق" [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: 
+            - text: تطبيق
+          - button " إعادة" [ref=e78] [cursor=pointer]:
+            - generic [ref=e79]: 
+            - text: إعادة
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - text: "النتائج:"
+          - strong [ref=e82]: "38"
+        - generic [ref=e83]:
+          - text: "مجموع:"
+          - strong [ref=e84]: 360,775
+          - text: م²
+      - generic [ref=e85]:
+        - generic [ref=e4686] [cursor=pointer]:
+          - generic [ref=e4687]:
+            - generic [ref=e4688]:
+              - text: MN006
+              - generic [ref=e4689]: GPS✓
+            - generic [ref=e4690]: المنيا
+          - generic [ref=e4691]: مدينة المنيا
+          - generic [ref=e4692]: النصب التذكارى
+          - generic [ref=e4693]:
+            - generic [ref=e4694]: 
+            - text: 186 م²
+        - generic [ref=e4695] [cursor=pointer]:
+          - generic [ref=e4696]:
+            - generic [ref=e4697]:
+              - text: MN005
+              - generic [ref=e4698]: GPS✓
+            - generic [ref=e4699]: المنيا
+          - generic [ref=e4700]: مدينة المنيا
+          - generic [ref=e4701]: تبع فندق جراند اتون فضاء
+          - generic [ref=e4702]:
+            - generic [ref=e4703]: 
+            - text: 1,950 م²
+        - generic [ref=e4704] [cursor=pointer]:
+          - generic [ref=e4705]:
+            - generic [ref=e4706]:
+              - text: MN008
+              - generic [ref=e4707]: GPS✓
+            - generic [ref=e4708]: المنيا
+          - generic [ref=e4709]: مدينة المنيا
+          - generic [ref=e4710]: موقع المشتل
+          - generic [ref=e4711]:
+            - generic [ref=e4712]: 
+            - text: 9,399 م²
+        - generic [ref=e4713] [cursor=pointer]:
+          - generic [ref=e4714]:
+            - generic [ref=e4715]:
+              - text: MN007
+              - generic [ref=e4716]: GPS✓
+            - generic [ref=e4717]: المنيا
+          - generic [ref=e4718]: مدينة المنيا
+          - generic [ref=e4719]: موقع فندق جراند اتون
+          - generic [ref=e4720]:
+            - generic [ref=e4721]: 
+            - text: 14,085 م²
+        - generic [ref=e4722] [cursor=pointer]:
+          - generic [ref=e4723]:
+            - generic [ref=e4724]:
+              - text: MN009
+              - generic [ref=e4725]: GPS✓
+            - generic [ref=e4726]: المنيا
+          - generic [ref=e4727]: مدينة المنيا
+          - generic [ref=e4728]: هندسة حماية النيل
+          - generic [ref=e4729]:
+            - generic [ref=e4730]: 
+            - text: 3,683 م²
+        - generic [ref=e4731] [cursor=pointer]:
+          - generic [ref=e4732]:
+            - generic [ref=e4733]:
+              - text: MN024
+              - generic [ref=e4734]: GPS✓
+            - generic [ref=e4735]: المنيا
+          - generic [ref=e4736]: مدينة المنيا
+          - generic [ref=e4737]: ممشى
+          - generic [ref=e4738]:
+            - generic [ref=e4739]: 
+            - text: 3,414 م²
+        - generic [ref=e4740] [cursor=pointer]:
+          - generic [ref=e4741]:
+            - generic [ref=e4742]:
+              - text: MN010
+              - generic [ref=e4743]: GPS✓
+            - generic [ref=e4744]: المنيا
+          - generic [ref=e4745]: مدينة المنيا
+          - generic [ref=e4746]: حديقة الصالون
+          - generic [ref=e4747]:
+            - generic [ref=e4748]: 
+            - text: 2,504 م²
+        - generic [ref=e4749] [cursor=pointer]:
+          - generic [ref=e4750]:
+            - generic [ref=e4751]:
+              - text: MN012
+              - generic [ref=e4752]: GPS✓
+            - generic [ref=e4753]: المنيا
+          - generic [ref=e4754]: مدينة المنيا
+          - generic [ref=e4755]: نادى اعضاء هيئه التدريس
+          - generic [ref=e4756]:
+            - generic [ref=e4757]: 
+            - text: 4,932 م²
+        - generic [ref=e4758] [cursor=pointer]:
+          - generic [ref=e4759]:
+            - generic [ref=e4760]:
+              - text: MN013
+              - generic [ref=e4761]: GPS✓
+            - generic [ref=e4762]: المنيا
+          - generic [ref=e4763]: مدينة المنيا
+          - generic [ref=e4764]: وحدة الانقاذ النهرى
+          - generic [ref=e4765]:
+            - generic [ref=e4766]: 
+            - text: 3,151 م²
+        - generic [ref=e4767] [cursor=pointer]:
+          - generic [ref=e4768]:
+            - generic [ref=e4769]:
+              - text: MN014
+              - generic [ref=e4770]: GPS✓
+            - generic [ref=e4771]: المنيا
+          - generic [ref=e4772]: مدينة المنيا
+          - generic [ref=e4773]: ماخذ مياه الشرب
+          - generic [ref=e4774]:
+            - generic [ref=e4775]: 
+            - text: 4,559 م²
+        - generic [ref=e4776] [cursor=pointer]:
+          - generic [ref=e4777]:
+            - generic [ref=e4778]:
+              - text: MN016
+              - generic [ref=e4779]: GPS✓
+            - generic [ref=e4780]: المنيا
+          - generic [ref=e4781]: مدينة المنيا
+          - generic [ref=e4782]: ممشى
+          - generic [ref=e4783]:
+            - generic [ref=e4784]: 
+            - text: 14,348 م²
+        - generic [ref=e4785] [cursor=pointer]:
+          - generic [ref=e4786]:
+            - generic [ref=e4787]:
+              - text: MN015
+              - generic [ref=e4788]: GPS✓
+            - generic [ref=e4789]: المنيا
+          - generic [ref=e4790]: مدينة المنيا
+          - generic [ref=e4791]: كورنيش
+          - generic [ref=e4792]:
+            - generic [ref=e4793]: 
+            - text: 60,282 م²
+        - generic [ref=e4794] [cursor=pointer]:
+          - generic [ref=e4795]:
+            - generic [ref=e4796]:
+              - text: MN017
+              - generic [ref=e4797]: GPS✓
+            - generic [ref=e4798]: المنيا
+          - generic [ref=e4799]: مدينة المنيا
+          - generic [ref=e4800]: مرسي
+          - generic [ref=e4801]:
+            - generic [ref=e4802]: 
+            - text: 1,001 م²
+        - generic [ref=e4803] [cursor=pointer]:
+          - generic [ref=e4804]:
+            - generic [ref=e4805]:
+              - text: MN018
+              - generic [ref=e4806]: GPS✓
+            - generic [ref=e4807]: المنيا
+          - generic [ref=e4808]: مدينة المنيا
+          - generic [ref=e4809]: مرسي
+          - generic [ref=e4810]:
+            - generic [ref=e4811]: 
+            - text: 387 م²
+        - generic [ref=e4812] [cursor=pointer]:
+          - generic [ref=e4813]:
+            - generic [ref=e4814]:
+              - text: MN019
+              - generic [ref=e4815]: GPS✓
+            - generic [ref=e4816]: المنيا
+          - generic [ref=e4817]: مدينة المنيا
+          - generic [ref=e4818]: مرسي
+          - generic [ref=e4819]:
+            - generic [ref=e4820]: 
+            - text: 750 م²
+        - generic [ref=e4821] [cursor=pointer]:
+          - generic [ref=e4822]:
+            - generic [ref=e4823]:
+              - text: MN021
+              - generic [ref=e4824]: GPS✓
+            - generic [ref=e4825]: المنيا
+          - generic [ref=e4826]: مدينة المنيا
+          - generic [ref=e4827]: مرسي
+          - generic [ref=e4828]:
+            - generic [ref=e4829]: 
+            - text: 889 م²
+        - generic [ref=e4830] [cursor=pointer]:
+          - generic [ref=e4831]:
+            - generic [ref=e4832]:
+              - text: MN020
+              - generic [ref=e4833]: GPS✓
+            - generic [ref=e4834]: المنيا
+          - generic [ref=e4835]: مدينة المنيا
+          - generic [ref=e4836]: استراحة كبار الزوار للمحافظة
+          - generic [ref=e4837]:
+            - generic [ref=e4838]: 
+            - text: 1,394 م²
+        - generic [ref=e4839] [cursor=pointer]:
+          - generic [ref=e4840]:
+            - generic [ref=e4841]:
+              - text: MN022
+              - generic [ref=e4842]: GPS✓
+            - generic [ref=e4843]: المنيا
+          - generic [ref=e4844]: مدينة المنيا
+          - generic [ref=e4845]: نادى ضباط الشرطه
+          - generic [ref=e4846]:
+            - generic [ref=e4847]: 
+            - text: 11,372 م²
+        - generic [ref=e4848] [cursor=pointer]:
+          - generic [ref=e4849]:
+            - generic [ref=e4850]:
+              - text: MN023
+              - generic [ref=e4851]: GPS✓
+            - generic [ref=e4852]: المنيا
+          - generic [ref=e4853]: مدينة المنيا
+          - generic [ref=e4854]: كورنيش
+          - generic [ref=e4855]:
+            - generic [ref=e4856]: 
+            - text: 10,638 م²
+        - generic [ref=e4857] [cursor=pointer]:
+          - generic [ref=e4858]:
+            - generic [ref=e4859]:
+              - text: MN025
+              - generic [ref=e4860]: GPS✓
+            - generic [ref=e4861]: المنيا
+          - generic [ref=e4862]: مدينة المنيا
+          - generic [ref=e4863]: مرسي
+          - generic [ref=e4864]:
+            - generic [ref=e4865]: 
+            - text: 1,503 م²
+        - generic [ref=e4866] [cursor=pointer]:
+          - generic [ref=e4867]:
+            - generic [ref=e4868]:
+              - text: MN026
+              - generic [ref=e4869]: GPS✓
+            - generic [ref=e4870]: المنيا
+          - generic [ref=e4871]: مدينة المنيا
+          - generic [ref=e4872]: شرطه المسطحات المائيه
+          - generic [ref=e4873]:
+            - generic [ref=e4874]: 
+            - text: 6,652 م²
+        - generic [ref=e4875] [cursor=pointer]:
+          - generic [ref=e4876]:
+            - generic [ref=e4877]:
+              - text: MN027
+              - generic [ref=e4878]: GPS✓
+            - generic [ref=e4879]: المنيا
+          - generic [ref=e4880]: مدينة المنيا
+          - generic [ref=e4881]: نادى القضاه
+          - generic [ref=e4882]:
+            - generic [ref=e4883]: 
+            - text: 2,886 م²
+        - generic [ref=e4884] [cursor=pointer]:
+          - generic [ref=e4885]:
+            - generic [ref=e4886]:
+              - text: MN029
+              - generic [ref=e4887]: GPS✓
+            - generic [ref=e4888]: المنيا
+          - generic [ref=e4889]: مدينة المنيا
+          - generic [ref=e4890]: مسجد اليم
+          - generic [ref=e4891]:
+            - generic [ref=e4892]: 
+            - text: 964 م²
+        - generic [ref=e4893] [cursor=pointer]:
+          - generic [ref=e4894]:
+            - generic [ref=e4895]:
+              - text: MN028
+              - generic [ref=e4896]: GPS✓
+            - generic [ref=e4897]: المنيا
+          - generic [ref=e4898]: مدينة المنيا
+          - generic [ref=e4899]: اداره المواقف مرسى عروس النيل
+          - generic [ref=e4900]:
+            - generic [ref=e4901]: 
+            - text: 4,245 م²
+        - generic [ref=e4902] [cursor=pointer]:
+          - generic [ref=e4903]:
+            - generic [ref=e4904]:
+              - text: MN002
+              - generic [ref=e4905]: GPS✓
+            - generic [ref=e4906]: المنيا
+          - generic [ref=e4907]: دماريس ومدينه المنيا
+          - generic [ref=e4908]: حديقه تبع شارع مصر
+          - generic [ref=e4909]:
+            - generic [ref=e4910]: 
+            - text: 13,897 م²
+        - generic [ref=e4911] [cursor=pointer]:
+          - generic [ref=e4912]:
+            - generic [ref=e4913]:
+              - text: MN003
+              - generic [ref=e4914]: GPS✓
+            - generic [ref=e4915]: المنيا
+          - generic [ref=e4916]: دماريس ومدينه المنيا
+          - generic [ref=e4917]: أكشاك شارع مصر
+          - generic [ref=e4918]:
+            - generic [ref=e4919]: 
+            - text: 3,466 م²
+        - generic [ref=e4920] [cursor=pointer]:
+          - generic [ref=e4921]:
+            - generic [ref=e4922]:
+              - text: MN001
+              - generic [ref=e4923]: GPS✓
+            - generic [ref=e4924]: المنيا
+          - generic [ref=e4925]: دماريس ومدينه المنيا
+          - generic [ref=e4926]: ممشى
+          - generic [ref=e4927]:
+            - generic [ref=e4928]: 
+            - text: 3,597 م²
+        - generic [ref=e4929] [cursor=pointer]:
+          - generic [ref=e4930]:
+            - generic [ref=e4931]:
+              - text: MN004
+              - generic [ref=e4932]: GPS✓
+            - generic [ref=e4933]: المنيا
+          - generic [ref=e4934]: مدينة المنيا
+          - generic [ref=e4935]: موقع فندق حورس
+          - generic [ref=e4936]:
+            - generic [ref=e4937]: 
+            - text: 25,867 م²
+        - generic [ref=e4938] [cursor=pointer]:
+          - generic [ref=e4939]:
+            - generic [ref=e4940]:
+              - text: MN032
+              - generic [ref=e4941]: GPS✓
+            - generic [ref=e4942]: المنيا
+          - generic [ref=e4943]: مدينة المنيا
+          - generic [ref=e4944]: المسرح الرومانى
+          - generic [ref=e4945]:
+            - generic [ref=e4946]: 
+            - text: 8,650 م²
+        - generic [ref=e4947] [cursor=pointer]:
+          - generic [ref=e4948]:
+            - generic [ref=e4949]:
+              - text: MN033
+              - generic [ref=e4950]: GPS✓
+            - generic [ref=e4951]: المنيا
+          - generic [ref=e4952]: مدينة المنيا
+          - generic [ref=e4953]: كورنيش
+          - generic [ref=e4954]:
+            - generic [ref=e4955]: 
+            - text: 4,820 م²
+        - generic [ref=e4956] [cursor=pointer]:
+          - generic [ref=e4957]:
+            - generic [ref=e4958]:
+              - text: MN034
+              - generic [ref=e4959]: GPS✓
+            - generic [ref=e4960]: المنيا
+          - generic [ref=e4961]: مدينة المنيا
+          - generic [ref=e4962]: ملعب ثلاثى
+          - generic [ref=e4963]:
+            - generic [ref=e4964]: 
+            - text: 2,339 م²
+        - generic [ref=e4965] [cursor=pointer]:
+          - generic [ref=e4966]:
+            - generic [ref=e4967]:
+              - text: MN035
+              - generic [ref=e4968]: GPS✓
+            - generic [ref=e4969]: المنيا
+          - generic [ref=e4970]: مدينة المنيا
+          - generic [ref=e4971]: بازرات
+          - generic [ref=e4972]:
+            - generic [ref=e4973]: 
+            - text: 2,465 م²
+        - generic [ref=e4974] [cursor=pointer]:
+          - generic [ref=e4975]:
+            - generic [ref=e4976]:
+              - text: MN036
+              - generic [ref=e4977]: GPS✓
+            - generic [ref=e4978]: المنيا
+          - generic [ref=e4979]: مدينة المنيا
+          - generic [ref=e4980]: ملعب ثلاثى
+          - generic [ref=e4981]:
+            - generic [ref=e4982]: 
+            - text: 752 م²
+        - generic [ref=e4983] [cursor=pointer]:
+          - generic [ref=e4984]:
+            - generic [ref=e4985]:
+              - text: MN037
+              - generic [ref=e4986]: GPS✓
+            - generic [ref=e4987]: المنيا
+          - generic [ref=e4988]: مدينة المنيا
+          - generic [ref=e4989]: ممشي
+          - generic [ref=e4990]:
+            - generic [ref=e4991]: 
+            - text: 2,531 م²
+        - generic [ref=e4992] [cursor=pointer]:
+          - generic [ref=e4993]:
+            - generic [ref=e4994]:
+              - text: MN043
+              - generic [ref=e4995]: GPS✓
+            - generic [ref=e4996]: المنيا
+          - generic [ref=e4997]: اتجاه سوادة
+          - generic [ref=e4998]: المتحف الاتونى
+          - generic [ref=e4999]:
+            - generic [ref=e5000]: 
+            - text: 111,564 م²
+        - generic [ref=e5001] [cursor=pointer]:
+          - generic [ref=e5002]:
+            - generic [ref=e5003]:
+              - text: MN040
+              - generic [ref=e5004]: GPS✓
+            - generic [ref=e5005]: المنيا
+          - generic [ref=e5006]: اتجاه سوادة
+          - generic [ref=e5007]: المرور القديم
+          - generic [ref=e5008]:
+            - generic [ref=e5009]: 
+            - text: 9,466 م²
+        - generic [ref=e5010] [cursor=pointer]:
+          - generic [ref=e5011]:
+            - generic [ref=e5012]:
+              - text: MN030
+              - generic [ref=e5013]: GPS✓
+            - generic [ref=e5014]: المنيا
+          - generic [ref=e5015]: مدينة المنيا
+          - generic [ref=e5016]: كورنيش
+          - generic [ref=e5017]:
+            - generic [ref=e5018]: 
+            - text: 4,026 م²
+        - generic [ref=e5019] [cursor=pointer]:
+          - generic [ref=e5020]:
+            - generic [ref=e5021]:
+              - text: MN031
+              - generic [ref=e5022]: GPS✓
+            - generic [ref=e5023]: المنيا
+          - generic [ref=e5024]: مدينة المنيا
+          - generic [ref=e5025]: مرسي
+          - generic [ref=e5026]:
+            - generic [ref=e5027]: 
+            - text: 2,164 م²
+  - generic [ref=e88]:
+    - generic [ref=e89]: الطبقات
+    - generic [ref=e90] [cursor=pointer]:
+      - checkbox "أراضي طرح النهر" [checked] [ref=e91]
+      - text: أراضي طرح النهر
+    - generic [ref=e92] [cursor=pointer]:
+      - checkbox "حدود القرى" [checked] [ref=e93]
+      - text: حدود القرى
+  - generic [ref=e94]:
+    - generic [ref=e95]: دليل الألوان
+    - generic [ref=e98]: قرية بها قطع
+    - generic [ref=e101]: قرية بلا قطع
+    - generic [ref=e104]: "> 5000 م²"
+    - generic [ref=e107]: 1000 – 5000 م²
+    - generic [ref=e110]: أقل من 1000 م²
+  - text:                       
+  - generic [ref=e111]:
+    - generic [ref=e112]:
+      - generic [ref=e113]: 
+      - text: إشعار
+    - generic [ref=e115]:
+      - generic [ref=e116]: 
+      - text: منظومة توثيق أراضي طرح النهر — وزارة الموارد المائية والري — جمهورية مصر العربية
+      - generic [ref=e117]: 
+      - generic [ref=e118]: 
+  - button "" [ref=e119] [cursor=pointer]:
+    - generic [ref=e120]: 
+  - generic:
+    - generic:
+      - generic:
+        - generic: 
+        - text: المساعد الذكي
+      - button "×"
+    - text: 
+    - generic:
+      - textbox "اسأل عن المخالفات..."
+      - button "":
+        - generic: 

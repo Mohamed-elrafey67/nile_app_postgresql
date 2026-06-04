@@ -1,0 +1,364 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: 
+      - generic [ref=e5]:
+        - heading "لوحة تحكم" [level=2] [ref=e6]
+        - text: وزارة الموارد المائية
+    - generic [ref=e7]:
+      - generic [ref=e8]: الرئيسية
+      - generic [ref=e9] [cursor=pointer]:
+        - generic [ref=e10]: 
+        - text: نظرة عامة
+      - generic [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: 
+        - text: المستخدمون
+        - generic [ref=e13]: "7"
+      - generic [ref=e14] [cursor=pointer]:
+        - generic [ref=e15]: 
+        - text: التعديات
+      - generic [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: 
+        - text: القرارات الوزارية
+      - generic [ref=e18] [cursor=pointer]:
+        - generic [ref=e19]: 
+        - text: صور الأقمار
+      - generic [ref=e20]: النظام
+      - generic [ref=e21] [cursor=pointer]:
+        - generic [ref=e22]: 
+        - text: سجل الأنشطة
+        - generic [ref=e23]: "33"
+      - generic [ref=e24] [cursor=pointer]:
+        - generic [ref=e25]: 
+        - text: التقارير
+      - generic [ref=e26]: روابط
+      - link " الخريطة الرئيسية" [ref=e27] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e28]: 
+        - text: الخريطة الرئيسية
+      - link " Django Admin" [ref=e29] [cursor=pointer]:
+        - /url: /admin/
+        - generic [ref=e30]: 
+        - text: Django Admin
+    - generic [ref=e31]:
+      - generic [ref=e32]: testadmin
+      - link " تسجيل الخروج" [ref=e34] [cursor=pointer]:
+        - /url: /logout/
+        - generic [ref=e35]: 
+        - text: تسجيل الخروج
+  - generic [ref=e36]:
+    - generic [ref=e37]:
+      - heading "القرارات الوزارية" [level=1] [ref=e116]
+      - generic [ref=e40]:
+        - generic [ref=e41]: T
+        - generic [ref=e42]: testadmin
+        - generic [ref=e43]: مدير
+    - generic [ref=e44]:
+      - text:               +   
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - generic [ref=e120]: 
+          - heading "إدارة القرارات الوزارية" [level=3] [ref=e121]
+          - button "+ قرار جديد" [ref=e122] [cursor=pointer]:
+            - generic [ref=e123]: +
+            - text: قرار جديد
+        - table [ref=e125]:
+          - rowgroup [ref=e126]:
+            - row "# رقم القرار الأساس تاريخ البداية تاريخ النهاية الفئة السنوية الحالة إجراءات" [ref=e127]:
+              - columnheader "#" [ref=e128]
+              - columnheader "رقم القرار" [ref=e129]
+              - columnheader "الأساس" [ref=e130]
+              - columnheader "تاريخ البداية" [ref=e131]
+              - columnheader "تاريخ النهاية" [ref=e132]
+              - columnheader "الفئة السنوية" [ref=e133]
+              - columnheader "الحالة" [ref=e134]
+              - columnheader "إجراءات" [ref=e135]
+          - rowgroup [ref=e136]:
+            - row "14 148 لسنة 2026 — ترخيص ترخيص 2026-03-26 — 700.0000 ساري —     " [ref=e137]:
+              - cell "14" [ref=e138]
+              - cell "148 لسنة 2026 — ترخيص" [ref=e139]:
+                - strong [ref=e140]: 148 لسنة 2026 — ترخيص
+              - cell "ترخيص" [ref=e141]
+              - cell "2026-03-26" [ref=e142]
+              - cell "—" [ref=e143]
+              - cell "700.0000" [ref=e144]
+              - cell "ساري" [ref=e145]:
+                - generic [ref=e146]: ساري
+              - cell "—     " [ref=e147]:
+                - text: —
+                - button "" [ref=e148] [cursor=pointer]:
+                  - generic [ref=e149]: 
+                - button "" [ref=e150] [cursor=pointer]:
+                  - generic [ref=e151]: 
+                - button "" [ref=e152] [cursor=pointer]:
+                  - generic [ref=e153]: 
+                - button "" [ref=e154] [cursor=pointer]:
+                  - generic [ref=e155]: 
+                - button "" [ref=e156] [cursor=pointer]:
+                  - generic [ref=e157]: 
+            - row "13 149 لسنة 2026 مخالفة 2026-03-26 — 1400.0000 ساري —     " [ref=e158]:
+              - cell "13" [ref=e159]
+              - cell "149 لسنة 2026" [ref=e160]:
+                - strong [ref=e161]: 149 لسنة 2026
+              - cell "مخالفة" [ref=e162]
+              - cell "2026-03-26" [ref=e163]
+              - cell "—" [ref=e164]
+              - cell "1400.0000" [ref=e165]
+              - cell "ساري" [ref=e166]:
+                - generic [ref=e167]: ساري
+              - cell "—     " [ref=e168]:
+                - text: —
+                - button "" [ref=e169] [cursor=pointer]:
+                  - generic [ref=e170]: 
+                - button "" [ref=e171] [cursor=pointer]:
+                  - generic [ref=e172]: 
+                - button "" [ref=e173] [cursor=pointer]:
+                  - generic [ref=e174]: 
+                - button "" [ref=e175] [cursor=pointer]:
+                  - generic [ref=e176]: 
+                - button "" [ref=e177] [cursor=pointer]:
+                  - generic [ref=e178]: 
+            - row "12 193 لسنة 2024 ترخيص 2024-06-01 2026-03-25 600.0000 منتهي —     " [ref=e179]:
+              - cell "12" [ref=e180]
+              - cell "193 لسنة 2024" [ref=e181]:
+                - strong [ref=e182]: 193 لسنة 2024
+              - cell "ترخيص" [ref=e183]
+              - cell "2024-06-01" [ref=e184]
+              - cell "2026-03-25" [ref=e185]
+              - cell "600.0000" [ref=e186]
+              - cell "منتهي" [ref=e187]:
+                - generic [ref=e188]: منتهي
+              - cell "—     " [ref=e189]:
+                - text: —
+                - button "" [ref=e190] [cursor=pointer]:
+                  - generic [ref=e191]: 
+                - button "" [ref=e192] [cursor=pointer]:
+                  - generic [ref=e193]: 
+                - button "" [ref=e194] [cursor=pointer]:
+                  - generic [ref=e195]: 
+                - button "" [ref=e196] [cursor=pointer]:
+                  - generic [ref=e197]: 
+                - button "" [ref=e198] [cursor=pointer]:
+                  - generic [ref=e199]: 
+            - row "11 192 لسنة 2023 مخالفة 2023-05-03 2026-03-25 600.0000 منتهي —     " [ref=e200]:
+              - cell "11" [ref=e201]
+              - cell "192 لسنة 2023" [ref=e202]:
+                - strong [ref=e203]: 192 لسنة 2023
+              - cell "مخالفة" [ref=e204]
+              - cell "2023-05-03" [ref=e205]
+              - cell "2026-03-25" [ref=e206]
+              - cell "600.0000" [ref=e207]
+              - cell "منتهي" [ref=e208]:
+                - generic [ref=e209]: منتهي
+              - cell "—     " [ref=e210]:
+                - text: —
+                - button "" [ref=e211] [cursor=pointer]:
+                  - generic [ref=e212]: 
+                - button "" [ref=e213] [cursor=pointer]:
+                  - generic [ref=e214]: 
+                - button "" [ref=e215] [cursor=pointer]:
+                  - generic [ref=e216]: 
+                - button "" [ref=e217] [cursor=pointer]:
+                  - generic [ref=e218]: 
+                - button "" [ref=e219] [cursor=pointer]:
+                  - generic [ref=e220]: 
+            - row "9 357 لسنة 2019 — 2019-11-30 2021-10-17 600.0000 منتهي —     " [ref=e221]:
+              - cell "9" [ref=e222]
+              - cell "357 لسنة 2019" [ref=e223]:
+                - strong [ref=e224]: 357 لسنة 2019
+              - cell "—" [ref=e225]
+              - cell "2019-11-30" [ref=e226]
+              - cell "2021-10-17" [ref=e227]
+              - cell "600.0000" [ref=e228]
+              - cell "منتهي" [ref=e229]:
+                - generic [ref=e230]: منتهي
+              - cell "—     " [ref=e231]:
+                - text: —
+                - button "" [ref=e232] [cursor=pointer]:
+                  - generic [ref=e233]: 
+                - button "" [ref=e234] [cursor=pointer]:
+                  - generic [ref=e235]: 
+                - button "" [ref=e236] [cursor=pointer]:
+                  - generic [ref=e237]: 
+                - button "" [ref=e238] [cursor=pointer]:
+                  - generic [ref=e239]: 
+                - button "" [ref=e240] [cursor=pointer]:
+                  - generic [ref=e241]: 
+            - row "8 294 لسنة 2018 — 2019-01-01 2019-11-29 1200.0000 منتهي —     " [ref=e242]:
+              - cell "8" [ref=e243]
+              - cell "294 لسنة 2018" [ref=e244]:
+                - strong [ref=e245]: 294 لسنة 2018
+              - cell "—" [ref=e246]
+              - cell "2019-01-01" [ref=e247]
+              - cell "2019-11-29" [ref=e248]
+              - cell "1200.0000" [ref=e249]
+              - cell "منتهي" [ref=e250]:
+                - generic [ref=e251]: منتهي
+              - cell "—     " [ref=e252]:
+                - text: —
+                - button "" [ref=e253] [cursor=pointer]:
+                  - generic [ref=e254]: 
+                - button "" [ref=e255] [cursor=pointer]:
+                  - generic [ref=e256]: 
+                - button "" [ref=e257] [cursor=pointer]:
+                  - generic [ref=e258]: 
+                - button "" [ref=e259] [cursor=pointer]:
+                  - generic [ref=e260]: 
+                - button "" [ref=e261] [cursor=pointer]:
+                  - generic [ref=e262]: 
+            - row "7 895 لسنة 2016 — 2016-11-16 2018-12-31 150.0000 منتهي —     " [ref=e263]:
+              - cell "7" [ref=e264]
+              - cell "895 لسنة 2016" [ref=e265]:
+                - strong [ref=e266]: 895 لسنة 2016
+              - cell "—" [ref=e267]
+              - cell "2016-11-16" [ref=e268]
+              - cell "2018-12-31" [ref=e269]
+              - cell "150.0000" [ref=e270]
+              - cell "منتهي" [ref=e271]:
+                - generic [ref=e272]: منتهي
+              - cell "—     " [ref=e273]:
+                - text: —
+                - button "" [ref=e274] [cursor=pointer]:
+                  - generic [ref=e275]: 
+                - button "" [ref=e276] [cursor=pointer]:
+                  - generic [ref=e277]: 
+                - button "" [ref=e278] [cursor=pointer]:
+                  - generic [ref=e279]: 
+                - button "" [ref=e280] [cursor=pointer]:
+                  - generic [ref=e281]: 
+                - button "" [ref=e282] [cursor=pointer]:
+                  - generic [ref=e283]: 
+            - row "6 851 لسنة 2015 — 2015-07-07 2016-11-15 48.0000 منتهي —     " [ref=e284]:
+              - cell "6" [ref=e285]
+              - cell "851 لسنة 2015" [ref=e286]:
+                - strong [ref=e287]: 851 لسنة 2015
+              - cell "—" [ref=e288]
+              - cell "2015-07-07" [ref=e289]
+              - cell "2016-11-15" [ref=e290]
+              - cell "48.0000" [ref=e291]
+              - cell "منتهي" [ref=e292]:
+                - generic [ref=e293]: منتهي
+              - cell "—     " [ref=e294]:
+                - text: —
+                - button "" [ref=e295] [cursor=pointer]:
+                  - generic [ref=e296]: 
+                - button "" [ref=e297] [cursor=pointer]:
+                  - generic [ref=e298]: 
+                - button "" [ref=e299] [cursor=pointer]:
+                  - generic [ref=e300]: 
+                - button "" [ref=e301] [cursor=pointer]:
+                  - generic [ref=e302]: 
+                - button "" [ref=e303] [cursor=pointer]:
+                  - generic [ref=e304]: 
+            - row "5 116 لسنة 2010 — 2010-03-28 2015-07-06 12.0000 منتهي —     " [ref=e305]:
+              - cell "5" [ref=e306]
+              - cell "116 لسنة 2010" [ref=e307]:
+                - strong [ref=e308]: 116 لسنة 2010
+              - cell "—" [ref=e309]
+              - cell "2010-03-28" [ref=e310]
+              - cell "2015-07-06" [ref=e311]
+              - cell "12.0000" [ref=e312]
+              - cell "منتهي" [ref=e313]:
+                - generic [ref=e314]: منتهي
+              - cell "—     " [ref=e315]:
+                - text: —
+                - button "" [ref=e316] [cursor=pointer]:
+                  - generic [ref=e317]: 
+                - button "" [ref=e318] [cursor=pointer]:
+                  - generic [ref=e319]: 
+                - button "" [ref=e320] [cursor=pointer]:
+                  - generic [ref=e321]: 
+                - button "" [ref=e322] [cursor=pointer]:
+                  - generic [ref=e323]: 
+                - button "" [ref=e324] [cursor=pointer]:
+                  - generic [ref=e325]: 
+            - row "4 136 لسنة 2006 — 2006-05-06 2010-03-27 4.0000 منتهي —     " [ref=e326]:
+              - cell "4" [ref=e327]
+              - cell "136 لسنة 2006" [ref=e328]:
+                - strong [ref=e329]: 136 لسنة 2006
+              - cell "—" [ref=e330]
+              - cell "2006-05-06" [ref=e331]
+              - cell "2010-03-27" [ref=e332]
+              - cell "4.0000" [ref=e333]
+              - cell "منتهي" [ref=e334]:
+                - generic [ref=e335]: منتهي
+              - cell "—     " [ref=e336]:
+                - text: —
+                - button "" [ref=e337] [cursor=pointer]:
+                  - generic [ref=e338]: 
+                - button "" [ref=e339] [cursor=pointer]:
+                  - generic [ref=e340]: 
+                - button "" [ref=e341] [cursor=pointer]:
+                  - generic [ref=e342]: 
+                - button "" [ref=e343] [cursor=pointer]:
+                  - generic [ref=e344]: 
+                - button "" [ref=e345] [cursor=pointer]:
+                  - generic [ref=e346]: 
+            - row "3 312 لسنة 2002 — 2002-07-26 2006-05-05 4.0000 منتهي —     " [ref=e347]:
+              - cell "3" [ref=e348]
+              - cell "312 لسنة 2002" [ref=e349]:
+                - strong [ref=e350]: 312 لسنة 2002
+              - cell "—" [ref=e351]
+              - cell "2002-07-26" [ref=e352]
+              - cell "2006-05-05" [ref=e353]
+              - cell "4.0000" [ref=e354]
+              - cell "منتهي" [ref=e355]:
+                - generic [ref=e356]: منتهي
+              - cell "—     " [ref=e357]:
+                - text: —
+                - button "" [ref=e358] [cursor=pointer]:
+                  - generic [ref=e359]: 
+                - button "" [ref=e360] [cursor=pointer]:
+                  - generic [ref=e361]: 
+                - button "" [ref=e362] [cursor=pointer]:
+                  - generic [ref=e363]: 
+                - button "" [ref=e364] [cursor=pointer]:
+                  - generic [ref=e365]: 
+                - button "" [ref=e366] [cursor=pointer]:
+                  - generic [ref=e367]: 
+            - row "2 14867 لسنة 1991 — 1990-08-12 2002-07-25 0.5000 منتهي —     " [ref=e368]:
+              - cell "2" [ref=e369]
+              - cell "14867 لسنة 1991" [ref=e370]:
+                - strong [ref=e371]: 14867 لسنة 1991
+              - cell "—" [ref=e372]
+              - cell "1990-08-12" [ref=e373]
+              - cell "2002-07-25" [ref=e374]
+              - cell "0.5000" [ref=e375]
+              - cell "منتهي" [ref=e376]:
+                - generic [ref=e377]: منتهي
+              - cell "—     " [ref=e378]:
+                - text: —
+                - button "" [ref=e379] [cursor=pointer]:
+                  - generic [ref=e380]: 
+                - button "" [ref=e381] [cursor=pointer]:
+                  - generic [ref=e382]: 
+                - button "" [ref=e383] [cursor=pointer]:
+                  - generic [ref=e384]: 
+                - button "" [ref=e385] [cursor=pointer]:
+                  - generic [ref=e386]: 
+                - button "" [ref=e387] [cursor=pointer]:
+                  - generic [ref=e388]: 
+            - row "1 14717 لسنة 1987 — 1900-01-01 1990-08-11 1.0000 منتهي —     " [ref=e389]:
+              - cell "1" [ref=e390]
+              - cell "14717 لسنة 1987" [ref=e391]:
+                - strong [ref=e392]: 14717 لسنة 1987
+              - cell "—" [ref=e393]
+              - cell "1900-01-01" [ref=e394]
+              - cell "1990-08-11" [ref=e395]
+              - cell "1.0000" [ref=e396]
+              - cell "منتهي" [ref=e397]:
+                - generic [ref=e398]: منتهي
+              - cell "—     " [ref=e399]:
+                - text: —
+                - button "" [ref=e400] [cursor=pointer]:
+                  - generic [ref=e401]: 
+                - button "" [ref=e402] [cursor=pointer]:
+                  - generic [ref=e403]: 
+                - button "" [ref=e404] [cursor=pointer]:
+                  - generic [ref=e405]: 
+                - button "" [ref=e406] [cursor=pointer]:
+                  - generic [ref=e407]: 
+                - button "" [ref=e408] [cursor=pointer]:
+                  - generic [ref=e409]: 
+      - text:      
+  - text:      +

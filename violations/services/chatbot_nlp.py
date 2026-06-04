@@ -116,6 +116,8 @@ INTENT_KEYWORDS = {
 OBJECT_KEYWORDS = {
     'مخالفة':   'violation',
     'مخالفات':  'violation',
+    'تواجد':     'violation',
+    'تواجدات':  'violation',
     'قطعة':     'violation',
     'قطع':      'violation',
     'أرض':      'violation',

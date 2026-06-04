@@ -1,0 +1,145 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]: 
+    - heading "منظومة توثيق أراضي طرح النهر جمهورية مصر العربية — وزارة الموارد المائية والري" [level=1] [ref=e6]:
+      - text: منظومة توثيق أراضي طرح النهر
+      - generic [ref=e7]: جمهورية مصر العربية — وزارة الموارد المائية والري
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: "6397"
+        - generic [ref=e11]: إجمالي القطع
+      - generic [ref=e12]:
+        - generic [ref=e13]: 13,109,681
+        - generic [ref=e14]: المساحة م²
+      - generic [ref=e15]:
+        - generic [ref=e16]: "2"
+        - generic [ref=e17]: محافظات مُدرَجة
+      - generic [ref=e18]:
+        - generic [ref=e19]: "6397"
+        - generic [ref=e20]: مرتبطة جغرافياً
+    - generic [ref=e21]:
+      - button " رفع خريطة المحافظة" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: 
+        - text: رفع خريطة المحافظة
+      - button " في الانتظار" [ref=e24] [cursor=pointer]:
+        - generic [ref=e25]: 
+        - text: في الانتظار
+      - generic [ref=e26]:
+        - generic [ref=e27]: admin
+        - generic [ref=e28]: manager
+      - button " Excel" [ref=e29] [cursor=pointer]:
+        - generic [ref=e30]: 
+        - text: Excel
+      - button " PDF" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: 
+        - text: PDF
+      - link " الإدارة" [ref=e33] [cursor=pointer]:
+        - /url: /admin-dashboard/
+        - generic [ref=e34]: 
+        - text: الإدارة
+      - link "" [ref=e35] [cursor=pointer]:
+        - /url: /logout/
+        - generic [ref=e36]: 
+  - generic [ref=e37]:
+    - generic:
+      - generic [ref=e38]:
+        - button "Zoom in" [ref=e39] [cursor=pointer]: +
+        - button "Zoom out" [ref=e40] [cursor=pointer]: −
+      - button "Layers" [ref=e42] [cursor=pointer]
+      - generic [ref=e43]:
+        - link "Leaflet" [ref=e44] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e45]
+          - text: Leaflet
+        - text: "| Esri World Imagery"
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 
+        - text: فلترة
+      - generic [ref=e53] [cursor=pointer]:
+        - generic [ref=e54]: 
+        - text: المحافظات
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: المحافظة
+          - combobox [ref=e59]:
+            - option "— جميع المحافظات —" [selected]
+            - option "الدقهلية"
+            - option "المنيا"
+        - generic [ref=e60]:
+          - generic [ref=e61]: المركز الإداري
+          - combobox [ref=e62]:
+            - option "— جميع المراكز —" [selected]
+        - generic [ref=e63]:
+          - generic [ref=e64]: القرية / المدينة
+          - combobox [ref=e65]:
+            - option "— جميع القرى —" [selected]
+        - generic [ref=e66]:
+          - generic [ref=e67]: وصف الاستغلال
+          - combobox [ref=e68]:
+            - option "— الكل —" [selected]
+        - generic [ref=e69]:
+          - generic [ref=e70]: بحث (اسم / رمز / مستغل)
+          - textbox "ابحث هنا…" [ref=e71]
+        - generic [ref=e72]:
+          - generic [ref=e73]: الحد الأدنى للمساحة (م²)
+          - spinbutton [ref=e74]
+        - generic [ref=e75]:
+          - button " تطبيق" [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: 
+            - text: تطبيق
+          - button " إعادة" [ref=e78] [cursor=pointer]:
+            - generic [ref=e79]: 
+            - text: إعادة
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - text: "النتائج:"
+          - strong [ref=e82]: "0"
+        - generic [ref=e83]:
+          - text: "مجموع:"
+          - strong [ref=e84]: "0"
+          - text: م²
+      - generic [ref=e86]:
+        - generic [ref=e87]: 
+        - text: جاري التحميل…
+    - text: 
+  - generic [ref=e88]:
+    - generic [ref=e89]: الطبقات
+    - generic [ref=e90] [cursor=pointer]:
+      - checkbox "أراضي طرح النهر" [checked] [ref=e91]
+      - text: أراضي طرح النهر
+    - generic [ref=e92] [cursor=pointer]:
+      - checkbox "حدود القرى" [checked] [ref=e93]
+      - text: حدود القرى
+  - generic [ref=e94]:
+    - generic [ref=e95]: دليل الألوان
+    - generic [ref=e98]: قرية بها قطع
+    - generic [ref=e101]: قرية بلا قطع
+    - generic [ref=e104]: "> 5000 م²"
+    - generic [ref=e107]: 1000 – 5000 م²
+    - generic [ref=e110]: أقل من 1000 م²
+  - text:                       
+  - generic [ref=e111]:
+    - generic [ref=e112]:
+      - generic [ref=e113]: 
+      - text: إشعار
+    - generic [ref=e115]:
+      - generic [ref=e116]: 
+      - text: منظومة توثيق أراضي طرح النهر — وزارة الموارد المائية والري — جمهورية مصر العربية
+      - generic [ref=e117]: 
+      - generic [ref=e118]: 
+  - button "" [ref=e119] [cursor=pointer]:
+    - generic [ref=e120]: 
+  - generic:
+    - generic:
+      - generic:
+        - generic: 
+        - text: المساعد الذكي
+      - button "×"
+    - text: 
+    - generic:
+      - textbox "اسأل عن المخالفات..."
+      - button "":
+        - generic: 

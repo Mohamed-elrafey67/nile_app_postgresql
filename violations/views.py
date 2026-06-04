@@ -7,13 +7,14 @@ from datetime import datetime
 from django.db import models
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Sum, Count, Q
 from django.utils import timezone
-from .models import Violation, Governorate, District, UserProfile, ViolationImage, ViolationNote, ViolationUsage
+from .models import Violation, Governorate, District, UserProfile, ViolationImage, ViolationNote, ViolationUsage, MinistryDecision, UsageType, DecisionUsageRate, DecisionRegion
 
 _GEO_ALL = None
 _GOVS    = None
@@ -525,12 +526,12 @@ def shapefile_import_api(request):
             except Exception as e:
                 errors.append(f'سجل {idx}: {str(e)}')
 
-        log_action(request, 'import', f'Shapefile — {gov.name_ar} — {created} قطعة')
+        log_action(request, 'import', f'Shapefile — {gov.name_ar} — {created} تواجدات')
         return JsonResponse({
             'success': True,
             'created': created,
             'errors':  errors[:20],
-            'message': f'تم استيراد {created} قطعة بنجاح من محافظة {gov.name_ar}',
+            'message': f'تم استيراد {created} تواجدات بنجاح من محافظة {gov.name_ar}',
         })
 
     except Exception as e:
@@ -733,7 +734,7 @@ def upload_survey_map_api(request, pk):
     v.save(update_fields=['survey_map'])
 
     log_action(request, 'edit',
-               f'رفع خريطة مساحية للقطعة: {v.code}')
+               f'رفع خريطة مساحية للتواجد: {v.code}')
     return JsonResponse({
         'success': True,
         'url':     f'/api/violations/{v.pk}/survey-map/view/',
@@ -1236,7 +1237,7 @@ def usage_add_api(request, pk):
     used = ViolationUsage.objects.filter(violation=v).exclude(pk=data.get('id')).aggregate(
         s=models.Sum('area'))['s'] or 0
     if area + float(used) > v.area_total:
-        return JsonResponse({'error': f'المساحة المستغلة مع الاستغلالات السابقة ({area:.2f}+{float(used):.2f}={area+float(used):.2f} م²) تتجاوز إجمالي مساحة القطعة ({v.area_total:.2f} م²)'}, status=400)
+        return JsonResponse({'error': f'المساحة المستغلة مع الاستغلالات السابقة ({area:.2f}+{float(used):.2f}={area+float(used):.2f} م²) تتجاوز إجمالي مساحة التواجد ({v.area_total:.2f} م²)'}, status=400)
 
     try:
         from datetime import date as date_type
@@ -1252,18 +1253,21 @@ def usage_add_api(request, pk):
         if data.get('usage_type_id'):
             usage_type = UsageType.objects.filter(pk=data['usage_type_id']).first()
 
-        # الفئة السنوية من نوع الاستغلال + المنطقة (مع مراعاة rate_factor)
         zone = data.get('zone', 'other')
-        rate = 0
-        if usage_type:
-            rate = usage_type.get_rate(zone)
-            rate = rate * float(usage_type.rate_factor)
-
         status = 'approved' if role in ('supervisor', 'manager') else 'pending'
 
         basis = data.get('basis', '149')
         if usage_type:
             basis = usage_type.decision
+
+        # decision_breakdown من الواجهة
+        decision_breakdown = data.get('decision_breakdown', [])
+
+        # حساب إجمالي القيمة من الـ breakdown
+        total_value = 0.0
+        for item in decision_breakdown:
+            amount = float(item.get('amount', 0))
+            total_value += amount
 
         u = ViolationUsage.objects.create(
             violation      = v,
@@ -1276,16 +1280,15 @@ def usage_add_api(request, pk):
             date_from      = date_from,
             date_to        = date_to,
             is_ongoing     = is_ongoing,
-            rate_per_year  = Decimal(str(rate)),
+            rate_per_year  = Decimal(str(data.get('rate_per_year', 0))),
+            calculated_value = Decimal(str(total_value)),
+            decision_breakdown = decision_breakdown,
             amount_before_2021 = Decimal(str(data.get('amount_before_2021', 0) or 0)),
             amount_paid    = Decimal(str(data.get('amount_paid', 0) or 0)),
             notes          = data.get('notes', '').strip(),
             status         = status,
             created_by     = request.user,
         )
-        # حساب القيمة تلقائياً
-        u.calculated_value = Decimal(str(u.calculate_value()))
-        u.save(update_fields=['calculated_value'])
 
         log_action(request, 'add', f'سجل استغلال — {v.code} — {u.occupant_name}')
         return JsonResponse({
@@ -1323,6 +1326,7 @@ def usage_calculate_preview(request, pk):
     """حساب مبدئي لمقابل الانتفاع قبل الحفظ — يستخدم سعر نوع الاستغلال حسب المنطقة"""
     try:
         data = json.loads(request.body)
+
         from datetime import datetime
         from django.utils import timezone
 
@@ -1435,13 +1439,130 @@ def usage_types_api(request):
     return JsonResponse({'types': types})
 
 
+@login_required(login_url='login')
+def covering_decisions_api(request, pk):
+    """
+    القرارات التي تغطي فترة استغلال معينة + مناطقها + أنواع استغلالها.
+    GET ?date_from=YYYY-MM-DD&date_to=YYYY-MM-DD&basis=148|149
+    """
+    try:
+        from datetime import datetime, date as date_type
+        from django.utils import timezone
+
+        v = get_object_or_404(Violation, pk=pk)
+        date_from = datetime.strptime(request.GET['date_from'], '%Y-%m-%d').date()
+        is_ongoing = request.GET.get('is_ongoing') == 'true'
+        date_to = (
+            datetime.strptime(request.GET['date_to'], '%Y-%m-%d').date()
+            if request.GET.get('date_to') and not is_ongoing
+            else date_type.today()
+        )
+        basis = request.GET.get('basis', '149')
+
+        # كل القرارات التي تتداخل مع الفترة
+        qs = MinistryDecision.objects.filter(
+            Q(date_to__isnull=True) | Q(date_to__gt=date_from)
+        ).order_by('-order', '-date_from')
+
+        # فلترة حسب الأساس
+        filtered = []
+        for dec in qs:
+            d_start = dec.date_from
+            d_end = dec.date_to or date_to
+            if d_start >= date_to:
+                continue
+            if basis and dec.basis is not None and dec.basis != basis:
+                continue
+            eff_start = max(date_from, d_start)
+            eff_end = min(date_to, d_end)
+            if eff_start >= eff_end:
+                continue
+            days = (eff_end - eff_start).days
+            if days <= 0:
+                continue
+
+            # مناطق هذا القرار
+            regions = DecisionRegion.objects.filter(
+                ministry_decision=dec
+            ).values('id', 'name', 'order').order_by('order')
+
+            # أنواع الاستغلال المتاحة لهذا القرار (مع السعر لكل منطقة)
+            usage_rates = DecisionUsageRate.objects.filter(
+                ministry_decision=dec,
+                is_active=True
+            ).select_related('usage_type', 'region').order_by('usage_type__order', 'usage_type__name')
+
+            # تجميع أنواع الاستغلال المتاحة (للإدراج في القائمة المنسدلة)
+            usage_types_list = []
+            seen_ut = set()
+            for ur in usage_rates:
+                if ur.usage_type_id not in seen_ut:
+                    seen_ut.add(ur.usage_type_id)
+                    usage_types_list.append({
+                        'id': ur.usage_type_id,
+                        'name': ur.usage_type.name,
+                        'article': ur.usage_type.article,
+                    })
+
+            # الأسعار لكل (منطقة + نوع استغلال)
+            rates_map = {}
+            for ur in usage_rates:
+                key = f'{ur.region_id}_{ur.usage_type_id}'
+                rates_map[key] = {
+                    'rate': float(ur.rate) if ur.rate else None,
+                    'unit': ur.unit or 'م²',
+                }
+
+            filtered.append({
+                'id': dec.id,
+                'decision_number': dec.decision_number,
+                'date_from': eff_start.strftime('%Y-%m-%d'),
+                'date_to': eff_end.strftime('%Y-%m-%d'),
+                'days': days,
+                'regions': list(regions),
+                'usage_types': usage_types_list,
+                'rates': rates_map,
+            })
+
+        return JsonResponse({'decisions': filtered})
+    except Exception as e:
+        import traceback
+        return JsonResponse({'error': str(e), 'trace': traceback.format_exc()}, status=500)
+
+
 # ══════════════════════════════════════════════════════════════════
 # PRINT — طباعة سجلات الاستغلال
 # ══════════════════════════════════════════════════════════════════
 
 def _calc_usage_breakdown(u):
-    """حساب تفصيل مقابل الانتفاع — أعلى ترتيب قرار أولاً، مع تجنب التكرار"""
+    """حساب تفصيل مقابل الانتفاع — يستخدم decision_breakdown المخزّن أولاً"""
     from datetime import date as date_type
+
+    # إذا كان السجل لديه decision_breakdown → استخدمه مباشرة
+    db = getattr(u, 'decision_breakdown', None)
+    if db:
+        rows = []
+        for item in db:
+            dec_id = item.get('decision_id')
+            region_id = item.get('region_id')
+            utype_id = item.get('usage_type_id')
+            dec = MinistryDecision.objects.filter(pk=dec_id).first()
+            region = DecisionRegion.objects.filter(pk=region_id).first()
+            utype = UsageType.objects.filter(pk=utype_id).first()
+            rows.append({
+                'decision': dec.decision_number if dec else f'قرار #{dec_id}',
+                'date_from': u.date_from,
+                'date_to': u.date_to or date_type.today(),
+                'days': item.get('days', 0),
+                'rate': item.get('rate', 0),
+                'value_per_m2': round(item.get('rate', 0) / 365.0 * item.get('days', 0), 4),
+                'value': round(float(item.get('amount', 0)), 2),
+                'region': region.name if region else f'منطقة #{region_id}',
+                'usage_type': utype.name if utype else f'نوع #{utype_id}',
+            })
+        return rows
+
+    # Fallback: حساب تفصيلي للقرارات القديمة التي ليس لها breakdown
     end_date = u.date_to or date_type.today()
     start = u.date_from
     if not u.usage_type:
@@ -1455,11 +1576,8 @@ def _calc_usage_breakdown(u):
     for dec in qs:
         d_start = dec.date_from
         d_end = dec.date_to or end_date
-        dec_num = str(dec.decision_number)
-        if basis and ('148 لسنة' in dec_num or '149 لسنة' in dec_num):
-            companion_prefix = '149 لسنة' if basis == '148' else '148 لسنة'
-            if companion_prefix in dec_num:
-                continue
+        if basis and dec.basis is not None and dec.basis != basis:
+            continue
         eff_start = max(start, d_start)
         eff_end = min(end_date, d_end)
         if eff_start >= eff_end:
@@ -1821,3 +1939,425 @@ def satellite_report_html(request, pk):
         'result': result,
         'now': now,
     })
+
+
+# ══════════════════════════════════════════════════════════════════
+# ADMIN: القرارات الوزارية — إدارة
+# ══════════════════════════════════════════════════════════════════
+
+@login_required(login_url='login')
+def decisions_api(request):
+    """إدارة القرارات الوزارية: GET (list), POST (add/update), DELETE"""
+    role = get_role(request.user)
+    if role != 'manager':
+        return JsonResponse({'error': 'غير مصرح'}, status=403)
+
+    if request.method == 'GET':
+        qs = MinistryDecision.objects.all().order_by('-order')
+        decisions = []
+        for d in qs:
+            decisions.append({
+                'id':              d.id,
+                'decision_number': d.decision_number,
+                'basis':           d.basis,
+                'date_from':       d.date_from.strftime('%Y-%m-%d'),
+                'date_to':         d.date_to.strftime('%Y-%m-%d') if d.date_to else None,
+                'rate_per_year':   float(d.rate_per_year),
+                'order':           d.order,
+                'notes':           d.notes,
+                'pdf_url':         d.pdf_file.url if d.pdf_file else None,
+                'is_active':       d.date_to is None or d.date_to >= datetime.now().date(),
+            })
+        return JsonResponse({'decisions': decisions})
+
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except Exception:
+            return JsonResponse({'error': 'بيانات غير صالحة'}, status=400)
+
+        from datetime import date as date_type
+        dec_id = data.get('id')
+
+        fields = {
+            'decision_number': data.get('decision_number', '').strip(),
+            'basis':           data.get('basis') or None,
+            'date_from':       datetime.strptime(data['date_from'], '%Y-%m-%d').date() if data.get('date_from') else None,
+            'date_to':         datetime.strptime(data['date_to'], '%Y-%m-%d').date() if data.get('date_to') else None,
+            'rate_per_year':   data.get('rate_per_year', 0),
+            'order':           data.get('order', 0),
+            'notes':           data.get('notes', '').strip(),
+        }
+
+        if fields['basis'] and fields['basis'] not in ('148', '149'):
+            return JsonResponse({'error': 'أساس القرار يجب أن يكون 148 (ترخيص) أو 149 (مخالفة)'}, status=400)
+
+        if not fields['decision_number'] or not fields['date_from'] or not fields['rate_per_year']:
+            return JsonResponse({'error': 'الحقول المطلوبة: رقم القرار، تاريخ البداية، السعر السنوي'}, status=400)
+
+        try:
+            fields['rate_per_year'] = float(fields['rate_per_year'])
+        except (TypeError, ValueError):
+            return JsonResponse({'error': 'السعر السنوي غير صالح'}, status=400)
+
+        from decimal import Decimal
+
+        if dec_id:
+            try:
+                dec = MinistryDecision.objects.get(pk=dec_id)
+                for key, val in fields.items():
+                    if key == 'rate_per_year':
+                        setattr(dec, key, Decimal(str(val)))
+                    else:
+                        setattr(dec, key, val)
+                dec.save()
+                log_action(request, 'edit', f'قرار وزاري #{dec_id} — {dec.decision_number}')
+                return JsonResponse({'success': True, 'message': 'تم تحديث القرار'})
+            except MinistryDecision.DoesNotExist:
+                return JsonResponse({'error': 'القرار غير موجود'}, status=404)
+        else:
+            dec = MinistryDecision.objects.create(
+                decision_number=fields['decision_number'],
+                basis=fields['basis'],
+                date_from=fields['date_from'],
+                date_to=fields['date_to'],
+                rate_per_year=Decimal(str(fields['rate_per_year'])),
+                order=fields['order'],
+                notes=fields['notes'],
+            )
+            log_action(request, 'add', f'قرار وزاري #{dec.id} — {dec.decision_number}')
+            return JsonResponse({'success': True, 'message': 'تم إضافة القرار'})
+
+    elif request.method == 'DELETE':
+        try:
+            data = json.loads(request.body)
+            dec_id = data.get('id')
+        except Exception:
+            return JsonResponse({'error': 'بيانات غير صالحة'}, status=400)
+
+        try:
+            dec = MinistryDecision.objects.get(pk=dec_id)
+            if ViolationUsage.objects.filter(used_decision=dec).exists():
+                return JsonResponse({'error': 'لا يمكن حذف القرار لأنه مستخدم في سجلات استغلال'}, status=400)
+            if DecisionUsageRate.objects.filter(ministry_decision=dec).exists():
+                return JsonResponse({'error': 'لا يمكن حذف القرار لأن له أنواع استغلال مرتبطة'}, status=400)
+            dec.delete()
+            log_action(request, 'delete', f'قرار وزاري #{dec_id} — {dec.decision_number}')
+            return JsonResponse({'success': True, 'message': 'تم حذف القرار'})
+        except MinistryDecision.DoesNotExist:
+            return JsonResponse({'error': 'القرار غير موجود'}, status=404)
+
+    return JsonResponse({'error': 'طلب غير صالح'}, status=405)
+
+
+@login_required(login_url='login')
+@require_http_methods(['POST'])
+def import_decision_excel(request, pk):
+    """استيراد أسعار أنواع الاستغلال من ملف Excel لقرار وزاري"""
+    role = get_role(request.user)
+    if role != 'manager':
+        return JsonResponse({'error': 'غير مصرح'}, status=403)
+    try:
+        dec = MinistryDecision.objects.get(pk=pk)
+    except MinistryDecision.DoesNotExist:
+        return JsonResponse({'error': 'القرار غير موجود'}, status=404)
+
+    import openpyxl, re
+    from collections import OrderedDict
+
+    action = request.POST.get('action', 'import')
+    excel_file = request.FILES.get('excel_file')
+
+    if not excel_file:
+        return JsonResponse({'error': 'يرجى رفع ملف Excel'}, status=400)
+    if not excel_file.name.lower().endswith(('.xlsx', '.xls')):
+        return JsonResponse({'error': 'يرجى رفع ملف Excel فقط (.xlsx)'}, status=400)
+
+    try:
+        wb = openpyxl.load_workbook(excel_file)
+        ws = wb.active
+    except Exception as e:
+        return JsonResponse({'error': f'فشل قراءة الملف: {str(e)}'}, status=400)
+
+    def eval_rate(val):
+        if val is None: return None
+        s = str(val).strip()
+        if not s: return None
+        if s.startswith('='): s = s[1:]
+        try: return float(eval(s, {'__builtins__': {}}, {}))
+        except:
+            try: return float(s)
+            except: return None
+
+    # ── المرحلة 1: قراءة الصفوف ──
+    current_cat = ''
+    parsed_rows = []
+
+    for row in ws.iter_rows(min_row=1, max_row=ws.max_row, values_only=True):
+        col_a, col_b, col_c, col_d, col_e, col_f = [row[i] if i < len(row) else None for i in range(6)]
+        if col_b and str(col_b).strip():
+            current_cat = str(col_b).strip()
+        rate_val = eval_rate(col_e)
+        code_str = str(col_a).strip() if col_a else ''
+        if code_str == 'الكود':
+            continue
+        if rate_val is None and not col_f:
+            continue
+
+        region_text = str(col_d).strip() if col_d else ''
+        # Build usage type name
+        if col_c and str(col_c).strip():
+            sub = str(col_c).strip()
+            usage_name = f'{current_cat} - {sub}'
+        else:
+            usage_name = current_cat
+
+        parsed_rows.append({
+            'usage_name': usage_name,
+            'region_text': region_text,
+            'rate_value': rate_val,
+            'unit': str(col_f).strip() if col_f else '',
+        })
+
+    # ── المرحلة 2: تجميع حسب نوع الاستغلال + المنطقة ──
+    grouped = OrderedDict()
+    for item in parsed_rows:
+        name = item['usage_name']
+        region = item['region_text']
+        rate = item['rate_value']
+        unit = item['unit']
+        # مفتاح المجموعة: اسم نوع الاستغلال + اسم المنطقة
+        # (بدون منطقة → مفتاح خاص)
+        key = f"{name}|||{region}"
+        if key not in grouped:
+            grouped[key] = {
+                'usage_name': name,
+                'region_text': region,
+                'rate_value': rate,
+                'unit': unit or 'جنيه للمتر المسطح سنويا',
+            }
+        else:
+            g = grouped[key]
+            if g['rate_value'] is None and rate is not None:
+                g['rate_value'] = rate
+            if not g['unit'] and unit:
+                g['unit'] = unit
+
+    if action == 'preview':
+        groups_list = []
+        for key, g in grouped.items():
+            groups_list.append({
+                'usage_name': g['usage_name'],
+                'region_text': g['region_text'] or '—',
+                'rate_value': g['rate_value'],
+                'unit': g['unit'],
+            })
+        return JsonResponse({'groups': groups_list, 'total': len(groups_list)})
+
+    # ── المرحلة 3: استيراد ──
+    from decimal import Decimal
+
+    # 3a. إنشاء مناطق القرار
+    region_names = sorted(set(
+        item['region_text'] for item in parsed_rows if item['region_text']
+    ), key=lambda x: (
+        # ترتيب المناطق: داخل كردون أولاً، خارج كردون ثانياً، الباقي
+        0 if 'داخل' in x else 1 if 'خارج' in x else 2, x
+    ))
+    region_map = {}  # name → DecisionRegion
+    for rname in region_names:
+        dr, _ = DecisionRegion.objects.get_or_create(
+            ministry_decision=dec,
+            name=rname,
+            defaults={'order': region_names.index(rname)}
+        )
+        region_map[rname] = dr
+    count_created = 0
+    count_updated = 0
+
+    for key, g in grouped.items():
+        name = g['usage_name']
+        region_text = g['region_text']
+        rate_val = g['rate_value']
+        unit = g['unit']
+
+        if not name:
+            continue
+
+        # Find or create UsageType
+        ut, ut_created = UsageType.objects.get_or_create(
+            name=name,
+            defaults={
+                'decision': '148' if dec.basis == '148' else '149',
+                'is_active': True,
+            }
+        )
+        if ut_created:
+            ut.order = UsageType.objects.count()
+            ut.save()
+
+        # Determine region
+        if region_text and region_text in region_map:
+            region_obj = region_map[region_text]
+        else:
+            region_obj = None  # no region — keep null
+
+        # Find or create DecisionUsageRate
+        dur, dur_created = DecisionUsageRate.objects.get_or_create(
+            ministry_decision=dec,
+            usage_type=ut,
+            region=region_obj,
+            defaults={
+                'rate': Decimal(str(rate_val)) if rate_val is not None else None,
+                'unit': unit,
+                'is_active': True,
+            }
+        )
+        changed = False
+        if rate_val is not None:
+            current_rate = float(dur.rate) if dur.rate is not None else None
+            if current_rate != rate_val:
+                dur.rate = Decimal(str(rate_val))
+                changed = True
+        if dur.unit != unit:
+            dur.unit = unit
+            changed = True
+        if changed:
+            dur.save()
+
+        if dur_created:
+            count_created += 1
+        elif changed:
+            count_updated += 1
+
+    # Save Excel file
+    dec.excel_file = excel_file
+    dec.save()
+
+    log_action(request, 'edit', f'استيراد Excel للقرار #{pk} — {dec.decision_number}')
+    return JsonResponse({
+        'success': True,
+        'message': f'تم الاستيراد: {count_created} جديد، {count_updated} محدث، {len(region_names)+1} منطقة',
+        'created': count_created,
+        'updated': count_updated,
+    })
+
+
+@login_required(login_url='login')
+@require_http_methods(['POST'])
+def decision_upload_pdf(request, pk):
+    """رفع ملف PDF لقرار وزاري"""
+    role = get_role(request.user)
+    if role != 'manager':
+        return JsonResponse({'error': 'غير مصرح'}, status=403)
+    try:
+        dec = MinistryDecision.objects.get(pk=pk)
+    except MinistryDecision.DoesNotExist:
+        return JsonResponse({'error': 'القرار غير موجود'}, status=404)
+
+    if 'pdf_file' not in request.FILES:
+        return JsonResponse({'error': 'يرجى اختيار ملف PDF'}, status=400)
+    pdf = request.FILES['pdf_file']
+    if not pdf.name.lower().endswith('.pdf'):
+        return JsonResponse({'error': 'يرجى رفع ملف PDF فقط'}, status=400)
+
+    dec.pdf_file = pdf
+    dec.save()
+    log_action(request, 'edit', f'رفع PDF للقرار #{pk} — {dec.decision_number}')
+    return JsonResponse({'success': True, 'message': 'تم رفع الملف', 'pdf_url': dec.pdf_file.url})
+
+
+@login_required(login_url='login')
+def decision_usage_rates(request, pk):
+    """إدارة أسعار أنواع الاستغلال لقرار: GET, POST, DELETE"""
+    role = get_role(request.user)
+    if role != 'manager':
+        return JsonResponse({'error': 'غير مصرح'}, status=403)
+    try:
+        dec = MinistryDecision.objects.get(pk=pk)
+    except MinistryDecision.DoesNotExist:
+        return JsonResponse({'error': 'القرار غير موجود'}, status=404)
+
+    if request.method == 'GET':
+        rates = DecisionUsageRate.objects.filter(
+            ministry_decision=dec, is_active=True
+        ).select_related('usage_type', 'region')
+        data = []
+        for r in rates:
+            data.append({
+                'id': r.id,
+                'usage_type_id': r.usage_type_id,
+                'usage_type_name': r.usage_type.name,
+                'region_id': r.region_id,
+                'region_name': r.region.name if r.region else None,
+                'rate': float(r.rate) if r.rate else None,
+                'unit': r.unit,
+                'is_active': r.is_active,
+            })
+        # مناطق القرار
+        regions = DecisionRegion.objects.filter(ministry_decision=dec).order_by('order', 'name')
+        regions_list = [{'id': r.id, 'name': r.name} for r in regions]
+        # أنواع الاستغلال المتاحة
+        all_types = UsageType.objects.filter(is_active=True).order_by('order', 'name')
+        available = [{'id': t.id, 'name': t.name, 'decision': t.decision}
+                     for t in all_types]
+        return JsonResponse({'rates': data, 'regions': regions_list, 'available_types': available})
+
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except Exception:
+            return JsonResponse({'error': 'بيانات غير صالحة'}, status=400)
+
+        rate_id = data.get('id')
+        usage_type_id = data.get('usage_type_id')
+        region_id = data.get('region_id')
+
+        if not usage_type_id:
+            return JsonResponse({'error': 'نوع الاستغلال مطلوب'}, status=400)
+
+        from decimal import Decimal
+
+        if rate_id:
+            try:
+                r = DecisionUsageRate.objects.get(pk=rate_id, ministry_decision=dec)
+            except DecisionUsageRate.DoesNotExist:
+                return JsonResponse({'error': 'السعر غير موجود'}, status=404)
+        else:
+            ut = get_object_or_404(UsageType, pk=usage_type_id)
+            region_obj = None
+            if region_id:
+                region_obj = get_object_or_404(DecisionRegion, pk=region_id, ministry_decision=dec)
+            r, created = DecisionUsageRate.objects.get_or_create(
+                ministry_decision=dec, usage_type=ut, region=region_obj,
+                defaults={'is_active': True}
+            )
+            if not created:
+                r.is_active = True
+
+        rate_val = data.get('rate')
+        if rate_val is not None and rate_val != '':
+            try:
+                r.rate = Decimal(str(rate_val))
+            except Exception:
+                r.rate = None
+        elif rate_val == '' or rate_val is None:
+            r.rate = None
+        if data.get('unit'):
+            r.unit = data['unit']
+
+        r.save()
+        log_action(request, 'edit', f'تحديث سعر استغلال {r.usage_type.name} للقرار #{pk}')
+        return JsonResponse({'success': True, 'message': 'تم حفظ السعر'})
+
+    elif request.method == 'DELETE':
+        try:
+            data = json.loads(request.body)
+            r = DecisionUsageRate.objects.get(pk=data['id'], ministry_decision=dec)
+            r.is_active = False
+            r.save()
+            return JsonResponse({'success': True, 'message': 'تم إلغاء السعر'})
+        except Exception:
+            return JsonResponse({'error': 'السعر غير موجود'}, status=404)
+
+    return JsonResponse({'error': 'طلب غير صالح'}, status=405)

@@ -56,7 +56,7 @@ STATUS_AR = {'approved': 'معتمد', 'pending': 'في الانتظار', 'reje
 def export_excel(records, filters=None, user=None):
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = 'أراضي طرح النهر'
+    ws.title = 'تواجدات طرح النهر'
     ws.sheet_view.rightToLeft = True
 
     # ── Colors ──
@@ -258,7 +258,7 @@ def export_pdf(records, filters=None, user=None):
         pagesize=landscape(A4),
         rightMargin=1.5*cm, leftMargin=1.5*cm,
         topMargin=2*cm, bottomMargin=2*cm,
-        title='تقرير أراضي طرح النهر',
+        title='تقرير تواجدات طرح النهر',
     )
 
     styles = getSampleStyleSheet()
@@ -411,7 +411,7 @@ def export_satellite_report(violation, years):
     now = datetime.now().strftime('%Y-%m-%d %H:%M')
 
     # ── Header ──
-    elements.append(Paragraph(ar('تقرير الرصد الفضائي — أراضي طرح النهر'), title_style))
+    elements.append(Paragraph(ar('تقرير الرصد الفضائي — تواجدات طرح النهر'), title_style))
     elements.append(Paragraph(ar(f'وزارة الموارد المائية والري | {now}'), sub_style))
     elements.append(HRFlowable(width='100%', thickness=2,
         color=colors.HexColor('#0D3B6E'), spaceAfter=8))

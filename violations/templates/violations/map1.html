@@ -197,7 +197,7 @@
   <div class="hstats">
     <div class="hs">
       <div class="hs-val" id="h-count">{{ overall.total_count|default:"0" }}</div>
-      <div class="hs-lbl">إجمالي التعديات</div>
+      <div class="hs-lbl">إجمالي التواجدات</div>
     </div>
     <div class="hs">
       <div class="hs-val" id="h-area">—</div>
@@ -328,11 +328,11 @@
   <div class="leg-title">دليل الألوان</div>
   <div class="leg-item">
     <div class="leg-sq" style="background:#e74c3c;opacity:.65;border:1px solid #c0392b"></div>
-    <span>قرية بها تعديات</span>
+    <span>قرية بها تواجدات</span>
   </div>
   <div class="leg-item">
     <div class="leg-sq" style="background:#bdc3c7;opacity:.4;border:1px solid #95a5a6"></div>
-    <span>قرية بلا تعديات</span>
+    <span>قرية بلا تواجدات</span>
   </div>
   <div class="leg-item">
     <div class="leg-dot" style="background:#e74c3c"></div>
@@ -485,7 +485,7 @@ function renderPolygons(govPcode, polys) {
 
     v.rings.forEach(function(ring) {
       var poly = L.polygon(ring, { color: color, weight: 1.5, fillColor: color, fillOpacity: fopac });
-      poly.bindTooltip('<b>' + v.name_ar + '</b><br>' + v.district_ar + (cnt ? '<br>التعديات: <b>' + cnt + '</b>' : ''), { sticky: true });
+      poly.bindTooltip('<b>' + v.name_ar + '</b><br>' + v.district_ar + (cnt ? '<br>التواجدات: <b>' + cnt + '</b>' : ''), { sticky: true });
       poly.on('click', function() { filterByPcode(v.pcode); });
       polyGroup.addLayer(poly);
 

@@ -1,0 +1,2843 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]: 
+    - heading "منظومة توثيق أراضي طرح النهر جمهورية مصر العربية — وزارة الموارد المائية والري" [level=1] [ref=e6]:
+      - text: منظومة توثيق أراضي طرح النهر
+      - generic [ref=e7]: جمهورية مصر العربية — وزارة الموارد المائية والري
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: "6397"
+        - generic [ref=e11]: إجمالي القطع
+      - generic [ref=e12]:
+        - generic [ref=e13]: 13,109,681
+        - generic [ref=e14]: المساحة م²
+      - generic [ref=e15]:
+        - generic [ref=e16]: "2"
+        - generic [ref=e17]: محافظات مُدرَجة
+      - generic [ref=e18]:
+        - generic [ref=e19]: "6397"
+        - generic [ref=e20]: مرتبطة جغرافياً
+    - generic [ref=e21]:
+      - button " رفع خريطة المحافظة" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: 
+        - text: رفع خريطة المحافظة
+      - button " في الانتظار" [ref=e24] [cursor=pointer]:
+        - generic [ref=e25]: 
+        - text: في الانتظار
+      - generic [ref=e26]:
+        - generic [ref=e27]: testadmin
+        - generic [ref=e28]: manager
+      - button " Excel" [ref=e29] [cursor=pointer]:
+        - generic [ref=e30]: 
+        - text: Excel
+      - button " PDF" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: 
+        - text: PDF
+      - link " الإدارة" [ref=e33] [cursor=pointer]:
+        - /url: /admin-dashboard/
+        - generic [ref=e34]: 
+        - text: الإدارة
+      - link "" [ref=e35] [cursor=pointer]:
+        - /url: /logout/
+        - generic [ref=e36]: 
+  - generic [ref=e37]:
+    - generic:
+      - generic [ref=e38]:
+        - button "Zoom in" [ref=e39] [cursor=pointer]: +
+        - button "Zoom out" [ref=e40] [cursor=pointer]: −
+      - button "Layers" [ref=e42] [cursor=pointer]
+      - generic [ref=e43]:
+        - link "Leaflet" [ref=e44] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e45]
+          - text: Leaflet
+        - text: "| Esri World Imagery"
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 
+        - text: فلترة
+      - generic [ref=e53] [cursor=pointer]:
+        - generic [ref=e54]: 
+        - text: المحافظات
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: المحافظة
+          - combobox [ref=e59]:
+            - option "— جميع المحافظات —" [selected]
+            - option "الدقهلية"
+            - option "المنيا"
+        - generic [ref=e60]:
+          - generic [ref=e61]: المركز الإداري
+          - combobox [ref=e62]:
+            - option "— جميع المراكز —" [selected]
+        - generic [ref=e63]:
+          - generic [ref=e64]: القرية / المدينة
+          - combobox [ref=e65]:
+            - option "— جميع القرى —" [selected]
+        - generic [ref=e66]:
+          - generic [ref=e67]: وصف الاستغلال
+          - combobox [ref=e68]:
+            - option "— الكل —" [selected]
+        - generic [ref=e69]:
+          - generic [ref=e70]: بحث (اسم / رمز / مستغل)
+          - textbox "ابحث هنا…" [ref=e71]
+        - generic [ref=e72]:
+          - generic [ref=e73]: الحد الأدنى للمساحة (م²)
+          - spinbutton [ref=e74]
+        - generic [ref=e75]:
+          - button " تطبيق" [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: 
+            - text: تطبيق
+          - button " إعادة" [ref=e78] [cursor=pointer]:
+            - generic [ref=e79]: 
+            - text: إعادة
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - text: "النتائج:"
+          - strong [ref=e82]: 6,397
+        - generic [ref=e83]:
+          - text: "مجموع:"
+          - strong [ref=e84]: 13,109,681
+          - text: م²
+      - generic [ref=e85]:
+        - generic [ref=e86] [cursor=pointer]:
+          - generic [ref=e87]:
+            - generic [ref=e88]: MN006
+            - generic [ref=e89]: المنيا
+          - generic [ref=e90]: مدينة المنيا
+          - generic [ref=e91]: النصب التذكارى
+          - generic [ref=e92]:
+            - generic [ref=e93]: 
+            - text: 186 م²
+        - generic [ref=e94] [cursor=pointer]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: MN005
+            - generic [ref=e97]: المنيا
+          - generic [ref=e98]: مدينة المنيا
+          - generic [ref=e99]: تبع فندق جراند اتون فضاء
+          - generic [ref=e100]:
+            - generic [ref=e101]: 
+            - text: 1,950 م²
+        - generic [ref=e102] [cursor=pointer]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: MN008
+            - generic [ref=e105]: المنيا
+          - generic [ref=e106]: مدينة المنيا
+          - generic [ref=e107]: موقع المشتل
+          - generic [ref=e108]:
+            - generic [ref=e109]: 
+            - text: 9,399 م²
+        - generic [ref=e110] [cursor=pointer]:
+          - generic [ref=e111]:
+            - generic [ref=e112]: MN007
+            - generic [ref=e113]: المنيا
+          - generic [ref=e114]: مدينة المنيا
+          - generic [ref=e115]: موقع فندق جراند اتون
+          - generic [ref=e116]:
+            - generic [ref=e117]: 
+            - text: 14,085 م²
+        - generic [ref=e118] [cursor=pointer]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: MN009
+            - generic [ref=e121]: المنيا
+          - generic [ref=e122]: مدينة المنيا
+          - generic [ref=e123]: هندسة حماية النيل
+          - generic [ref=e124]:
+            - generic [ref=e125]: 
+            - text: 3,683 م²
+        - generic [ref=e126] [cursor=pointer]:
+          - generic [ref=e127]:
+            - generic [ref=e128]: MN024
+            - generic [ref=e129]: المنيا
+          - generic [ref=e130]: مدينة المنيا
+          - generic [ref=e131]: ممشى
+          - generic [ref=e132]:
+            - generic [ref=e133]: 
+            - text: 3,414 م²
+        - generic [ref=e134] [cursor=pointer]:
+          - generic [ref=e135]:
+            - generic [ref=e136]: MN010
+            - generic [ref=e137]: المنيا
+          - generic [ref=e138]: مدينة المنيا
+          - generic [ref=e139]: حديقة الصالون
+          - generic [ref=e140]:
+            - generic [ref=e141]: 
+            - text: 2,504 م²
+        - generic [ref=e142] [cursor=pointer]:
+          - generic [ref=e143]:
+            - generic [ref=e144]: MN012
+            - generic [ref=e145]: المنيا
+          - generic [ref=e146]: مدينة المنيا
+          - generic [ref=e147]: نادى اعضاء هيئه التدريس
+          - generic [ref=e148]:
+            - generic [ref=e149]: 
+            - text: 4,932 م²
+        - generic [ref=e150] [cursor=pointer]:
+          - generic [ref=e151]:
+            - generic [ref=e152]: MN013
+            - generic [ref=e153]: المنيا
+          - generic [ref=e154]: مدينة المنيا
+          - generic [ref=e155]: وحدة الانقاذ النهرى
+          - generic [ref=e156]:
+            - generic [ref=e157]: 
+            - text: 3,151 م²
+        - generic [ref=e158] [cursor=pointer]:
+          - generic [ref=e159]:
+            - generic [ref=e160]: MN014
+            - generic [ref=e161]: المنيا
+          - generic [ref=e162]: مدينة المنيا
+          - generic [ref=e163]: ماخذ مياه الشرب
+          - generic [ref=e164]:
+            - generic [ref=e165]: 
+            - text: 4,559 م²
+        - generic [ref=e166] [cursor=pointer]:
+          - generic [ref=e167]:
+            - generic [ref=e168]: MN016
+            - generic [ref=e169]: المنيا
+          - generic [ref=e170]: مدينة المنيا
+          - generic [ref=e171]: ممشى
+          - generic [ref=e172]:
+            - generic [ref=e173]: 
+            - text: 14,348 م²
+        - generic [ref=e174] [cursor=pointer]:
+          - generic [ref=e175]:
+            - generic [ref=e176]: MN015
+            - generic [ref=e177]: المنيا
+          - generic [ref=e178]: مدينة المنيا
+          - generic [ref=e179]: كورنيش
+          - generic [ref=e180]:
+            - generic [ref=e181]: 
+            - text: 60,282 م²
+        - generic [ref=e182] [cursor=pointer]:
+          - generic [ref=e183]:
+            - generic [ref=e184]: MN017
+            - generic [ref=e185]: المنيا
+          - generic [ref=e186]: مدينة المنيا
+          - generic [ref=e187]: مرسي
+          - generic [ref=e188]:
+            - generic [ref=e189]: 
+            - text: 1,001 م²
+        - generic [ref=e190] [cursor=pointer]:
+          - generic [ref=e191]:
+            - generic [ref=e192]: MN018
+            - generic [ref=e193]: المنيا
+          - generic [ref=e194]: مدينة المنيا
+          - generic [ref=e195]: مرسي
+          - generic [ref=e196]:
+            - generic [ref=e197]: 
+            - text: 387 م²
+        - generic [ref=e198] [cursor=pointer]:
+          - generic [ref=e199]:
+            - generic [ref=e200]: MN019
+            - generic [ref=e201]: المنيا
+          - generic [ref=e202]: مدينة المنيا
+          - generic [ref=e203]: مرسي
+          - generic [ref=e204]:
+            - generic [ref=e205]: 
+            - text: 750 م²
+        - generic [ref=e206] [cursor=pointer]:
+          - generic [ref=e207]:
+            - generic [ref=e208]: MN021
+            - generic [ref=e209]: المنيا
+          - generic [ref=e210]: مدينة المنيا
+          - generic [ref=e211]: مرسي
+          - generic [ref=e212]:
+            - generic [ref=e213]: 
+            - text: 889 م²
+        - generic [ref=e214] [cursor=pointer]:
+          - generic [ref=e215]:
+            - generic [ref=e216]: MN020
+            - generic [ref=e217]: المنيا
+          - generic [ref=e218]: مدينة المنيا
+          - generic [ref=e219]: استراحة كبار الزوار للمحافظة
+          - generic [ref=e220]:
+            - generic [ref=e221]: 
+            - text: 1,394 م²
+        - generic [ref=e222] [cursor=pointer]:
+          - generic [ref=e223]:
+            - generic [ref=e224]: MN022
+            - generic [ref=e225]: المنيا
+          - generic [ref=e226]: مدينة المنيا
+          - generic [ref=e227]: نادى ضباط الشرطه
+          - generic [ref=e228]:
+            - generic [ref=e229]: 
+            - text: 11,372 م²
+        - generic [ref=e230] [cursor=pointer]:
+          - generic [ref=e231]:
+            - generic [ref=e232]: MN023
+            - generic [ref=e233]: المنيا
+          - generic [ref=e234]: مدينة المنيا
+          - generic [ref=e235]: كورنيش
+          - generic [ref=e236]:
+            - generic [ref=e237]: 
+            - text: 10,638 م²
+        - generic [ref=e238] [cursor=pointer]:
+          - generic [ref=e239]:
+            - generic [ref=e240]: MN025
+            - generic [ref=e241]: المنيا
+          - generic [ref=e242]: مدينة المنيا
+          - generic [ref=e243]: مرسي
+          - generic [ref=e244]:
+            - generic [ref=e245]: 
+            - text: 1,503 م²
+        - generic [ref=e246] [cursor=pointer]:
+          - generic [ref=e247]:
+            - generic [ref=e248]: MN026
+            - generic [ref=e249]: المنيا
+          - generic [ref=e250]: مدينة المنيا
+          - generic [ref=e251]: شرطه المسطحات المائيه
+          - generic [ref=e252]:
+            - generic [ref=e253]: 
+            - text: 6,652 م²
+        - generic [ref=e254] [cursor=pointer]:
+          - generic [ref=e255]:
+            - generic [ref=e256]: MN027
+            - generic [ref=e257]: المنيا
+          - generic [ref=e258]: مدينة المنيا
+          - generic [ref=e259]: نادى القضاه
+          - generic [ref=e260]:
+            - generic [ref=e261]: 
+            - text: 2,886 م²
+        - generic [ref=e262] [cursor=pointer]:
+          - generic [ref=e263]:
+            - generic [ref=e264]: MN029
+            - generic [ref=e265]: المنيا
+          - generic [ref=e266]: مدينة المنيا
+          - generic [ref=e267]: مسجد اليم
+          - generic [ref=e268]:
+            - generic [ref=e269]: 
+            - text: 964 م²
+        - generic [ref=e270] [cursor=pointer]:
+          - generic [ref=e271]:
+            - generic [ref=e272]: MN028
+            - generic [ref=e273]: المنيا
+          - generic [ref=e274]: مدينة المنيا
+          - generic [ref=e275]: اداره المواقف مرسى عروس النيل
+          - generic [ref=e276]:
+            - generic [ref=e277]: 
+            - text: 4,245 م²
+        - generic [ref=e278] [cursor=pointer]:
+          - generic [ref=e279]:
+            - generic [ref=e280]: MN002
+            - generic [ref=e281]: المنيا
+          - generic [ref=e282]: دماريس ومدينه المنيا
+          - generic [ref=e283]: حديقه تبع شارع مصر
+          - generic [ref=e284]:
+            - generic [ref=e285]: 
+            - text: 13,897 م²
+        - generic [ref=e286] [cursor=pointer]:
+          - generic [ref=e287]:
+            - generic [ref=e288]: MN003
+            - generic [ref=e289]: المنيا
+          - generic [ref=e290]: دماريس ومدينه المنيا
+          - generic [ref=e291]: أكشاك شارع مصر
+          - generic [ref=e292]:
+            - generic [ref=e293]: 
+            - text: 3,466 م²
+        - generic [ref=e294] [cursor=pointer]:
+          - generic [ref=e295]:
+            - generic [ref=e296]: MN001
+            - generic [ref=e297]: المنيا
+          - generic [ref=e298]: دماريس ومدينه المنيا
+          - generic [ref=e299]: ممشى
+          - generic [ref=e300]:
+            - generic [ref=e301]: 
+            - text: 3,597 م²
+        - generic [ref=e302] [cursor=pointer]:
+          - generic [ref=e303]:
+            - generic [ref=e304]: MN004
+            - generic [ref=e305]: المنيا
+          - generic [ref=e306]: مدينة المنيا
+          - generic [ref=e307]: موقع فندق حورس
+          - generic [ref=e308]:
+            - generic [ref=e309]: 
+            - text: 25,867 م²
+        - generic [ref=e310] [cursor=pointer]:
+          - generic [ref=e311]:
+            - generic [ref=e312]: MN032
+            - generic [ref=e313]: المنيا
+          - generic [ref=e314]: مدينة المنيا
+          - generic [ref=e315]: المسرح الرومانى
+          - generic [ref=e316]:
+            - generic [ref=e317]: 
+            - text: 8,650 م²
+        - generic [ref=e318] [cursor=pointer]:
+          - generic [ref=e319]:
+            - generic [ref=e320]: MN033
+            - generic [ref=e321]: المنيا
+          - generic [ref=e322]: مدينة المنيا
+          - generic [ref=e323]: كورنيش
+          - generic [ref=e324]:
+            - generic [ref=e325]: 
+            - text: 4,820 م²
+        - generic [ref=e326] [cursor=pointer]:
+          - generic [ref=e327]:
+            - generic [ref=e328]: MN034
+            - generic [ref=e329]: المنيا
+          - generic [ref=e330]: مدينة المنيا
+          - generic [ref=e331]: ملعب ثلاثى
+          - generic [ref=e332]:
+            - generic [ref=e333]: 
+            - text: 2,339 م²
+        - generic [ref=e334] [cursor=pointer]:
+          - generic [ref=e335]:
+            - generic [ref=e336]: MN035
+            - generic [ref=e337]: المنيا
+          - generic [ref=e338]: مدينة المنيا
+          - generic [ref=e339]: بازرات
+          - generic [ref=e340]:
+            - generic [ref=e341]: 
+            - text: 2,465 م²
+        - generic [ref=e342] [cursor=pointer]:
+          - generic [ref=e343]:
+            - generic [ref=e344]: MN036
+            - generic [ref=e345]: المنيا
+          - generic [ref=e346]: مدينة المنيا
+          - generic [ref=e347]: ملعب ثلاثى
+          - generic [ref=e348]:
+            - generic [ref=e349]: 
+            - text: 752 م²
+        - generic [ref=e350] [cursor=pointer]:
+          - generic [ref=e351]:
+            - generic [ref=e352]: MN037
+            - generic [ref=e353]: المنيا
+          - generic [ref=e354]: مدينة المنيا
+          - generic [ref=e355]: ممشي
+          - generic [ref=e356]:
+            - generic [ref=e357]: 
+            - text: 2,531 م²
+        - generic [ref=e358] [cursor=pointer]:
+          - generic [ref=e359]:
+            - generic [ref=e360]: MN043
+            - generic [ref=e361]: المنيا
+          - generic [ref=e362]: اتجاه سوادة
+          - generic [ref=e363]: المتحف الاتونى
+          - generic [ref=e364]:
+            - generic [ref=e365]: 
+            - text: 111,564 م²
+        - generic [ref=e366] [cursor=pointer]:
+          - generic [ref=e367]:
+            - generic [ref=e368]: MN040
+            - generic [ref=e369]: المنيا
+          - generic [ref=e370]: اتجاه سوادة
+          - generic [ref=e371]: المرور القديم
+          - generic [ref=e372]:
+            - generic [ref=e373]: 
+            - text: 9,466 م²
+        - generic [ref=e374] [cursor=pointer]:
+          - generic [ref=e375]:
+            - generic [ref=e376]: MN030
+            - generic [ref=e377]: المنيا
+          - generic [ref=e378]: مدينة المنيا
+          - generic [ref=e379]: كورنيش
+          - generic [ref=e380]:
+            - generic [ref=e381]: 
+            - text: 4,026 م²
+        - generic [ref=e382] [cursor=pointer]:
+          - generic [ref=e383]:
+            - generic [ref=e384]: MN031
+            - generic [ref=e385]: المنيا
+          - generic [ref=e386]: مدينة المنيا
+          - generic [ref=e387]: مرسي
+          - generic [ref=e388]:
+            - generic [ref=e389]: 
+            - text: 2,164 م²
+        - generic [ref=e390] [cursor=pointer]:
+          - generic [ref=e391]:
+            - generic [ref=e392]: AGR1474
+            - generic [ref=e393]: الدقهلية
+          - generic [ref=e394]: ميت دمسيس
+          - generic [ref=e395]: مزروعه
+          - generic [ref=e396]:
+            - generic [ref=e397]: 
+            - text: 1,274 م²
+        - generic [ref=e398] [cursor=pointer]:
+          - generic [ref=e399]:
+            - generic [ref=e400]: AGR1473
+            - generic [ref=e401]: الدقهلية
+          - generic [ref=e402]: ميت دمسيس
+          - generic [ref=e403]: مزروعه
+          - generic [ref=e404]:
+            - generic [ref=e405]: 
+            - text: 2,185 م²
+        - generic [ref=e406] [cursor=pointer]:
+          - generic [ref=e407]:
+            - generic [ref=e408]: AGR1472
+            - generic [ref=e409]: الدقهلية
+          - generic [ref=e410]: ميت دمسيس
+          - generic [ref=e411]: فضاء وبه مبني
+          - generic [ref=e412]:
+            - generic [ref=e413]: 
+            - text: 166 م²
+        - generic [ref=e414] [cursor=pointer]:
+          - generic [ref=e415]:
+            - generic [ref=e416]: AGR1442
+            - generic [ref=e417]: الدقهلية
+          - generic [ref=e418]: مدينه سمنود
+          - generic [ref=e419]: مزروعه موز
+          - generic [ref=e420]:
+            - generic [ref=e421]: 
+            - text: 647 م²
+        - generic [ref=e422] [cursor=pointer]:
+          - generic [ref=e423]:
+            - generic [ref=e424]: MNR1202
+            - generic [ref=e425]: الدقهلية
+          - generic [ref=e426]: كفر الشنهاب
+          - generic [ref=e427]: مزروعه
+          - generic [ref=e428]:
+            - generic [ref=e429]: 
+            - text: 1,453 م²
+        - generic [ref=e430] [cursor=pointer]:
+          - generic [ref=e431]:
+            - generic [ref=e432]: MNR1201
+            - generic [ref=e433]: الدقهلية
+          - generic [ref=e434]: كفر الشنهاب
+          - generic [ref=e435]: مظله امام دار مناسبات كفر الشنهاب
+          - generic [ref=e436]:
+            - generic [ref=e437]: 
+            - text: 63 م²
+        - generic [ref=e438] [cursor=pointer]:
+          - generic [ref=e439]:
+            - generic [ref=e440]: AGR1479
+            - generic [ref=e441]: الدقهلية
+          - generic [ref=e442]: ميت اثنا
+          - generic [ref=e443]: مزروعه
+          - generic [ref=e444]:
+            - generic [ref=e445]: 
+            - text: 4,118 م²
+        - generic [ref=e446] [cursor=pointer]:
+          - generic [ref=e447]:
+            - generic [ref=e448]: MNR1200
+            - generic [ref=e449]: الدقهلية
+          - generic [ref=e450]: اويش الحجر
+          - generic [ref=e451]: كتله سكنيه
+          - generic [ref=e452]:
+            - generic [ref=e453]: 
+            - text: 1,957 م²
+        - generic [ref=e454] [cursor=pointer]:
+          - generic [ref=e455]:
+            - generic [ref=e456]: MNR1199
+            - generic [ref=e457]: الدقهلية
+          - generic [ref=e458]: اويش الحجر
+          - generic [ref=e459]: كتله سكنيه
+          - generic [ref=e460]:
+            - generic [ref=e461]: 
+            - text: 509 م²
+        - generic [ref=e462] [cursor=pointer]:
+          - generic [ref=e463]:
+            - generic [ref=e464]: MNR1198
+            - generic [ref=e465]: الدقهلية
+          - generic [ref=e466]: اويش الحجر
+          - generic [ref=e467]: كتله سكنيه
+          - generic [ref=e468]:
+            - generic [ref=e469]: 
+            - text: 1,060 م²
+        - generic [ref=e470] [cursor=pointer]:
+          - generic [ref=e471]:
+            - generic [ref=e472]: MNR1197
+            - generic [ref=e473]: الدقهلية
+          - generic [ref=e474]: كفر الشنهاب
+          - generic [ref=e475]: مزروعه
+          - generic [ref=e476]:
+            - generic [ref=e477]: 
+            - text: 1,490 م²
+        - generic [ref=e478] [cursor=pointer]:
+          - generic [ref=e479]:
+            - generic [ref=e480]: AGR1481
+            - generic [ref=e481]: الدقهلية
+          - generic [ref=e482]: ميت اثينا
+          - generic [ref=e483]: مزروعه
+          - generic [ref=e484]:
+            - generic [ref=e485]: 
+            - text: 645 م²
+        - generic [ref=e486] [cursor=pointer]:
+          - generic [ref=e487]:
+            - generic [ref=e488]: MNR1196
+            - generic [ref=e489]: الدقهلية
+          - generic [ref=e490]: كفر الشنهاب
+          - generic [ref=e491]: مركز شباب كفر الشنهاب به مبني +2ملعب
+          - generic [ref=e492]:
+            - generic [ref=e493]: 
+            - text: 15,503 م²
+        - generic [ref=e494] [cursor=pointer]:
+          - generic [ref=e495]:
+            - generic [ref=e496]: MNR1195
+            - generic [ref=e497]: الدقهلية
+          - generic [ref=e498]: كفر الشنهاب
+          - generic [ref=e499]: فضاء مسور به مبني
+          - generic [ref=e500]:
+            - generic [ref=e501]: 
+            - text: 2,936 م²
+        - generic [ref=e502] [cursor=pointer]:
+          - generic [ref=e503]:
+            - generic [ref=e504]: MNR1194
+            - generic [ref=e505]: الدقهلية
+          - generic [ref=e506]: كفر الشنهاب
+          - generic [ref=e507]: فضاءمسور بالخشب
+          - generic [ref=e508]:
+            - generic [ref=e509]: 
+            - text: 409 م²
+        - generic [ref=e510] [cursor=pointer]:
+          - generic [ref=e511]:
+            - generic [ref=e512]: MNR1193
+            - generic [ref=e513]: الدقهلية
+          - generic [ref=e514]: كفر الشنهاب
+          - generic [ref=e515]: فضاء
+          - generic [ref=e516]:
+            - generic [ref=e517]: 
+            - text: 197 م²
+        - generic [ref=e518] [cursor=pointer]:
+          - generic [ref=e519]:
+            - generic [ref=e520]: MNR1192
+            - generic [ref=e521]: الدقهلية
+          - generic [ref=e522]: كفر الشنهاب
+          - generic [ref=e523]: فضاء
+          - generic [ref=e524]:
+            - generic [ref=e525]: 
+            - text: 221 م²
+        - generic [ref=e526] [cursor=pointer]:
+          - generic [ref=e527]:
+            - generic [ref=e528]: MNR1191
+            - generic [ref=e529]: الدقهلية
+          - generic [ref=e530]: كفر الشنهاب
+          - generic [ref=e531]: فضاء
+          - generic [ref=e532]:
+            - generic [ref=e533]: 
+            - text: 510 م²
+        - generic [ref=e534] [cursor=pointer]:
+          - generic [ref=e535]:
+            - generic [ref=e536]: MNR1190
+            - generic [ref=e537]: الدقهلية
+          - generic [ref=e538]: كفر الشنهاب
+          - generic [ref=e539]: فضاء
+          - generic [ref=e540]:
+            - generic [ref=e541]: 
+            - text: 157 م²
+        - generic [ref=e542] [cursor=pointer]:
+          - generic [ref=e543]:
+            - generic [ref=e544]: MNR1189
+            - generic [ref=e545]: الدقهلية
+          - generic [ref=e546]: كفر الشنهاب
+          - generic [ref=e547]: فضاء به مبني
+          - generic [ref=e548]:
+            - generic [ref=e549]: 
+            - text: 244 م²
+        - generic [ref=e550] [cursor=pointer]:
+          - generic [ref=e551]:
+            - generic [ref=e552]: MNR1188
+            - generic [ref=e553]: الدقهلية
+          - generic [ref=e554]: كفر الشنهاب
+          - generic [ref=e555]: فضاء
+          - generic [ref=e556]:
+            - generic [ref=e557]: 
+            - text: 259 م²
+        - generic [ref=e558] [cursor=pointer]:
+          - generic [ref=e559]:
+            - generic [ref=e560]: MNR1187
+            - generic [ref=e561]: الدقهلية
+          - generic [ref=e562]: كفر الشنهاب
+          - generic [ref=e563]: فضاء به بقايا مسجد
+          - generic [ref=e564]:
+            - generic [ref=e565]: 
+            - text: 724 م²
+        - generic [ref=e566] [cursor=pointer]:
+          - generic [ref=e567]:
+            - generic [ref=e568]: MNR1186
+            - generic [ref=e569]: الدقهلية
+          - generic [ref=e570]: كفر الشنهاب
+          - generic [ref=e571]: فضاء
+          - generic [ref=e572]:
+            - generic [ref=e573]: 
+            - text: 265 م²
+        - generic [ref=e574] [cursor=pointer]:
+          - generic [ref=e575]:
+            - generic [ref=e576]: MNR1185
+            - generic [ref=e577]: الدقهلية
+          - generic [ref=e578]: كفر الشنهاب
+          - generic [ref=e579]: فضاء محاط بالشجر
+          - generic [ref=e580]:
+            - generic [ref=e581]: 
+            - text: 503 م²
+        - generic [ref=e582] [cursor=pointer]:
+          - generic [ref=e583]:
+            - generic [ref=e584]: MNR1184
+            - generic [ref=e585]: الدقهلية
+          - generic [ref=e586]: كفر الشنهاب
+          - generic [ref=e587]: فضاء مسور
+          - generic [ref=e588]:
+            - generic [ref=e589]: 
+            - text: 128 م²
+        - generic [ref=e590] [cursor=pointer]:
+          - generic [ref=e591]:
+            - generic [ref=e592]: MNR1183
+            - generic [ref=e593]: الدقهلية
+          - generic [ref=e594]: كفر الشنهاب
+          - generic [ref=e595]: فضاء به 2مبني
+          - generic [ref=e596]:
+            - generic [ref=e597]: 
+            - text: 165 م²
+        - generic [ref=e598] [cursor=pointer]:
+          - generic [ref=e599]:
+            - generic [ref=e600]: MNR1182
+            - generic [ref=e601]: الدقهلية
+          - generic [ref=e602]: كفر الشنهاب
+          - generic [ref=e603]: فضاء به 2مبني
+          - generic [ref=e604]:
+            - generic [ref=e605]: 
+            - text: 370 م²
+        - generic [ref=e606] [cursor=pointer]:
+          - generic [ref=e607]:
+            - generic [ref=e608]: MNR1181
+            - generic [ref=e609]: الدقهلية
+          - generic [ref=e610]: كفر الشنهاب
+          - generic [ref=e611]: فضاء محاط بالشجر
+          - generic [ref=e612]:
+            - generic [ref=e613]: 
+            - text: 434 م²
+        - generic [ref=e614] [cursor=pointer]:
+          - generic [ref=e615]:
+            - generic [ref=e616]: MNR1180
+            - generic [ref=e617]: الدقهلية
+          - generic [ref=e618]: كفر الشنهاب
+          - generic [ref=e619]: حظيره
+          - generic [ref=e620]:
+            - generic [ref=e621]: 
+            - text: 180 م²
+        - generic [ref=e622] [cursor=pointer]:
+          - generic [ref=e623]:
+            - generic [ref=e624]: MNR1179
+            - generic [ref=e625]: الدقهلية
+          - generic [ref=e626]: كفر الشنهاب
+          - generic [ref=e627]: فضاء به مبني
+          - generic [ref=e628]:
+            - generic [ref=e629]: 
+            - text: 107 م²
+        - generic [ref=e630] [cursor=pointer]:
+          - generic [ref=e631]:
+            - generic [ref=e632]: MNR1178
+            - generic [ref=e633]: الدقهلية
+          - generic [ref=e634]: كفر الشنهاب
+          - generic [ref=e635]: فضاء به 2مبني
+          - generic [ref=e636]:
+            - generic [ref=e637]: 
+            - text: 451 م²
+        - generic [ref=e638] [cursor=pointer]:
+          - generic [ref=e639]:
+            - generic [ref=e640]: MNR1177
+            - generic [ref=e641]: الدقهلية
+          - generic [ref=e642]: كفر الشنهاب
+          - generic [ref=e643]: فضاء به مبني
+          - generic [ref=e644]:
+            - generic [ref=e645]: 
+            - text: 169 م²
+        - generic [ref=e646] [cursor=pointer]:
+          - generic [ref=e647]:
+            - generic [ref=e648]: MNR1176
+            - generic [ref=e649]: الدقهلية
+          - generic [ref=e650]: كفر الشنهاب
+          - generic [ref=e651]: فضاء محاط بالشجر
+          - generic [ref=e652]:
+            - generic [ref=e653]: 
+            - text: 651 م²
+        - generic [ref=e654] [cursor=pointer]:
+          - generic [ref=e655]:
+            - generic [ref=e656]: MNR1175
+            - generic [ref=e657]: الدقهلية
+          - generic [ref=e658]: كفر الشنهاب
+          - generic [ref=e659]: فضاء به شجر
+          - generic [ref=e660]:
+            - generic [ref=e661]: 
+            - text: 340 م²
+        - generic [ref=e662] [cursor=pointer]:
+          - generic [ref=e663]:
+            - generic [ref=e664]: MNR1174
+            - generic [ref=e665]: الدقهلية
+          - generic [ref=e666]: كفر الشنهاب
+          - generic [ref=e667]: فضاء
+          - generic [ref=e668]:
+            - generic [ref=e669]: 
+            - text: 423 م²
+        - generic [ref=e670] [cursor=pointer]:
+          - generic [ref=e671]:
+            - generic [ref=e672]: MNR1173
+            - generic [ref=e673]: الدقهلية
+          - generic [ref=e674]: كفر الشنهاب
+          - generic [ref=e675]: حظيره
+          - generic [ref=e676]:
+            - generic [ref=e677]: 
+            - text: 512 م²
+        - generic [ref=e678] [cursor=pointer]:
+          - generic [ref=e679]:
+            - generic [ref=e680]: MNR1172
+            - generic [ref=e681]: الدقهلية
+          - generic [ref=e682]: كفر الشنهاب
+          - generic [ref=e683]: فضاء
+          - generic [ref=e684]:
+            - generic [ref=e685]: 
+            - text: 159 م²
+        - generic [ref=e686] [cursor=pointer]:
+          - generic [ref=e687]:
+            - generic [ref=e688]: MNR1171
+            - generic [ref=e689]: الدقهلية
+          - generic [ref=e690]: كفر الشنهاب
+          - generic [ref=e691]: مزروعه
+          - generic [ref=e692]:
+            - generic [ref=e693]: 
+            - text: 916 م²
+        - generic [ref=e694] [cursor=pointer]:
+          - generic [ref=e695]:
+            - generic [ref=e696]: MNR1170
+            - generic [ref=e697]: الدقهلية
+          - generic [ref=e698]: كفر الشنهاب
+          - generic [ref=e699]: فضاء
+          - generic [ref=e700]:
+            - generic [ref=e701]: 
+            - text: 300 م²
+        - generic [ref=e702] [cursor=pointer]:
+          - generic [ref=e703]:
+            - generic [ref=e704]: MNR1169
+            - generic [ref=e705]: الدقهلية
+          - generic [ref=e706]: كفر الشنهاب
+          - generic [ref=e707]: فضاء
+          - generic [ref=e708]:
+            - generic [ref=e709]: 
+            - text: 1,077 م²
+        - generic [ref=e710] [cursor=pointer]:
+          - generic [ref=e711]:
+            - generic [ref=e712]: MNR1168
+            - generic [ref=e713]: الدقهلية
+          - generic [ref=e714]: كفر الشنهاب
+          - generic [ref=e715]: مزروعه
+          - generic [ref=e716]:
+            - generic [ref=e717]: 
+            - text: 1,241 م²
+        - generic [ref=e718] [cursor=pointer]:
+          - generic [ref=e719]:
+            - generic [ref=e720]: MNR1167
+            - generic [ref=e721]: الدقهلية
+          - generic [ref=e722]: كفر الشنهاب
+          - generic [ref=e723]: مزروعه
+          - generic [ref=e724]:
+            - generic [ref=e725]: 
+            - text: 1,615 م²
+        - generic [ref=e726] [cursor=pointer]:
+          - generic [ref=e727]:
+            - generic [ref=e728]: MNR1166
+            - generic [ref=e729]: الدقهلية
+          - generic [ref=e730]: كفر الشنهاب
+          - generic [ref=e731]: مزروعه
+          - generic [ref=e732]:
+            - generic [ref=e733]: 
+            - text: 583 م²
+        - generic [ref=e734] [cursor=pointer]:
+          - generic [ref=e735]:
+            - generic [ref=e736]: MNR1165
+            - generic [ref=e737]: الدقهلية
+          - generic [ref=e738]: كفر الشنهاب
+          - generic [ref=e739]: مزروعه
+          - generic [ref=e740]:
+            - generic [ref=e741]: 
+            - text: 422 م²
+        - generic [ref=e742] [cursor=pointer]:
+          - generic [ref=e743]:
+            - generic [ref=e744]: MNR1164
+            - generic [ref=e745]: الدقهلية
+          - generic [ref=e746]: كفر الشنهاب
+          - generic [ref=e747]: مزروعه
+          - generic [ref=e748]:
+            - generic [ref=e749]: 
+            - text: 519 م²
+        - generic [ref=e750] [cursor=pointer]:
+          - generic [ref=e751]:
+            - generic [ref=e752]: MNR1163
+            - generic [ref=e753]: الدقهلية
+          - generic [ref=e754]: كفر الشنهاب
+          - generic [ref=e755]: فضاء
+          - generic [ref=e756]:
+            - generic [ref=e757]: 
+            - text: 473 م²
+        - generic [ref=e758] [cursor=pointer]:
+          - generic [ref=e759]:
+            - generic [ref=e760]: MNR1162
+            - generic [ref=e761]: الدقهلية
+          - generic [ref=e762]: كفر الشنهاب
+          - generic [ref=e763]: مزروعه
+          - generic [ref=e764]:
+            - generic [ref=e765]: 
+            - text: 1,536 م²
+        - generic [ref=e766] [cursor=pointer]:
+          - generic [ref=e767]:
+            - generic [ref=e768]: MNR1161
+            - generic [ref=e769]: الدقهلية
+          - generic [ref=e770]: كفر الشنهاب
+          - generic [ref=e771]: مزروعه
+          - generic [ref=e772]:
+            - generic [ref=e773]: 
+            - text: 676 م²
+        - generic [ref=e774] [cursor=pointer]:
+          - generic [ref=e775]:
+            - generic [ref=e776]: MNR1160
+            - generic [ref=e777]: الدقهلية
+          - generic [ref=e778]: كفر الشنهاب
+          - generic [ref=e779]: مزروعه
+          - generic [ref=e780]:
+            - generic [ref=e781]: 
+            - text: 797 م²
+        - generic [ref=e782] [cursor=pointer]:
+          - generic [ref=e783]:
+            - generic [ref=e784]: MNR1159
+            - generic [ref=e785]: الدقهلية
+          - generic [ref=e786]: كفر الشنهاب
+          - generic [ref=e787]: فضاء به مبني
+          - generic [ref=e788]:
+            - generic [ref=e789]: 
+            - text: 1,077 م²
+        - generic [ref=e790] [cursor=pointer]:
+          - generic [ref=e791]:
+            - generic [ref=e792]: MNR1158
+            - generic [ref=e793]: الدقهلية
+          - generic [ref=e794]: كفر الشنهاب
+          - generic [ref=e795]: مزروعه
+          - generic [ref=e796]:
+            - generic [ref=e797]: 
+            - text: 833 م²
+        - generic [ref=e798] [cursor=pointer]:
+          - generic [ref=e799]:
+            - generic [ref=e800]: MNR1157
+            - generic [ref=e801]: الدقهلية
+          - generic [ref=e802]: كفر الشنهاب
+          - generic [ref=e803]: حظيره
+          - generic [ref=e804]:
+            - generic [ref=e805]: 
+            - text: 196 م²
+        - generic [ref=e806] [cursor=pointer]:
+          - generic [ref=e807]:
+            - generic [ref=e808]: MNR1156
+            - generic [ref=e809]: الدقهلية
+          - generic [ref=e810]: كفر الشنهاب
+          - generic [ref=e811]: فضاء به مبني
+          - generic [ref=e812]:
+            - generic [ref=e813]: 
+            - text: 393 م²
+        - generic [ref=e814] [cursor=pointer]:
+          - generic [ref=e815]:
+            - generic [ref=e816]: MNR1155
+            - generic [ref=e817]: الدقهلية
+          - generic [ref=e818]: كفر الشنهاب
+          - generic [ref=e819]: فضاء
+          - generic [ref=e820]:
+            - generic [ref=e821]: 
+            - text: 678 م²
+        - generic [ref=e822] [cursor=pointer]:
+          - generic [ref=e823]:
+            - generic [ref=e824]: MNR1154
+            - generic [ref=e825]: الدقهلية
+          - generic [ref=e826]: كفر الشنهاب
+          - generic [ref=e827]: فضاء مسور به مبني وجمالون
+          - generic [ref=e828]:
+            - generic [ref=e829]: 
+            - text: 2,815 م²
+        - generic [ref=e830] [cursor=pointer]:
+          - generic [ref=e831]:
+            - generic [ref=e832]: MNR1153
+            - generic [ref=e833]: الدقهلية
+          - generic [ref=e834]: كفر الشنهاب
+          - generic [ref=e835]: فضاء
+          - generic [ref=e836]:
+            - generic [ref=e837]: 
+            - text: 649 م²
+        - generic [ref=e838] [cursor=pointer]:
+          - generic [ref=e839]:
+            - generic [ref=e840]: MNR1152
+            - generic [ref=e841]: الدقهلية
+          - generic [ref=e842]: كفر الشنهاب
+          - generic [ref=e843]: مزروعه
+          - generic [ref=e844]:
+            - generic [ref=e845]: 
+            - text: 470 م²
+        - generic [ref=e846] [cursor=pointer]:
+          - generic [ref=e847]:
+            - generic [ref=e848]: MNR1151
+            - generic [ref=e849]: الدقهلية
+          - generic [ref=e850]: كفر الشنهاب
+          - generic [ref=e851]: حظيره مواشي
+          - generic [ref=e852]:
+            - generic [ref=e853]: 
+            - text: 444 م²
+        - generic [ref=e854] [cursor=pointer]:
+          - generic [ref=e855]:
+            - generic [ref=e856]: MNR1150
+            - generic [ref=e857]: الدقهلية
+          - generic [ref=e858]: كفر الشنهاب
+          - generic [ref=e859]: فضاء
+          - generic [ref=e860]:
+            - generic [ref=e861]: 
+            - text: 162 م²
+        - generic [ref=e862] [cursor=pointer]:
+          - generic [ref=e863]:
+            - generic [ref=e864]: MNR1149
+            - generic [ref=e865]: الدقهلية
+          - generic [ref=e866]: كفر الشنهاب
+          - generic [ref=e867]: مزروعه
+          - generic [ref=e868]:
+            - generic [ref=e869]: 
+            - text: 1,495 م²
+        - generic [ref=e870] [cursor=pointer]:
+          - generic [ref=e871]:
+            - generic [ref=e872]: MNR1148
+            - generic [ref=e873]: الدقهلية
+          - generic [ref=e874]: كفر الشنهاب
+          - generic [ref=e875]: فضاء
+          - generic [ref=e876]:
+            - generic [ref=e877]: 
+            - text: 836 م²
+        - generic [ref=e878] [cursor=pointer]:
+          - generic [ref=e879]:
+            - generic [ref=e880]: MNR1147
+            - generic [ref=e881]: الدقهلية
+          - generic [ref=e882]: كفر الشنهاب
+          - generic [ref=e883]: فضاء
+          - generic [ref=e884]:
+            - generic [ref=e885]: 
+            - text: 517 م²
+        - generic [ref=e886] [cursor=pointer]:
+          - generic [ref=e887]:
+            - generic [ref=e888]: MNR1146
+            - generic [ref=e889]: الدقهلية
+          - generic [ref=e890]: كفر الشنهاب
+          - generic [ref=e891]: فضاء
+          - generic [ref=e892]:
+            - generic [ref=e893]: 
+            - text: 497 م²
+        - generic [ref=e894] [cursor=pointer]:
+          - generic [ref=e895]:
+            - generic [ref=e896]: MNR1145
+            - generic [ref=e897]: الدقهلية
+          - generic [ref=e898]: كفر الشنهاب
+          - generic [ref=e899]: مزروعه
+          - generic [ref=e900]:
+            - generic [ref=e901]: 
+            - text: 2,066 م²
+        - generic [ref=e902] [cursor=pointer]:
+          - generic [ref=e903]:
+            - generic [ref=e904]: MNR1144
+            - generic [ref=e905]: الدقهلية
+          - generic [ref=e906]: كفر الشنهاب
+          - generic [ref=e907]: مزروعه
+          - generic [ref=e908]:
+            - generic [ref=e909]: 
+            - text: 1,459 م²
+        - generic [ref=e910] [cursor=pointer]:
+          - generic [ref=e911]:
+            - generic [ref=e912]: MNR1143
+            - generic [ref=e913]: الدقهلية
+          - generic [ref=e914]: كفر الشنهاب
+          - generic [ref=e915]: مزروعه
+          - generic [ref=e916]:
+            - generic [ref=e917]: 
+            - text: 485 م²
+        - generic [ref=e918] [cursor=pointer]:
+          - generic [ref=e919]:
+            - generic [ref=e920]: MNR1142
+            - generic [ref=e921]: الدقهلية
+          - generic [ref=e922]: كفر الشنهاب
+          - generic [ref=e923]: مزروعه
+          - generic [ref=e924]:
+            - generic [ref=e925]: 
+            - text: 855 م²
+        - generic [ref=e926] [cursor=pointer]:
+          - generic [ref=e927]:
+            - generic [ref=e928]: MNR1141
+            - generic [ref=e929]: الدقهلية
+          - generic [ref=e930]: كفر الشنهاب
+          - generic [ref=e931]: مزروعه
+          - generic [ref=e932]:
+            - generic [ref=e933]: 
+            - text: 1,442 م²
+        - generic [ref=e934] [cursor=pointer]:
+          - generic [ref=e935]:
+            - generic [ref=e936]: MNR1140
+            - generic [ref=e937]: الدقهلية
+          - generic [ref=e938]: كفر الشنهاب
+          - generic [ref=e939]: مزروعه
+          - generic [ref=e940]:
+            - generic [ref=e941]: 
+            - text: 2,850 م²
+        - generic [ref=e942] [cursor=pointer]:
+          - generic [ref=e943]:
+            - generic [ref=e944]: MNR1139
+            - generic [ref=e945]: الدقهلية
+          - generic [ref=e946]: كفر الشنهاب
+          - generic [ref=e947]: مزروعه
+          - generic [ref=e948]:
+            - generic [ref=e949]: 
+            - text: 1,269 م²
+        - generic [ref=e950] [cursor=pointer]:
+          - generic [ref=e951]:
+            - generic [ref=e952]: MNR1138
+            - generic [ref=e953]: الدقهلية
+          - generic [ref=e954]: كفر الشنهاب
+          - generic [ref=e955]: مزروعه
+          - generic [ref=e956]:
+            - generic [ref=e957]: 
+            - text: 2,521 م²
+        - generic [ref=e958] [cursor=pointer]:
+          - generic [ref=e959]:
+            - generic [ref=e960]: MNR1137
+            - generic [ref=e961]: الدقهلية
+          - generic [ref=e962]: كفر الشنهاب
+          - generic [ref=e963]: مزروعه
+          - generic [ref=e964]:
+            - generic [ref=e965]: 
+            - text: 1,543 م²
+        - generic [ref=e966] [cursor=pointer]:
+          - generic [ref=e967]:
+            - generic [ref=e968]: MNR1136
+            - generic [ref=e969]: الدقهلية
+          - generic [ref=e970]: كفر الشنهاب
+          - generic [ref=e971]: مزروعه
+          - generic [ref=e972]:
+            - generic [ref=e973]: 
+            - text: 1,016 م²
+        - generic [ref=e974] [cursor=pointer]:
+          - generic [ref=e975]:
+            - generic [ref=e976]: MNR1135
+            - generic [ref=e977]: الدقهلية
+          - generic [ref=e978]: كفر الشنهاب
+          - generic [ref=e979]: مزروعه
+          - generic [ref=e980]:
+            - generic [ref=e981]: 
+            - text: 539 م²
+        - generic [ref=e982] [cursor=pointer]:
+          - generic [ref=e983]:
+            - generic [ref=e984]: MNR1134
+            - generic [ref=e985]: الدقهلية
+          - generic [ref=e986]: كفر الشنهاب
+          - generic [ref=e987]: مزروعه
+          - generic [ref=e988]:
+            - generic [ref=e989]: 
+            - text: 359 م²
+        - generic [ref=e990] [cursor=pointer]:
+          - generic [ref=e991]:
+            - generic [ref=e992]: MNR1133
+            - generic [ref=e993]: الدقهلية
+          - generic [ref=e994]: كفر الشنهاب
+          - generic [ref=e995]: مزروعه
+          - generic [ref=e996]:
+            - generic [ref=e997]: 
+            - text: 986 م²
+        - generic [ref=e998] [cursor=pointer]:
+          - generic [ref=e999]:
+            - generic [ref=e1000]: MNR1132
+            - generic [ref=e1001]: الدقهلية
+          - generic [ref=e1002]: كفر الشنهاب
+          - generic [ref=e1003]: مزروعه
+          - generic [ref=e1004]:
+            - generic [ref=e1005]: 
+            - text: 1,107 م²
+        - generic [ref=e1006] [cursor=pointer]:
+          - generic [ref=e1007]:
+            - generic [ref=e1008]: MNR1131
+            - generic [ref=e1009]: الدقهلية
+          - generic [ref=e1010]: كفر الشنهاب
+          - generic [ref=e1011]: فضاء مسور به مبني
+          - generic [ref=e1012]:
+            - generic [ref=e1013]: 
+            - text: 2,363 م²
+        - generic [ref=e1014] [cursor=pointer]:
+          - generic [ref=e1015]:
+            - generic [ref=e1016]: MNR1130
+            - generic [ref=e1017]: الدقهلية
+          - generic [ref=e1018]: كفر الشنهاب
+          - generic [ref=e1019]: مزروعه
+          - generic [ref=e1020]:
+            - generic [ref=e1021]: 
+            - text: 500 م²
+        - generic [ref=e1022] [cursor=pointer]:
+          - generic [ref=e1023]:
+            - generic [ref=e1024]: MNR1129
+            - generic [ref=e1025]: الدقهلية
+          - generic [ref=e1026]: كفر الشنهاب
+          - generic [ref=e1027]: مزروعه
+          - generic [ref=e1028]:
+            - generic [ref=e1029]: 
+            - text: 1,493 م²
+        - generic [ref=e1030] [cursor=pointer]:
+          - generic [ref=e1031]:
+            - generic [ref=e1032]: MNR1128
+            - generic [ref=e1033]: الدقهلية
+          - generic [ref=e1034]: كفر الشنهاب
+          - generic [ref=e1035]: مزروعه
+          - generic [ref=e1036]:
+            - generic [ref=e1037]: 
+            - text: 6,207 م²
+        - generic [ref=e1038] [cursor=pointer]:
+          - generic [ref=e1039]:
+            - generic [ref=e1040]: MNR1127
+            - generic [ref=e1041]: الدقهلية
+          - generic [ref=e1042]: كفر الشنهاب
+          - generic [ref=e1043]: مزروعه
+          - generic [ref=e1044]:
+            - generic [ref=e1045]: 
+            - text: 2,678 م²
+        - generic [ref=e1046] [cursor=pointer]:
+          - generic [ref=e1047]:
+            - generic [ref=e1048]: MNR1126
+            - generic [ref=e1049]: الدقهلية
+          - generic [ref=e1050]: كفر الشنهاب
+          - generic [ref=e1051]: مزروعه
+          - generic [ref=e1052]:
+            - generic [ref=e1053]: 
+            - text: 326 م²
+        - generic [ref=e1054] [cursor=pointer]:
+          - generic [ref=e1055]:
+            - generic [ref=e1056]: MNR1125
+            - generic [ref=e1057]: الدقهلية
+          - generic [ref=e1058]: كفر الشنهاب
+          - generic [ref=e1059]: مزروعه
+          - generic [ref=e1060]:
+            - generic [ref=e1061]: 
+            - text: 643 م²
+        - generic [ref=e1062] [cursor=pointer]:
+          - generic [ref=e1063]:
+            - generic [ref=e1064]: MNR1124
+            - generic [ref=e1065]: الدقهلية
+          - generic [ref=e1066]: كفر الشنهاب
+          - generic [ref=e1067]: مزروعه
+          - generic [ref=e1068]:
+            - generic [ref=e1069]: 
+            - text: 1,012 م²
+        - generic [ref=e1070] [cursor=pointer]:
+          - generic [ref=e1071]:
+            - generic [ref=e1072]: MNR1123
+            - generic [ref=e1073]: الدقهلية
+          - generic [ref=e1074]: كفر الشنهاب
+          - generic [ref=e1075]: مزروعه
+          - generic [ref=e1076]:
+            - generic [ref=e1077]: 
+            - text: 996 م²
+        - generic [ref=e1078] [cursor=pointer]:
+          - generic [ref=e1079]:
+            - generic [ref=e1080]: MNR1122
+            - generic [ref=e1081]: الدقهلية
+          - generic [ref=e1082]: كفر الشنهاب
+          - generic [ref=e1083]: مزروعه
+          - generic [ref=e1084]:
+            - generic [ref=e1085]: 
+            - text: 1,191 م²
+        - generic [ref=e1086] [cursor=pointer]:
+          - generic [ref=e1087]:
+            - generic [ref=e1088]: MNR1121
+            - generic [ref=e1089]: الدقهلية
+          - generic [ref=e1090]: كفر الشنهاب
+          - generic [ref=e1091]: مزروعه
+          - generic [ref=e1092]:
+            - generic [ref=e1093]: 
+            - text: 683 م²
+        - generic [ref=e1094] [cursor=pointer]:
+          - generic [ref=e1095]:
+            - generic [ref=e1096]: MNR1120
+            - generic [ref=e1097]: الدقهلية
+          - generic [ref=e1098]: كفر الشنهاب
+          - generic [ref=e1099]: مزروعه
+          - generic [ref=e1100]:
+            - generic [ref=e1101]: 
+            - text: 2,873 م²
+        - generic [ref=e1102] [cursor=pointer]:
+          - generic [ref=e1103]:
+            - generic [ref=e1104]: MNR1119
+            - generic [ref=e1105]: الدقهلية
+          - generic [ref=e1106]: كفر الشنهاب
+          - generic [ref=e1107]: مزروعه
+          - generic [ref=e1108]:
+            - generic [ref=e1109]: 
+            - text: 648 م²
+        - generic [ref=e1110] [cursor=pointer]:
+          - generic [ref=e1111]:
+            - generic [ref=e1112]: MNR1118
+            - generic [ref=e1113]: الدقهلية
+          - generic [ref=e1114]: كفر الشنهاب
+          - generic [ref=e1115]: مزروعه وبه غرفه
+          - generic [ref=e1116]:
+            - generic [ref=e1117]: 
+            - text: 1,396 م²
+        - generic [ref=e1118] [cursor=pointer]:
+          - generic [ref=e1119]:
+            - generic [ref=e1120]: MNR1117
+            - generic [ref=e1121]: الدقهلية
+          - generic [ref=e1122]: كفر الشنهاب
+          - generic [ref=e1123]: مزروعه
+          - generic [ref=e1124]:
+            - generic [ref=e1125]: 
+            - text: 956 م²
+        - generic [ref=e1126] [cursor=pointer]:
+          - generic [ref=e1127]:
+            - generic [ref=e1128]: MNR1116
+            - generic [ref=e1129]: الدقهلية
+          - generic [ref=e1130]: كفر الشنهاب
+          - generic [ref=e1131]: مزروعه
+          - generic [ref=e1132]:
+            - generic [ref=e1133]: 
+            - text: 948 م²
+        - generic [ref=e1134] [cursor=pointer]:
+          - generic [ref=e1135]:
+            - generic [ref=e1136]: MNR1115
+            - generic [ref=e1137]: الدقهلية
+          - generic [ref=e1138]: كفر الشنهاب
+          - generic [ref=e1139]: مزروعه
+          - generic [ref=e1140]:
+            - generic [ref=e1141]: 
+            - text: 1,235 م²
+        - generic [ref=e1142] [cursor=pointer]:
+          - generic [ref=e1143]:
+            - generic [ref=e1144]: MNR1114
+            - generic [ref=e1145]: الدقهلية
+          - generic [ref=e1146]: كفر الشنهاب
+          - generic [ref=e1147]: مزروعه
+          - generic [ref=e1148]:
+            - generic [ref=e1149]: 
+            - text: 933 م²
+        - generic [ref=e1150] [cursor=pointer]:
+          - generic [ref=e1151]:
+            - generic [ref=e1152]: MNR1113
+            - generic [ref=e1153]: الدقهلية
+          - generic [ref=e1154]: كفر الشنهاب
+          - generic [ref=e1155]: مزروعه
+          - generic [ref=e1156]:
+            - generic [ref=e1157]: 
+            - text: 1,144 م²
+        - generic [ref=e1158] [cursor=pointer]:
+          - generic [ref=e1159]:
+            - generic [ref=e1160]: MNR1112
+            - generic [ref=e1161]: الدقهلية
+          - generic [ref=e1162]: كفر الشنهاب
+          - generic [ref=e1163]: مزروعه
+          - generic [ref=e1164]:
+            - generic [ref=e1165]: 
+            - text: 736 م²
+        - generic [ref=e1166] [cursor=pointer]:
+          - generic [ref=e1167]:
+            - generic [ref=e1168]: MNR1111
+            - generic [ref=e1169]: الدقهلية
+          - generic [ref=e1170]: كفر الشنهاب
+          - generic [ref=e1171]: مزروعه
+          - generic [ref=e1172]:
+            - generic [ref=e1173]: 
+            - text: 3,220 م²
+        - generic [ref=e1174] [cursor=pointer]:
+          - generic [ref=e1175]:
+            - generic [ref=e1176]: MNR1110
+            - generic [ref=e1177]: الدقهلية
+          - generic [ref=e1178]: كفر الشنهاب
+          - generic [ref=e1179]: مزروعه
+          - generic [ref=e1180]:
+            - generic [ref=e1181]: 
+            - text: 910 م²
+        - generic [ref=e1182] [cursor=pointer]:
+          - generic [ref=e1183]:
+            - generic [ref=e1184]: MNR1109
+            - generic [ref=e1185]: الدقهلية
+          - generic [ref=e1186]: كفر الشنهاب
+          - generic [ref=e1187]: مزروعه
+          - generic [ref=e1188]:
+            - generic [ref=e1189]: 
+            - text: 1,522 م²
+        - generic [ref=e1190] [cursor=pointer]:
+          - generic [ref=e1191]:
+            - generic [ref=e1192]: MNR1108
+            - generic [ref=e1193]: الدقهلية
+          - generic [ref=e1194]: كفر الشنهاب
+          - generic [ref=e1195]: مزروعه
+          - generic [ref=e1196]:
+            - generic [ref=e1197]: 
+            - text: 3,864 م²
+        - generic [ref=e1198] [cursor=pointer]:
+          - generic [ref=e1199]:
+            - generic [ref=e1200]: MNR1107
+            - generic [ref=e1201]: الدقهلية
+          - generic [ref=e1202]: كفر الشنهاب
+          - generic [ref=e1203]: مزروعه
+          - generic [ref=e1204]:
+            - generic [ref=e1205]: 
+            - text: 1,531 م²
+        - generic [ref=e1206] [cursor=pointer]:
+          - generic [ref=e1207]:
+            - generic [ref=e1208]: MNR1106
+            - generic [ref=e1209]: الدقهلية
+          - generic [ref=e1210]: كفر الشنهاب
+          - generic [ref=e1211]: مزروعه
+          - generic [ref=e1212]:
+            - generic [ref=e1213]: 
+            - text: 1,138 م²
+        - generic [ref=e1214] [cursor=pointer]:
+          - generic [ref=e1215]:
+            - generic [ref=e1216]: MNR1105
+            - generic [ref=e1217]: الدقهلية
+          - generic [ref=e1218]: كفر الشنهاب
+          - generic [ref=e1219]: مزروعه
+          - generic [ref=e1220]:
+            - generic [ref=e1221]: 
+            - text: 255 م²
+        - generic [ref=e1222] [cursor=pointer]:
+          - generic [ref=e1223]:
+            - generic [ref=e1224]: MNR1104
+            - generic [ref=e1225]: الدقهلية
+          - generic [ref=e1226]: كفر الشنهاب
+          - generic [ref=e1227]: nan
+          - generic [ref=e1228]:
+            - generic [ref=e1229]: 
+            - text: 1,010 م²
+        - generic [ref=e1230] [cursor=pointer]:
+          - generic [ref=e1231]:
+            - generic [ref=e1232]: MNR1103
+            - generic [ref=e1233]: الدقهلية
+          - generic [ref=e1234]: كفر الشنهاب
+          - generic [ref=e1235]: مزروعه
+          - generic [ref=e1236]:
+            - generic [ref=e1237]: 
+            - text: 790 م²
+        - generic [ref=e1238] [cursor=pointer]:
+          - generic [ref=e1239]:
+            - generic [ref=e1240]: MNR1102
+            - generic [ref=e1241]: الدقهلية
+          - generic [ref=e1242]: كفر الشنهاب
+          - generic [ref=e1243]: مزروعه
+          - generic [ref=e1244]:
+            - generic [ref=e1245]: 
+            - text: 634 م²
+        - generic [ref=e1246] [cursor=pointer]:
+          - generic [ref=e1247]:
+            - generic [ref=e1248]: MNR1101
+            - generic [ref=e1249]: الدقهلية
+          - generic [ref=e1250]: كفر الشنهاب
+          - generic [ref=e1251]: مزروعه
+          - generic [ref=e1252]:
+            - generic [ref=e1253]: 
+            - text: 1,025 م²
+        - generic [ref=e1254] [cursor=pointer]:
+          - generic [ref=e1255]:
+            - generic [ref=e1256]: MNR1100
+            - generic [ref=e1257]: الدقهلية
+          - generic [ref=e1258]: كفر الشنهاب
+          - generic [ref=e1259]: مزروعه
+          - generic [ref=e1260]:
+            - generic [ref=e1261]: 
+            - text: 683 م²
+        - generic [ref=e1262] [cursor=pointer]:
+          - generic [ref=e1263]:
+            - generic [ref=e1264]: MNR1099
+            - generic [ref=e1265]: الدقهلية
+          - generic [ref=e1266]: كفر الشنهاب
+          - generic [ref=e1267]: مزروعه
+          - generic [ref=e1268]:
+            - generic [ref=e1269]: 
+            - text: 619 م²
+        - generic [ref=e1270] [cursor=pointer]:
+          - generic [ref=e1271]:
+            - generic [ref=e1272]: MNR1098
+            - generic [ref=e1273]: الدقهلية
+          - generic [ref=e1274]: كفر الشنهاب
+          - generic [ref=e1275]: مزروعه
+          - generic [ref=e1276]:
+            - generic [ref=e1277]: 
+            - text: 1,368 م²
+        - generic [ref=e1278] [cursor=pointer]:
+          - generic [ref=e1279]:
+            - generic [ref=e1280]: MNR1097
+            - generic [ref=e1281]: الدقهلية
+          - generic [ref=e1282]: كفر الشنهاب
+          - generic [ref=e1283]: مزروعه
+          - generic [ref=e1284]:
+            - generic [ref=e1285]: 
+            - text: 2,843 م²
+        - generic [ref=e1286] [cursor=pointer]:
+          - generic [ref=e1287]:
+            - generic [ref=e1288]: MNR1096
+            - generic [ref=e1289]: الدقهلية
+          - generic [ref=e1290]: كفر الشنهاب
+          - generic [ref=e1291]: مزروعه
+          - generic [ref=e1292]:
+            - generic [ref=e1293]: 
+            - text: 2,004 م²
+        - generic [ref=e1294] [cursor=pointer]:
+          - generic [ref=e1295]:
+            - generic [ref=e1296]: MNR1095
+            - generic [ref=e1297]: الدقهلية
+          - generic [ref=e1298]: كفر الشنهاب
+          - generic [ref=e1299]: مزروعه
+          - generic [ref=e1300]:
+            - generic [ref=e1301]: 
+            - text: 702 م²
+        - generic [ref=e1302] [cursor=pointer]:
+          - generic [ref=e1303]:
+            - generic [ref=e1304]: MNR1094
+            - generic [ref=e1305]: الدقهلية
+          - generic [ref=e1306]: كفر الشنهاب
+          - generic [ref=e1307]: مزروعه موز
+          - generic [ref=e1308]:
+            - generic [ref=e1309]: 
+            - text: 566 م²
+        - generic [ref=e1310] [cursor=pointer]:
+          - generic [ref=e1311]:
+            - generic [ref=e1312]: MNR1093
+            - generic [ref=e1313]: الدقهلية
+          - generic [ref=e1314]: كفر الشنهاب
+          - generic [ref=e1315]: مزروعه
+          - generic [ref=e1316]:
+            - generic [ref=e1317]: 
+            - text: 1,237 م²
+        - generic [ref=e1318] [cursor=pointer]:
+          - generic [ref=e1319]:
+            - generic [ref=e1320]: MNR1092
+            - generic [ref=e1321]: الدقهلية
+          - generic [ref=e1322]: كفر الشنهاب
+          - generic [ref=e1323]: مزروعه
+          - generic [ref=e1324]:
+            - generic [ref=e1325]: 
+            - text: 540 م²
+        - generic [ref=e1326] [cursor=pointer]:
+          - generic [ref=e1327]:
+            - generic [ref=e1328]: MNR1091
+            - generic [ref=e1329]: الدقهلية
+          - generic [ref=e1330]: كفر الشنهاب
+          - generic [ref=e1331]: مزروعه
+          - generic [ref=e1332]:
+            - generic [ref=e1333]: 
+            - text: 703 م²
+        - generic [ref=e1334] [cursor=pointer]:
+          - generic [ref=e1335]:
+            - generic [ref=e1336]: MNR1090
+            - generic [ref=e1337]: الدقهلية
+          - generic [ref=e1338]: كفر الشنهاب
+          - generic [ref=e1339]: مزروعه
+          - generic [ref=e1340]:
+            - generic [ref=e1341]: 
+            - text: 321 م²
+        - generic [ref=e1342] [cursor=pointer]:
+          - generic [ref=e1343]:
+            - generic [ref=e1344]: MNR1089
+            - generic [ref=e1345]: الدقهلية
+          - generic [ref=e1346]: كفر الشنهاب
+          - generic [ref=e1347]: مزروعه
+          - generic [ref=e1348]:
+            - generic [ref=e1349]: 
+            - text: 264 م²
+        - generic [ref=e1350] [cursor=pointer]:
+          - generic [ref=e1351]:
+            - generic [ref=e1352]: MNR1088
+            - generic [ref=e1353]: الدقهلية
+          - generic [ref=e1354]: كفر الشنهاب
+          - generic [ref=e1355]: مزروعه
+          - generic [ref=e1356]:
+            - generic [ref=e1357]: 
+            - text: 2,171 م²
+        - generic [ref=e1358] [cursor=pointer]:
+          - generic [ref=e1359]:
+            - generic [ref=e1360]: MNR1087
+            - generic [ref=e1361]: الدقهلية
+          - generic [ref=e1362]: كفر الشنهاب
+          - generic [ref=e1363]: مزروعه
+          - generic [ref=e1364]:
+            - generic [ref=e1365]: 
+            - text: 1,063 م²
+        - generic [ref=e1366] [cursor=pointer]:
+          - generic [ref=e1367]:
+            - generic [ref=e1368]: MNR1086
+            - generic [ref=e1369]: الدقهلية
+          - generic [ref=e1370]: كفر الشنهاب
+          - generic [ref=e1371]: مزروعه
+          - generic [ref=e1372]:
+            - generic [ref=e1373]: 
+            - text: 1,001 م²
+        - generic [ref=e1374] [cursor=pointer]:
+          - generic [ref=e1375]:
+            - generic [ref=e1376]: MNR1085
+            - generic [ref=e1377]: الدقهلية
+          - generic [ref=e1378]: كفر الشنهاب
+          - generic [ref=e1379]: مزروعه
+          - generic [ref=e1380]:
+            - generic [ref=e1381]: 
+            - text: 1,110 م²
+        - generic [ref=e1382] [cursor=pointer]:
+          - generic [ref=e1383]:
+            - generic [ref=e1384]: MNR1084
+            - generic [ref=e1385]: الدقهلية
+          - generic [ref=e1386]: كفر الشنهاب
+          - generic [ref=e1387]: مزروعه
+          - generic [ref=e1388]:
+            - generic [ref=e1389]: 
+            - text: 4,277 م²
+        - generic [ref=e1390] [cursor=pointer]:
+          - generic [ref=e1391]:
+            - generic [ref=e1392]: MNR1083
+            - generic [ref=e1393]: الدقهلية
+          - generic [ref=e1394]: كفر الشنهاب
+          - generic [ref=e1395]: مزروعه
+          - generic [ref=e1396]:
+            - generic [ref=e1397]: 
+            - text: 1,890 م²
+        - generic [ref=e1398] [cursor=pointer]:
+          - generic [ref=e1399]:
+            - generic [ref=e1400]: MNR1082
+            - generic [ref=e1401]: الدقهلية
+          - generic [ref=e1402]: كفر الشنهاب
+          - generic [ref=e1403]: مزروعه
+          - generic [ref=e1404]:
+            - generic [ref=e1405]: 
+            - text: 1,576 م²
+        - generic [ref=e1406] [cursor=pointer]:
+          - generic [ref=e1407]:
+            - generic [ref=e1408]: MNR1081
+            - generic [ref=e1409]: الدقهلية
+          - generic [ref=e1410]: كفر الشنهاب
+          - generic [ref=e1411]: مزروعه
+          - generic [ref=e1412]:
+            - generic [ref=e1413]: 
+            - text: 2,069 م²
+        - generic [ref=e1414] [cursor=pointer]:
+          - generic [ref=e1415]:
+            - generic [ref=e1416]: MNR1080
+            - generic [ref=e1417]: الدقهلية
+          - generic [ref=e1418]: كفر الشنهاب
+          - generic [ref=e1419]: مزروعه
+          - generic [ref=e1420]:
+            - generic [ref=e1421]: 
+            - text: 2,058 م²
+        - generic [ref=e1422] [cursor=pointer]:
+          - generic [ref=e1423]:
+            - generic [ref=e1424]: MNR1079
+            - generic [ref=e1425]: الدقهلية
+          - generic [ref=e1426]: كفر الشنهاب
+          - generic [ref=e1427]: مزروعه
+          - generic [ref=e1428]:
+            - generic [ref=e1429]: 
+            - text: 1,057 م²
+        - generic [ref=e1430] [cursor=pointer]:
+          - generic [ref=e1431]:
+            - generic [ref=e1432]: MNR1078
+            - generic [ref=e1433]: الدقهلية
+          - generic [ref=e1434]: كفر الشنهاب
+          - generic [ref=e1435]: مزروعه
+          - generic [ref=e1436]:
+            - generic [ref=e1437]: 
+            - text: 1,665 م²
+        - generic [ref=e1438] [cursor=pointer]:
+          - generic [ref=e1439]:
+            - generic [ref=e1440]: MNR1077
+            - generic [ref=e1441]: الدقهلية
+          - generic [ref=e1442]: كفر الشنهاب
+          - generic [ref=e1443]: مزروعه
+          - generic [ref=e1444]:
+            - generic [ref=e1445]: 
+            - text: 1,770 م²
+        - generic [ref=e1446] [cursor=pointer]:
+          - generic [ref=e1447]:
+            - generic [ref=e1448]: MNR1076
+            - generic [ref=e1449]: الدقهلية
+          - generic [ref=e1450]: كفر الشنهاب
+          - generic [ref=e1451]: مزروعه
+          - generic [ref=e1452]:
+            - generic [ref=e1453]: 
+            - text: 2,459 م²
+        - generic [ref=e1454] [cursor=pointer]:
+          - generic [ref=e1455]:
+            - generic [ref=e1456]: MNR1075
+            - generic [ref=e1457]: الدقهلية
+          - generic [ref=e1458]: كفر الشنهاب
+          - generic [ref=e1459]: مزروعه
+          - generic [ref=e1460]:
+            - generic [ref=e1461]: 
+            - text: 1,588 م²
+        - generic [ref=e1462] [cursor=pointer]:
+          - generic [ref=e1463]:
+            - generic [ref=e1464]: MNR1074
+            - generic [ref=e1465]: الدقهلية
+          - generic [ref=e1466]: كفر الشنهاب
+          - generic [ref=e1467]: مزروعه
+          - generic [ref=e1468]:
+            - generic [ref=e1469]: 
+            - text: 789 م²
+        - generic [ref=e1470] [cursor=pointer]:
+          - generic [ref=e1471]:
+            - generic [ref=e1472]: MNR1073
+            - generic [ref=e1473]: الدقهلية
+          - generic [ref=e1474]: كفر الشنهاب
+          - generic [ref=e1475]: مزروعه
+          - generic [ref=e1476]:
+            - generic [ref=e1477]: 
+            - text: 516 م²
+        - generic [ref=e1478] [cursor=pointer]:
+          - generic [ref=e1479]:
+            - generic [ref=e1480]: MNR1072
+            - generic [ref=e1481]: الدقهلية
+          - generic [ref=e1482]: كفر الشنهاب
+          - generic [ref=e1483]: مزروعه
+          - generic [ref=e1484]:
+            - generic [ref=e1485]: 
+            - text: 1,276 م²
+        - generic [ref=e1486] [cursor=pointer]:
+          - generic [ref=e1487]:
+            - generic [ref=e1488]: MNR1071
+            - generic [ref=e1489]: الدقهلية
+          - generic [ref=e1490]: كفر الشنهاب
+          - generic [ref=e1491]: مزروعه
+          - generic [ref=e1492]:
+            - generic [ref=e1493]: 
+            - text: 1,092 م²
+        - generic [ref=e1494] [cursor=pointer]:
+          - generic [ref=e1495]:
+            - generic [ref=e1496]: MNR1070
+            - generic [ref=e1497]: الدقهلية
+          - generic [ref=e1498]: كفر الشنهاب
+          - generic [ref=e1499]: مزروعه
+          - generic [ref=e1500]:
+            - generic [ref=e1501]: 
+            - text: 1,280 م²
+        - generic [ref=e1502] [cursor=pointer]:
+          - generic [ref=e1503]:
+            - generic [ref=e1504]: MNR1069
+            - generic [ref=e1505]: الدقهلية
+          - generic [ref=e1506]: كفر الشنهاب
+          - generic [ref=e1507]: مزروعه
+          - generic [ref=e1508]:
+            - generic [ref=e1509]: 
+            - text: 1,529 م²
+        - generic [ref=e1510] [cursor=pointer]:
+          - generic [ref=e1511]:
+            - generic [ref=e1512]: MNR1068
+            - generic [ref=e1513]: الدقهلية
+          - generic [ref=e1514]: كفر الشنهاب
+          - generic [ref=e1515]: مزروعه
+          - generic [ref=e1516]:
+            - generic [ref=e1517]: 
+            - text: 1,461 م²
+        - generic [ref=e1518] [cursor=pointer]:
+          - generic [ref=e1519]:
+            - generic [ref=e1520]: MNR1067
+            - generic [ref=e1521]: الدقهلية
+          - generic [ref=e1522]: كفر الشنهاب
+          - generic [ref=e1523]: مزروعه
+          - generic [ref=e1524]:
+            - generic [ref=e1525]: 
+            - text: 2,517 م²
+        - generic [ref=e1526] [cursor=pointer]:
+          - generic [ref=e1527]:
+            - generic [ref=e1528]: MNR1066
+            - generic [ref=e1529]: الدقهلية
+          - generic [ref=e1530]: كفر الشنهاب
+          - generic [ref=e1531]: مزروعه
+          - generic [ref=e1532]:
+            - generic [ref=e1533]: 
+            - text: 4,255 م²
+        - generic [ref=e1534] [cursor=pointer]:
+          - generic [ref=e1535]:
+            - generic [ref=e1536]: MNR1065
+            - generic [ref=e1537]: الدقهلية
+          - generic [ref=e1538]: كفر الشنهاب
+          - generic [ref=e1539]: مزروعه
+          - generic [ref=e1540]:
+            - generic [ref=e1541]: 
+            - text: 1,033 م²
+        - generic [ref=e1542] [cursor=pointer]:
+          - generic [ref=e1543]:
+            - generic [ref=e1544]: MNR1064
+            - generic [ref=e1545]: الدقهلية
+          - generic [ref=e1546]: كفر الشنهاب
+          - generic [ref=e1547]: مزروعه
+          - generic [ref=e1548]:
+            - generic [ref=e1549]: 
+            - text: 243 م²
+        - generic [ref=e1550] [cursor=pointer]:
+          - generic [ref=e1551]:
+            - generic [ref=e1552]: MNR1063
+            - generic [ref=e1553]: الدقهلية
+          - generic [ref=e1554]: كفر الشنهاب
+          - generic [ref=e1555]: مزروعه
+          - generic [ref=e1556]:
+            - generic [ref=e1557]: 
+            - text: 920 م²
+        - generic [ref=e1558] [cursor=pointer]:
+          - generic [ref=e1559]:
+            - generic [ref=e1560]: MNR1062
+            - generic [ref=e1561]: الدقهلية
+          - generic [ref=e1562]: كفر الشنهاب
+          - generic [ref=e1563]: مزروعه
+          - generic [ref=e1564]:
+            - generic [ref=e1565]: 
+            - text: 2,706 م²
+        - generic [ref=e1566] [cursor=pointer]:
+          - generic [ref=e1567]:
+            - generic [ref=e1568]: MNR1061
+            - generic [ref=e1569]: الدقهلية
+          - generic [ref=e1570]: كفر الشنهاب
+          - generic [ref=e1571]: مزروعه
+          - generic [ref=e1572]:
+            - generic [ref=e1573]: 
+            - text: 741 م²
+        - generic [ref=e1574] [cursor=pointer]:
+          - generic [ref=e1575]:
+            - generic [ref=e1576]: MNR1060
+            - generic [ref=e1577]: الدقهلية
+          - generic [ref=e1578]: كفر الشنهاب
+          - generic [ref=e1579]: مزروعه
+          - generic [ref=e1580]:
+            - generic [ref=e1581]: 
+            - text: 1,259 م²
+        - generic [ref=e1582] [cursor=pointer]:
+          - generic [ref=e1583]:
+            - generic [ref=e1584]: MNR1059
+            - generic [ref=e1585]: الدقهلية
+          - generic [ref=e1586]: كفر الشنهاب
+          - generic [ref=e1587]: مزروعه
+          - generic [ref=e1588]:
+            - generic [ref=e1589]: 
+            - text: 957 م²
+        - generic [ref=e1590] [cursor=pointer]:
+          - generic [ref=e1591]:
+            - generic [ref=e1592]: MNR1058
+            - generic [ref=e1593]: الدقهلية
+          - generic [ref=e1594]: كفر الشنهاب
+          - generic [ref=e1595]: مزروعه
+          - generic [ref=e1596]:
+            - generic [ref=e1597]: 
+            - text: 222 م²
+        - generic [ref=e1598] [cursor=pointer]:
+          - generic [ref=e1599]:
+            - generic [ref=e1600]: MNR1057
+            - generic [ref=e1601]: الدقهلية
+          - generic [ref=e1602]: كفر الشنهاب
+          - generic [ref=e1603]: مزروعه
+          - generic [ref=e1604]:
+            - generic [ref=e1605]: 
+            - text: 2,076 م²
+        - generic [ref=e1606] [cursor=pointer]:
+          - generic [ref=e1607]:
+            - generic [ref=e1608]: MNR1056
+            - generic [ref=e1609]: الدقهلية
+          - generic [ref=e1610]: كفر الشنهاب
+          - generic [ref=e1611]: مزروعه
+          - generic [ref=e1612]:
+            - generic [ref=e1613]: 
+            - text: 176 م²
+        - generic [ref=e1614] [cursor=pointer]:
+          - generic [ref=e1615]:
+            - generic [ref=e1616]: MNR1055
+            - generic [ref=e1617]: الدقهلية
+          - generic [ref=e1618]: كفر الشنهاب
+          - generic [ref=e1619]: مزروعه
+          - generic [ref=e1620]:
+            - generic [ref=e1621]: 
+            - text: 888 م²
+        - generic [ref=e1622] [cursor=pointer]:
+          - generic [ref=e1623]:
+            - generic [ref=e1624]: MNR1054
+            - generic [ref=e1625]: الدقهلية
+          - generic [ref=e1626]: كفر الشنهاب
+          - generic [ref=e1627]: مزروعه
+          - generic [ref=e1628]:
+            - generic [ref=e1629]: 
+            - text: 601 م²
+        - generic [ref=e1630] [cursor=pointer]:
+          - generic [ref=e1631]:
+            - generic [ref=e1632]: MNR1053
+            - generic [ref=e1633]: الدقهلية
+          - generic [ref=e1634]: كفر الشنهاب
+          - generic [ref=e1635]: مزروعه
+          - generic [ref=e1636]:
+            - generic [ref=e1637]: 
+            - text: 529 م²
+        - generic [ref=e1638] [cursor=pointer]:
+          - generic [ref=e1639]:
+            - generic [ref=e1640]: AGR1398
+            - generic [ref=e1641]: الدقهلية
+          - generic [ref=e1642]: نوسا البحر
+          - generic [ref=e1643]: كتله سكانيه
+          - generic [ref=e1644]:
+            - generic [ref=e1645]: 
+            - text: 947 م²
+        - generic [ref=e1646] [cursor=pointer]:
+          - generic [ref=e1647]:
+            - generic [ref=e1648]: AGR1405
+            - generic [ref=e1649]: الدقهلية
+          - generic [ref=e1650]: سنيخت
+          - generic [ref=e1651]: مزروعه موز
+          - generic [ref=e1652]:
+            - generic [ref=e1653]: 
+            - text: 1,274 م²
+        - generic [ref=e1654] [cursor=pointer]:
+          - generic [ref=e1655]:
+            - generic [ref=e1656]: AGR1401
+            - generic [ref=e1657]: الدقهلية
+          - generic [ref=e1658]: سنيخت
+          - generic [ref=e1659]: مزروعه موز
+          - generic [ref=e1660]:
+            - generic [ref=e1661]: 
+            - text: 1,257 م²
+        - generic [ref=e1662] [cursor=pointer]:
+          - generic [ref=e1663]:
+            - generic [ref=e1664]: AGR1406
+            - generic [ref=e1665]: الدقهلية
+          - generic [ref=e1666]: سنيخت
+          - generic [ref=e1667]: مزروعه موز
+          - generic [ref=e1668]:
+            - generic [ref=e1669]: 
+            - text: 2,838 م²
+        - generic [ref=e1670] [cursor=pointer]:
+          - generic [ref=e1671]:
+            - generic [ref=e1672]: AGR1407
+            - generic [ref=e1673]: الدقهلية
+          - generic [ref=e1674]: سنيخت
+          - generic [ref=e1675]: مزروعه موز
+          - generic [ref=e1676]:
+            - generic [ref=e1677]: 
+            - text: 2,069 م²
+        - generic [ref=e1678] [cursor=pointer]:
+          - generic [ref=e1679]:
+            - generic [ref=e1680]: AGR1408
+            - generic [ref=e1681]: الدقهلية
+          - generic [ref=e1682]: سنيخت
+          - generic [ref=e1683]: مزروعه موز
+          - generic [ref=e1684]:
+            - generic [ref=e1685]: 
+            - text: 1,336 م²
+        - generic [ref=e1686] [cursor=pointer]:
+          - generic [ref=e1687]:
+            - generic [ref=e1688]: AGR1399
+            - generic [ref=e1689]: الدقهلية
+          - generic [ref=e1690]: نوسا البحر
+          - generic [ref=e1691]: كتله سكانيه
+          - generic [ref=e1692]:
+            - generic [ref=e1693]: 
+            - text: 1,877 م²
+        - generic [ref=e1694] [cursor=pointer]:
+          - generic [ref=e1695]:
+            - generic [ref=e1696]: AGR1409
+            - generic [ref=e1697]: الدقهلية
+          - generic [ref=e1698]: سنيخت
+          - generic [ref=e1699]: مزروعه موز
+          - generic [ref=e1700]:
+            - generic [ref=e1701]: 
+            - text: 3,273 م²
+        - generic [ref=e1702] [cursor=pointer]:
+          - generic [ref=e1703]:
+            - generic [ref=e1704]: AGR1410
+            - generic [ref=e1705]: الدقهلية
+          - generic [ref=e1706]: سنيخت
+          - generic [ref=e1707]: مزروعه موز
+          - generic [ref=e1708]:
+            - generic [ref=e1709]: 
+            - text: 1,973 م²
+        - generic [ref=e1710] [cursor=pointer]:
+          - generic [ref=e1711]:
+            - generic [ref=e1712]: AGR1411
+            - generic [ref=e1713]: الدقهلية
+          - generic [ref=e1714]: سنيخت
+          - generic [ref=e1715]: مزروعه
+          - generic [ref=e1716]:
+            - generic [ref=e1717]: 
+            - text: 2,282 م²
+        - generic [ref=e1718] [cursor=pointer]:
+          - generic [ref=e1719]:
+            - generic [ref=e1720]: AGR1413
+            - generic [ref=e1721]: الدقهلية
+          - generic [ref=e1722]: سنيخت
+          - generic [ref=e1723]: مزروعه
+          - generic [ref=e1724]:
+            - generic [ref=e1725]: 
+            - text: 4,930 م²
+        - generic [ref=e1726] [cursor=pointer]:
+          - generic [ref=e1727]:
+            - generic [ref=e1728]: AGR1402
+            - generic [ref=e1729]: الدقهلية
+          - generic [ref=e1730]: سنيخت
+          - generic [ref=e1731]: مزروعه موز
+          - generic [ref=e1732]:
+            - generic [ref=e1733]: 
+            - text: 1,179 م²
+        - generic [ref=e1734] [cursor=pointer]:
+          - generic [ref=e1735]:
+            - generic [ref=e1736]: AGR1403
+            - generic [ref=e1737]: الدقهلية
+          - generic [ref=e1738]: سنيخت
+          - generic [ref=e1739]: مزروعه موز
+          - generic [ref=e1740]:
+            - generic [ref=e1741]: 
+            - text: 1,544 م²
+        - generic [ref=e1742] [cursor=pointer]:
+          - generic [ref=e1743]:
+            - generic [ref=e1744]: AGR1414
+            - generic [ref=e1745]: الدقهلية
+          - generic [ref=e1746]: سنيخت
+          - generic [ref=e1747]: مزروعه
+          - generic [ref=e1748]:
+            - generic [ref=e1749]: 
+            - text: 2,610 م²
+        - generic [ref=e1750] [cursor=pointer]:
+          - generic [ref=e1751]:
+            - generic [ref=e1752]: AGR1404
+            - generic [ref=e1753]: الدقهلية
+          - generic [ref=e1754]: سنيخت
+          - generic [ref=e1755]: مزروعه موز
+          - generic [ref=e1756]:
+            - generic [ref=e1757]: 
+            - text: 1,192 م²
+        - generic [ref=e1758] [cursor=pointer]:
+          - generic [ref=e1759]:
+            - generic [ref=e1760]: AGR1415
+            - generic [ref=e1761]: الدقهلية
+          - generic [ref=e1762]: سنيخت
+          - generic [ref=e1763]: مزروعه
+          - generic [ref=e1764]:
+            - generic [ref=e1765]: 
+            - text: 1,006 م²
+        - generic [ref=e1766] [cursor=pointer]:
+          - generic [ref=e1767]:
+            - generic [ref=e1768]: AGR1416
+            - generic [ref=e1769]: الدقهلية
+          - generic [ref=e1770]: سنيخت
+          - generic [ref=e1771]: مزروعه
+          - generic [ref=e1772]:
+            - generic [ref=e1773]: 
+            - text: 1,046 م²
+        - generic [ref=e1774] [cursor=pointer]:
+          - generic [ref=e1775]:
+            - generic [ref=e1776]: AGR1417
+            - generic [ref=e1777]: الدقهلية
+          - generic [ref=e1778]: سنيخت
+          - generic [ref=e1779]: مزروعه
+          - generic [ref=e1780]:
+            - generic [ref=e1781]: 
+            - text: 1,389 م²
+        - generic [ref=e1782] [cursor=pointer]:
+          - generic [ref=e1783]:
+            - generic [ref=e1784]: AGR1418
+            - generic [ref=e1785]: الدقهلية
+          - generic [ref=e1786]: سنيخت
+          - generic [ref=e1787]: مزروعه
+          - generic [ref=e1788]:
+            - generic [ref=e1789]: 
+            - text: 1,375 م²
+        - generic [ref=e1790] [cursor=pointer]:
+          - generic [ref=e1791]:
+            - generic [ref=e1792]: AGR1419
+            - generic [ref=e1793]: الدقهلية
+          - generic [ref=e1794]: سنيخت
+          - generic [ref=e1795]: مزروعه
+          - generic [ref=e1796]:
+            - generic [ref=e1797]: 
+            - text: 270 م²
+        - generic [ref=e1798] [cursor=pointer]:
+          - generic [ref=e1799]:
+            - generic [ref=e1800]: AGR1420
+            - generic [ref=e1801]: الدقهلية
+          - generic [ref=e1802]: سنيخت
+          - generic [ref=e1803]: مزروعه
+          - generic [ref=e1804]:
+            - generic [ref=e1805]: 
+            - text: 653 م²
+        - generic [ref=e1806] [cursor=pointer]:
+          - generic [ref=e1807]:
+            - generic [ref=e1808]: AGR1421
+            - generic [ref=e1809]: الدقهلية
+          - generic [ref=e1810]: سنيخت
+          - generic [ref=e1811]: مزروعه موز
+          - generic [ref=e1812]:
+            - generic [ref=e1813]: 
+            - text: 5,418 م²
+        - generic [ref=e1814] [cursor=pointer]:
+          - generic [ref=e1815]:
+            - generic [ref=e1816]: AGR1400
+            - generic [ref=e1817]: الدقهلية
+          - generic [ref=e1818]: سنيخت
+          - generic [ref=e1819]: مزروعه موز
+          - generic [ref=e1820]:
+            - generic [ref=e1821]: 
+            - text: 2,145 م²
+        - generic [ref=e1822] [cursor=pointer]:
+          - generic [ref=e1823]:
+            - generic [ref=e1824]: AGR1422
+            - generic [ref=e1825]: الدقهلية
+          - generic [ref=e1826]: سنيخت
+          - generic [ref=e1827]: مزروعه
+          - generic [ref=e1828]:
+            - generic [ref=e1829]: 
+            - text: 755 م²
+        - generic [ref=e1830] [cursor=pointer]:
+          - generic [ref=e1831]:
+            - generic [ref=e1832]: AGR1423
+            - generic [ref=e1833]: الدقهلية
+          - generic [ref=e1834]: سنيخت
+          - generic [ref=e1835]: مزروعه موز
+          - generic [ref=e1836]:
+            - generic [ref=e1837]: 
+            - text: 754 م²
+        - generic [ref=e1838] [cursor=pointer]:
+          - generic [ref=e1839]:
+            - generic [ref=e1840]: AGR1412
+            - generic [ref=e1841]: الدقهلية
+          - generic [ref=e1842]: سنيخت
+          - generic [ref=e1843]: فضاء به مزرعه
+          - generic [ref=e1844]:
+            - generic [ref=e1845]: 
+            - text: 1,039 م²
+        - generic [ref=e1846] [cursor=pointer]:
+          - generic [ref=e1847]:
+            - generic [ref=e1848]: AGR1424
+            - generic [ref=e1849]: الدقهلية
+          - generic [ref=e1850]: سنيخت
+          - generic [ref=e1851]: مزروعه موز
+          - generic [ref=e1852]:
+            - generic [ref=e1853]: 
+            - text: 999 م²
+        - generic [ref=e1854] [cursor=pointer]:
+          - generic [ref=e1855]:
+            - generic [ref=e1856]: AGR1425
+            - generic [ref=e1857]: الدقهلية
+          - generic [ref=e1858]: سنيخت
+          - generic [ref=e1859]: مزروعه موز
+          - generic [ref=e1860]:
+            - generic [ref=e1861]: 
+            - text: 791 م²
+        - generic [ref=e1862] [cursor=pointer]:
+          - generic [ref=e1863]:
+            - generic [ref=e1864]: AGR1429
+            - generic [ref=e1865]: الدقهلية
+          - generic [ref=e1866]: مدينه سمنود+سنيخت
+          - generic [ref=e1867]: مزروعه
+          - generic [ref=e1868]:
+            - generic [ref=e1869]: 
+            - text: 1,034 م²
+        - generic [ref=e1870] [cursor=pointer]:
+          - generic [ref=e1871]:
+            - generic [ref=e1872]: AGR1430
+            - generic [ref=e1873]: الدقهلية
+          - generic [ref=e1874]: مدينه سمنود
+          - generic [ref=e1875]: مزروعه موز
+          - generic [ref=e1876]:
+            - generic [ref=e1877]: 
+            - text: 627 م²
+        - generic [ref=e1878] [cursor=pointer]:
+          - generic [ref=e1879]:
+            - generic [ref=e1880]: AGR1428
+            - generic [ref=e1881]: الدقهلية
+          - generic [ref=e1882]: مدينه سمنود+سنيخت
+          - generic [ref=e1883]: مزروعه موز
+          - generic [ref=e1884]:
+            - generic [ref=e1885]: 
+            - text: 1,980 م²
+        - generic [ref=e1886] [cursor=pointer]:
+          - generic [ref=e1887]:
+            - generic [ref=e1888]: AGR1431
+            - generic [ref=e1889]: الدقهلية
+          - generic [ref=e1890]: مدينه سمنود
+          - generic [ref=e1891]: مزروعه موز
+          - generic [ref=e1892]:
+            - generic [ref=e1893]: 
+            - text: 754 م²
+        - generic [ref=e1894] [cursor=pointer]:
+          - generic [ref=e1895]:
+            - generic [ref=e1896]: AGR1440
+            - generic [ref=e1897]: الدقهلية
+          - generic [ref=e1898]: مدينه سمنود
+          - generic [ref=e1899]: مزروعه موز
+          - generic [ref=e1900]:
+            - generic [ref=e1901]: 
+            - text: 6,163 م²
+        - generic [ref=e1902] [cursor=pointer]:
+          - generic [ref=e1903]:
+            - generic [ref=e1904]: AGR1427
+            - generic [ref=e1905]: الدقهلية
+          - generic [ref=e1906]: مدينه سمنود+سينخت
+          - generic [ref=e1907]: مزروعه موز
+          - generic [ref=e1908]:
+            - generic [ref=e1909]: 
+            - text: 1,506 م²
+        - generic [ref=e1910] [cursor=pointer]:
+          - generic [ref=e1911]:
+            - generic [ref=e1912]: AGR1434
+            - generic [ref=e1913]: الدقهلية
+          - generic [ref=e1914]: مدينه سمنود+سينخت
+          - generic [ref=e1915]: مزروعه موز
+          - generic [ref=e1916]:
+            - generic [ref=e1917]: 
+            - text: 835 م²
+        - generic [ref=e1918] [cursor=pointer]:
+          - generic [ref=e1919]:
+            - generic [ref=e1920]: AGR1438
+            - generic [ref=e1921]: الدقهلية
+          - generic [ref=e1922]: مدينه سمنود
+          - generic [ref=e1923]: مزروعه موز
+          - generic [ref=e1924]:
+            - generic [ref=e1925]: 
+            - text: 966 م²
+        - generic [ref=e1926] [cursor=pointer]:
+          - generic [ref=e1927]:
+            - generic [ref=e1928]: AGR1437
+            - generic [ref=e1929]: الدقهلية
+          - generic [ref=e1930]: مدينه سمنود
+          - generic [ref=e1931]: مزروعه موز
+          - generic [ref=e1932]:
+            - generic [ref=e1933]: 
+            - text: 398 م²
+        - generic [ref=e1934] [cursor=pointer]:
+          - generic [ref=e1935]:
+            - generic [ref=e1936]: AGR1439
+            - generic [ref=e1937]: الدقهلية
+          - generic [ref=e1938]: مدينه سمنود
+          - generic [ref=e1939]: مزروعه موز
+          - generic [ref=e1940]:
+            - generic [ref=e1941]: 
+            - text: 563 م²
+        - generic [ref=e1942] [cursor=pointer]:
+          - generic [ref=e1943]:
+            - generic [ref=e1944]: AGR1432
+            - generic [ref=e1945]: الدقهلية
+          - generic [ref=e1946]: مدينه سمنود+سينخت
+          - generic [ref=e1947]: مزروعه موز
+          - generic [ref=e1948]:
+            - generic [ref=e1949]: 
+            - text: 233 م²
+        - generic [ref=e1950] [cursor=pointer]:
+          - generic [ref=e1951]:
+            - generic [ref=e1952]: AGR1426
+            - generic [ref=e1953]: الدقهلية
+          - generic [ref=e1954]: مدينه سمنود+سنيخت
+          - generic [ref=e1955]: nan
+          - generic [ref=e1956]:
+            - generic [ref=e1957]: 
+            - text: 211,985 م²
+        - generic [ref=e1958] [cursor=pointer]:
+          - generic [ref=e1959]:
+            - generic [ref=e1960]: AGR1433
+            - generic [ref=e1961]: الدقهلية
+          - generic [ref=e1962]: مدينه سمنود+سينخت
+          - generic [ref=e1963]: مزروعه موز
+          - generic [ref=e1964]:
+            - generic [ref=e1965]: 
+            - text: 425 م²
+        - generic [ref=e1966] [cursor=pointer]:
+          - generic [ref=e1967]:
+            - generic [ref=e1968]: AGR1435
+            - generic [ref=e1969]: الدقهلية
+          - generic [ref=e1970]: مدينه سمنود+سينخت
+          - generic [ref=e1971]: مزروعه موز
+          - generic [ref=e1972]:
+            - generic [ref=e1973]: 
+            - text: 710 م²
+        - generic [ref=e1974] [cursor=pointer]:
+          - generic [ref=e1975]:
+            - generic [ref=e1976]: AGR1443
+            - generic [ref=e1977]: الدقهلية
+          - generic [ref=e1978]: مدينه سمنود
+          - generic [ref=e1979]: مزروعه موز
+          - generic [ref=e1980]:
+            - generic [ref=e1981]: 
+            - text: 8,007 م²
+        - generic [ref=e1982] [cursor=pointer]:
+          - generic [ref=e1983]:
+            - generic [ref=e1984]: AGR1436
+            - generic [ref=e1985]: الدقهلية
+          - generic [ref=e1986]: مدينه سمنود
+          - generic [ref=e1987]: مزروعه موز
+          - generic [ref=e1988]:
+            - generic [ref=e1989]: 
+            - text: 8,398 م²
+        - generic [ref=e1990] [cursor=pointer]:
+          - generic [ref=e1991]:
+            - generic [ref=e1992]: AGR1441
+            - generic [ref=e1993]: الدقهلية
+          - generic [ref=e1994]: مدينه سمنود
+          - generic [ref=e1995]: مزروعه موز
+          - generic [ref=e1996]:
+            - generic [ref=e1997]: 
+            - text: 3,297 م²
+        - generic [ref=e1998] [cursor=pointer]:
+          - generic [ref=e1999]:
+            - generic [ref=e2000]: AGR1444
+            - generic [ref=e2001]: الدقهلية
+          - generic [ref=e2002]: مدينه سمنود
+          - generic [ref=e2003]: مزروعه موز
+          - generic [ref=e2004]:
+            - generic [ref=e2005]: 
+            - text: 2,048 م²
+        - generic [ref=e2006] [cursor=pointer]:
+          - generic [ref=e2007]:
+            - generic [ref=e2008]: AGR1445
+            - generic [ref=e2009]: الدقهلية
+          - generic [ref=e2010]: مدينه سمنود
+          - generic [ref=e2011]: مزروعه
+          - generic [ref=e2012]:
+            - generic [ref=e2013]: 
+            - text: 4,025 م²
+        - generic [ref=e2014] [cursor=pointer]:
+          - generic [ref=e2015]:
+            - generic [ref=e2016]: AGR1446
+            - generic [ref=e2017]: الدقهلية
+          - generic [ref=e2018]: مدينه سمنود
+          - generic [ref=e2019]: مزروعه
+          - generic [ref=e2020]:
+            - generic [ref=e2021]: 
+            - text: 3,821 م²
+        - generic [ref=e2022] [cursor=pointer]:
+          - generic [ref=e2023]:
+            - generic [ref=e2024]: AGR1447
+            - generic [ref=e2025]: الدقهلية
+          - generic [ref=e2026]: مدينه سمنود
+          - generic [ref=e2027]: مزروعه موز
+          - generic [ref=e2028]:
+            - generic [ref=e2029]: 
+            - text: 4,118 م²
+        - generic [ref=e2030] [cursor=pointer]:
+          - generic [ref=e2031]:
+            - generic [ref=e2032]: AGR1448
+            - generic [ref=e2033]: الدقهلية
+          - generic [ref=e2034]: مدينه سمنود
+          - generic [ref=e2035]: مزروعه موز
+          - generic [ref=e2036]:
+            - generic [ref=e2037]: 
+            - text: 7,473 م²
+        - generic [ref=e2038] [cursor=pointer]:
+          - generic [ref=e2039]:
+            - generic [ref=e2040]: AGR1454
+            - generic [ref=e2041]: الدقهلية
+          - generic [ref=e2042]: مدينه سمنود
+          - generic [ref=e2043]: مزروعه موز
+          - generic [ref=e2044]:
+            - generic [ref=e2045]: 
+            - text: 715 م²
+        - generic [ref=e2046] [cursor=pointer]:
+          - generic [ref=e2047]:
+            - generic [ref=e2048]: AGR1455
+            - generic [ref=e2049]: الدقهلية
+          - generic [ref=e2050]: مدينه سمنود
+          - generic [ref=e2051]: مزروعه موز
+          - generic [ref=e2052]:
+            - generic [ref=e2053]: 
+            - text: 2,108 م²
+        - generic [ref=e2054] [cursor=pointer]:
+          - generic [ref=e2055]:
+            - generic [ref=e2056]: AGR1456
+            - generic [ref=e2057]: الدقهلية
+          - generic [ref=e2058]: مدينه سمنود
+          - generic [ref=e2059]: مزروعه موز
+          - generic [ref=e2060]:
+            - generic [ref=e2061]: 
+            - text: 1,628 م²
+        - generic [ref=e2062] [cursor=pointer]:
+          - generic [ref=e2063]:
+            - generic [ref=e2064]: AGR1457
+            - generic [ref=e2065]: الدقهلية
+          - generic [ref=e2066]: مدينه سمنود
+          - generic [ref=e2067]: مزروعه موز
+          - generic [ref=e2068]:
+            - generic [ref=e2069]: 
+            - text: 1,878 م²
+        - generic [ref=e2070] [cursor=pointer]:
+          - generic [ref=e2071]:
+            - generic [ref=e2072]: AGR1449
+            - generic [ref=e2073]: الدقهلية
+          - generic [ref=e2074]: مدينه سمنود
+          - generic [ref=e2075]: مزروعه موز
+          - generic [ref=e2076]:
+            - generic [ref=e2077]: 
+            - text: 1,325 م²
+        - generic [ref=e2078] [cursor=pointer]:
+          - generic [ref=e2079]:
+            - generic [ref=e2080]: AGR1458
+            - generic [ref=e2081]: الدقهلية
+          - generic [ref=e2082]: مدينه سمنود
+          - generic [ref=e2083]: مزروعه موز
+          - generic [ref=e2084]:
+            - generic [ref=e2085]: 
+            - text: 2,172 م²
+        - generic [ref=e2086] [cursor=pointer]:
+          - generic [ref=e2087]:
+            - generic [ref=e2088]: AGR1450
+            - generic [ref=e2089]: الدقهلية
+          - generic [ref=e2090]: مدينه سمنود
+          - generic [ref=e2091]: مزروعه موز
+          - generic [ref=e2092]:
+            - generic [ref=e2093]: 
+            - text: 326 م²
+        - generic [ref=e2094] [cursor=pointer]:
+          - generic [ref=e2095]:
+            - generic [ref=e2096]: AGR1451
+            - generic [ref=e2097]: الدقهلية
+          - generic [ref=e2098]: مدينه سمنود
+          - generic [ref=e2099]: مزروعه موز
+          - generic [ref=e2100]:
+            - generic [ref=e2101]: 
+            - text: 1,053 م²
+        - generic [ref=e2102] [cursor=pointer]:
+          - generic [ref=e2103]:
+            - generic [ref=e2104]: AGR1459
+            - generic [ref=e2105]: الدقهلية
+          - generic [ref=e2106]: مدينه سمنود
+          - generic [ref=e2107]: مزروعه موز
+          - generic [ref=e2108]:
+            - generic [ref=e2109]: 
+            - text: 4,129 م²
+        - generic [ref=e2110] [cursor=pointer]:
+          - generic [ref=e2111]:
+            - generic [ref=e2112]: AGR1452
+            - generic [ref=e2113]: الدقهلية
+          - generic [ref=e2114]: مدينه سمنود
+          - generic [ref=e2115]: منزرعه موز
+          - generic [ref=e2116]:
+            - generic [ref=e2117]: 
+            - text: 1,348 م²
+        - generic [ref=e2118] [cursor=pointer]:
+          - generic [ref=e2119]:
+            - generic [ref=e2120]: AGR1460
+            - generic [ref=e2121]: الدقهلية
+          - generic [ref=e2122]: مدينه سمنود
+          - generic [ref=e2123]: مزروعه موز
+          - generic [ref=e2124]:
+            - generic [ref=e2125]: 
+            - text: 4,412 م²
+        - generic [ref=e2126] [cursor=pointer]:
+          - generic [ref=e2127]:
+            - generic [ref=e2128]: AGR1453
+            - generic [ref=e2129]: الدقهلية
+          - generic [ref=e2130]: مدينه سمنود
+          - generic [ref=e2131]: مزروعه موز
+          - generic [ref=e2132]:
+            - generic [ref=e2133]: 
+            - text: 1,859 م²
+        - generic [ref=e2134] [cursor=pointer]:
+          - generic [ref=e2135]:
+            - generic [ref=e2136]: AGR1461
+            - generic [ref=e2137]: الدقهلية
+          - generic [ref=e2138]: مدينه سمنود
+          - generic [ref=e2139]: مزروعه موز
+          - generic [ref=e2140]:
+            - generic [ref=e2141]: 
+            - text: 2,143 م²
+        - generic [ref=e2142] [cursor=pointer]:
+          - generic [ref=e2143]:
+            - generic [ref=e2144]: AGR1462
+            - generic [ref=e2145]: الدقهلية
+          - generic [ref=e2146]: مدينه سمنود
+          - generic [ref=e2147]: مزروعه موز
+          - generic [ref=e2148]:
+            - generic [ref=e2149]: 
+            - text: 2,273 م²
+        - generic [ref=e2150] [cursor=pointer]:
+          - generic [ref=e2151]:
+            - generic [ref=e2152]: AGR1463
+            - generic [ref=e2153]: الدقهلية
+          - generic [ref=e2154]: مدينه سمنود
+          - generic [ref=e2155]: مزروعه موز
+          - generic [ref=e2156]:
+            - generic [ref=e2157]: 
+            - text: 2,337 م²
+        - generic [ref=e2158] [cursor=pointer]:
+          - generic [ref=e2159]:
+            - generic [ref=e2160]: AGR1464
+            - generic [ref=e2161]: الدقهلية
+          - generic [ref=e2162]: مدينه سمنود
+          - generic [ref=e2163]: مزروعه موز
+          - generic [ref=e2164]:
+            - generic [ref=e2165]: 
+            - text: 2,480 م²
+        - generic [ref=e2166] [cursor=pointer]:
+          - generic [ref=e2167]:
+            - generic [ref=e2168]: AGR1465
+            - generic [ref=e2169]: الدقهلية
+          - generic [ref=e2170]: مدينه سمنود
+          - generic [ref=e2171]: مزروعه موز
+          - generic [ref=e2172]:
+            - generic [ref=e2173]: 
+            - text: 2,312 م²
+        - generic [ref=e2174] [cursor=pointer]:
+          - generic [ref=e2175]:
+            - generic [ref=e2176]: AGR1466
+            - generic [ref=e2177]: الدقهلية
+          - generic [ref=e2178]: مدينه سمنود
+          - generic [ref=e2179]: منزرعه موز
+          - generic [ref=e2180]:
+            - generic [ref=e2181]: 
+            - text: 3,492 م²
+        - generic [ref=e2182] [cursor=pointer]:
+          - generic [ref=e2183]:
+            - generic [ref=e2184]: AGR1467
+            - generic [ref=e2185]: الدقهلية
+          - generic [ref=e2186]: مدينه سمنود
+          - generic [ref=e2187]: مزروعه موز
+          - generic [ref=e2188]:
+            - generic [ref=e2189]: 
+            - text: 1,259 م²
+        - generic [ref=e2190] [cursor=pointer]:
+          - generic [ref=e2191]:
+            - generic [ref=e2192]: AGR1468
+            - generic [ref=e2193]: الدقهلية
+          - generic [ref=e2194]: مدينه سمنود
+          - generic [ref=e2195]: منزرعه موز
+          - generic [ref=e2196]:
+            - generic [ref=e2197]: 
+            - text: 1,278 م²
+        - generic [ref=e2198] [cursor=pointer]:
+          - generic [ref=e2199]:
+            - generic [ref=e2200]: AGR1469
+            - generic [ref=e2201]: الدقهلية
+          - generic [ref=e2202]: مدينه سمنود
+          - generic [ref=e2203]: مزروعه موز
+          - generic [ref=e2204]:
+            - generic [ref=e2205]: 
+            - text: 3,504 م²
+        - generic [ref=e2206] [cursor=pointer]:
+          - generic [ref=e2207]:
+            - generic [ref=e2208]: AGR1470
+            - generic [ref=e2209]: الدقهلية
+          - generic [ref=e2210]: مدينه سمنود
+          - generic [ref=e2211]: مزروعه موز
+          - generic [ref=e2212]:
+            - generic [ref=e2213]: 
+            - text: 1,943 م²
+        - generic [ref=e2214] [cursor=pointer]:
+          - generic [ref=e2215]:
+            - generic [ref=e2216]: AGR1471
+            - generic [ref=e2217]: الدقهلية
+          - generic [ref=e2218]: مدينه سمنود
+          - generic [ref=e2219]: مزروعه موز
+          - generic [ref=e2220]:
+            - generic [ref=e2221]: 
+            - text: 617 م²
+        - generic [ref=e2222] [cursor=pointer]:
+          - generic [ref=e2223]:
+            - generic [ref=e2224]: AGR1363
+            - generic [ref=e2225]: الدقهلية
+          - generic [ref=e2226]: مدينه سمنود
+          - generic [ref=e2227]: مزروعه موز
+          - generic [ref=e2228]:
+            - generic [ref=e2229]: 
+            - text: 651 م²
+        - generic [ref=e2230] [cursor=pointer]:
+          - generic [ref=e2231]:
+            - generic [ref=e2232]: AGR1359
+            - generic [ref=e2233]: الدقهلية
+          - generic [ref=e2234]: مدينه سمنود
+          - generic [ref=e2235]: مزروعه موز
+          - generic [ref=e2236]:
+            - generic [ref=e2237]: 
+            - text: 905 م²
+        - generic [ref=e2238] [cursor=pointer]:
+          - generic [ref=e2239]:
+            - generic [ref=e2240]: AGR1356
+            - generic [ref=e2241]: الدقهلية
+          - generic [ref=e2242]: مدينه سمنود
+          - generic [ref=e2243]: مزروعه موز
+          - generic [ref=e2244]:
+            - generic [ref=e2245]: 
+            - text: 2,947 م²
+        - generic [ref=e2246] [cursor=pointer]:
+          - generic [ref=e2247]:
+            - generic [ref=e2248]: AGR1353
+            - generic [ref=e2249]: الدقهلية
+          - generic [ref=e2250]: مدينه سمنود
+          - generic [ref=e2251]: مزروعه موز
+          - generic [ref=e2252]:
+            - generic [ref=e2253]: 
+            - text: 968 م²
+        - generic [ref=e2254] [cursor=pointer]:
+          - generic [ref=e2255]:
+            - generic [ref=e2256]: AGR1348
+            - generic [ref=e2257]: الدقهلية
+          - generic [ref=e2258]: مدينه سمنود
+          - generic [ref=e2259]: مزروعه
+          - generic [ref=e2260]:
+            - generic [ref=e2261]: 
+            - text: 820 م²
+        - generic [ref=e2262] [cursor=pointer]:
+          - generic [ref=e2263]:
+            - generic [ref=e2264]: AGR1345
+            - generic [ref=e2265]: الدقهلية
+          - generic [ref=e2266]: مدينه سمنود
+          - generic [ref=e2267]: مزروعه موز
+          - generic [ref=e2268]:
+            - generic [ref=e2269]: 
+            - text: 1,146 م²
+        - generic [ref=e2270] [cursor=pointer]:
+          - generic [ref=e2271]:
+            - generic [ref=e2272]: AGR1343
+            - generic [ref=e2273]: الدقهلية
+          - generic [ref=e2274]: مدينه سمنود
+          - generic [ref=e2275]: منزرعه موز
+          - generic [ref=e2276]:
+            - generic [ref=e2277]: 
+            - text: 2,971 م²
+        - generic [ref=e2278] [cursor=pointer]:
+          - generic [ref=e2279]:
+            - generic [ref=e2280]: AGR1340
+            - generic [ref=e2281]: الدقهلية
+          - generic [ref=e2282]: مدينه سمنود
+          - generic [ref=e2283]: مزروعه موز
+          - generic [ref=e2284]:
+            - generic [ref=e2285]: 
+            - text: 669 م²
+        - generic [ref=e2286] [cursor=pointer]:
+          - generic [ref=e2287]:
+            - generic [ref=e2288]: AGR1338
+            - generic [ref=e2289]: الدقهلية
+          - generic [ref=e2290]: مدينه سمنود
+          - generic [ref=e2291]: مزروعه موز
+          - generic [ref=e2292]:
+            - generic [ref=e2293]: 
+            - text: 657 م²
+        - generic [ref=e2294] [cursor=pointer]:
+          - generic [ref=e2295]:
+            - generic [ref=e2296]: AGR1333
+            - generic [ref=e2297]: الدقهلية
+          - generic [ref=e2298]: مدينه سمنود
+          - generic [ref=e2299]: مزروعه موز
+          - generic [ref=e2300]:
+            - generic [ref=e2301]: 
+            - text: 925 م²
+        - generic [ref=e2302] [cursor=pointer]:
+          - generic [ref=e2303]:
+            - generic [ref=e2304]: AGR1331
+            - generic [ref=e2305]: الدقهلية
+          - generic [ref=e2306]: مدينه سمنود
+          - generic [ref=e2307]: مزروعه موز
+          - generic [ref=e2308]:
+            - generic [ref=e2309]: 
+            - text: 1,853 م²
+        - generic [ref=e2310] [cursor=pointer]:
+          - generic [ref=e2311]:
+            - generic [ref=e2312]: AGR1325
+            - generic [ref=e2313]: الدقهلية
+          - generic [ref=e2314]: مدينه سمنود
+          - generic [ref=e2315]: مزروعه
+          - generic [ref=e2316]:
+            - generic [ref=e2317]: 
+            - text: 1,911 م²
+        - generic [ref=e2318] [cursor=pointer]:
+          - generic [ref=e2319]:
+            - generic [ref=e2320]: AGR1324
+            - generic [ref=e2321]: الدقهلية
+          - generic [ref=e2322]: مدينه سمنود
+          - generic [ref=e2323]: مزروعه
+          - generic [ref=e2324]:
+            - generic [ref=e2325]: 
+            - text: 1,223 م²
+        - generic [ref=e2326] [cursor=pointer]:
+          - generic [ref=e2327]:
+            - generic [ref=e2328]: AGR1321
+            - generic [ref=e2329]: الدقهلية
+          - generic [ref=e2330]: مدينه سمنود
+          - generic [ref=e2331]: مزروعه
+          - generic [ref=e2332]:
+            - generic [ref=e2333]: 
+            - text: 804 م²
+        - generic [ref=e2334] [cursor=pointer]:
+          - generic [ref=e2335]:
+            - generic [ref=e2336]: AGR1315
+            - generic [ref=e2337]: الدقهلية
+          - generic [ref=e2338]: مدينه سمنود
+          - generic [ref=e2339]: مزروعه موز
+          - generic [ref=e2340]:
+            - generic [ref=e2341]: 
+            - text: 776 م²
+        - generic [ref=e2342] [cursor=pointer]:
+          - generic [ref=e2343]:
+            - generic [ref=e2344]: AGR1311
+            - generic [ref=e2345]: الدقهلية
+          - generic [ref=e2346]: مدينه سمنود
+          - generic [ref=e2347]: مزروعه موز
+          - generic [ref=e2348]:
+            - generic [ref=e2349]: 
+            - text: 1,244 م²
+        - generic [ref=e2350] [cursor=pointer]:
+          - generic [ref=e2351]:
+            - generic [ref=e2352]: AGR1310
+            - generic [ref=e2353]: الدقهلية
+          - generic [ref=e2354]: مدينه سمنود
+          - generic [ref=e2355]: مزروعه موز
+          - generic [ref=e2356]:
+            - generic [ref=e2357]: 
+            - text: 1,056 م²
+        - generic [ref=e2358] [cursor=pointer]:
+          - generic [ref=e2359]:
+            - generic [ref=e2360]: AGR1306
+            - generic [ref=e2361]: الدقهلية
+          - generic [ref=e2362]: مدينه سمنود
+          - generic [ref=e2363]: مزروعه
+          - generic [ref=e2364]:
+            - generic [ref=e2365]: 
+            - text: 1,643 م²
+        - generic [ref=e2366] [cursor=pointer]:
+          - generic [ref=e2367]:
+            - generic [ref=e2368]: AGR1303
+            - generic [ref=e2369]: الدقهلية
+          - generic [ref=e2370]: مدينه سمنود
+          - generic [ref=e2371]: مزروعه موز
+          - generic [ref=e2372]:
+            - generic [ref=e2373]: 
+            - text: 1,798 م²
+        - generic [ref=e2374] [cursor=pointer]:
+          - generic [ref=e2375]:
+            - generic [ref=e2376]: AGR1299
+            - generic [ref=e2377]: الدقهلية
+          - generic [ref=e2378]: مدينه سمنود
+          - generic [ref=e2379]: مزروعه موز
+          - generic [ref=e2380]:
+            - generic [ref=e2381]: 
+            - text: 976 م²
+        - generic [ref=e2382] [cursor=pointer]:
+          - generic [ref=e2383]:
+            - generic [ref=e2384]: AGR1357
+            - generic [ref=e2385]: الدقهلية
+          - generic [ref=e2386]: مدينه سمنود
+          - generic [ref=e2387]: مزروعه موز
+          - generic [ref=e2388]:
+            - generic [ref=e2389]: 
+            - text: 3,049 م²
+        - generic [ref=e2390] [cursor=pointer]:
+          - generic [ref=e2391]:
+            - generic [ref=e2392]: AGR1346
+            - generic [ref=e2393]: الدقهلية
+          - generic [ref=e2394]: مدينه سمنود
+          - generic [ref=e2395]: مزروعه موز
+          - generic [ref=e2396]:
+            - generic [ref=e2397]: 
+            - text: 1,939 م²
+        - generic [ref=e2398] [cursor=pointer]:
+          - generic [ref=e2399]:
+            - generic [ref=e2400]: AGR1337
+            - generic [ref=e2401]: الدقهلية
+          - generic [ref=e2402]: مدينه سمنود
+          - generic [ref=e2403]: مزروعه موز
+          - generic [ref=e2404]:
+            - generic [ref=e2405]: 
+            - text: 1,653 م²
+        - generic [ref=e2406] [cursor=pointer]:
+          - generic [ref=e2407]:
+            - generic [ref=e2408]: AGR1326
+            - generic [ref=e2409]: الدقهلية
+          - generic [ref=e2410]: مدينه سمنود
+          - generic [ref=e2411]: مزروعه موز
+          - generic [ref=e2412]:
+            - generic [ref=e2413]: 
+            - text: 6,788 م²
+        - generic [ref=e2414] [cursor=pointer]:
+          - generic [ref=e2415]:
+            - generic [ref=e2416]: AGR1314
+            - generic [ref=e2417]: الدقهلية
+          - generic [ref=e2418]: مدينه سمنود
+          - generic [ref=e2419]: مزروعه موز
+          - generic [ref=e2420]:
+            - generic [ref=e2421]: 
+            - text: 1,634 م²
+        - generic [ref=e2422] [cursor=pointer]:
+          - generic [ref=e2423]:
+            - generic [ref=e2424]: AGR1304
+            - generic [ref=e2425]: الدقهلية
+          - generic [ref=e2426]: مدينه سمنود
+          - generic [ref=e2427]: منزرعه موز
+          - generic [ref=e2428]:
+            - generic [ref=e2429]: 
+            - text: 12,446 م²
+        - generic [ref=e2430] [cursor=pointer]:
+          - generic [ref=e2431]:
+            - generic [ref=e2432]: AGR1297
+            - generic [ref=e2433]: الدقهلية
+          - generic [ref=e2434]: مدينه سمنود
+          - generic [ref=e2435]: مزروعه موز
+          - generic [ref=e2436]:
+            - generic [ref=e2437]: 
+            - text: 2,816 م²
+        - generic [ref=e2438] [cursor=pointer]:
+          - generic [ref=e2439]:
+            - generic [ref=e2440]: AGR1294
+            - generic [ref=e2441]: الدقهلية
+          - generic [ref=e2442]: مدينه سمنود
+          - generic [ref=e2443]: مزروعه موز
+          - generic [ref=e2444]:
+            - generic [ref=e2445]: 
+            - text: 1,274 م²
+        - generic [ref=e2446] [cursor=pointer]:
+          - generic [ref=e2447]:
+            - generic [ref=e2448]: AGR1292
+            - generic [ref=e2449]: الدقهلية
+          - generic [ref=e2450]: مدينه سمنود
+          - generic [ref=e2451]: منزرعه موز
+          - generic [ref=e2452]:
+            - generic [ref=e2453]: 
+            - text: 1,027 م²
+        - generic [ref=e2454] [cursor=pointer]:
+          - generic [ref=e2455]:
+            - generic [ref=e2456]: AGR1397
+            - generic [ref=e2457]: الدقهلية
+          - generic [ref=e2458]: مدينه سمنود
+          - generic [ref=e2459]: منزرعه موز
+          - generic [ref=e2460]:
+            - generic [ref=e2461]: 
+            - text: 750 م²
+        - generic [ref=e2462] [cursor=pointer]:
+          - generic [ref=e2463]:
+            - generic [ref=e2464]: AGR1392
+            - generic [ref=e2465]: الدقهلية
+          - generic [ref=e2466]: مدينه سمنود
+          - generic [ref=e2467]: منزرعه موز
+          - generic [ref=e2468]:
+            - generic [ref=e2469]: 
+            - text: 399 م²
+        - generic [ref=e2470] [cursor=pointer]:
+          - generic [ref=e2471]:
+            - generic [ref=e2472]: AGR1388
+            - generic [ref=e2473]: الدقهلية
+          - generic [ref=e2474]: مدينه سمنود
+          - generic [ref=e2475]: منزرعه موز
+          - generic [ref=e2476]:
+            - generic [ref=e2477]: 
+            - text: 701 م²
+        - generic [ref=e2478] [cursor=pointer]:
+          - generic [ref=e2479]:
+            - generic [ref=e2480]: AGR1385
+            - generic [ref=e2481]: الدقهلية
+          - generic [ref=e2482]: جراح
+          - generic [ref=e2483]: موز ومزراعه دواجن
+          - generic [ref=e2484]:
+            - generic [ref=e2485]: 
+            - text: 1,792 م²
+        - generic [ref=e2486]: … و 6097 سجل آخر
+  - generic [ref=e2487]:
+    - generic [ref=e2488]: الطبقات
+    - generic [ref=e2489] [cursor=pointer]:
+      - checkbox "أراضي طرح النهر" [checked] [ref=e2490]
+      - text: أراضي طرح النهر
+    - generic [ref=e2491] [cursor=pointer]:
+      - checkbox "حدود القرى" [checked] [ref=e2492]
+      - text: حدود القرى
+  - generic [ref=e2493]:
+    - generic [ref=e2494]: دليل الألوان
+    - generic [ref=e2497]: قرية بها قطع
+    - generic [ref=e2500]: قرية بلا قطع
+    - generic [ref=e2503]: "> 5000 م²"
+    - generic [ref=e2506]: 1000 – 5000 م²
+    - generic [ref=e2509]: أقل من 1000 م²
+  - text:                       
+  - generic [ref=e2510]:
+    - generic [ref=e2511]:
+      - generic [ref=e2512]: 
+      - text: إشعار
+    - generic [ref=e2514]:
+      - generic [ref=e2515]: 
+      - text: منظومة توثيق أراضي طرح النهر — وزارة الموارد المائية والري — جمهورية مصر العربية
+      - generic [ref=e2516]: 
+      - generic [ref=e2517]: 
+  - button "" [ref=e2518] [cursor=pointer]:
+    - generic [ref=e2519]: 
+  - generic:
+    - generic:
+      - generic:
+        - generic: 
+        - text: المساعد الذكي
+      - button "×"
+    - text: 
+    - generic:
+      - textbox "اسأل عن المخالفات..."
+      - button "":
+        - generic: 

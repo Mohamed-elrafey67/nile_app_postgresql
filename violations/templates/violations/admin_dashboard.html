@@ -212,7 +212,13 @@
       <span class="nav-badge" id="nb-users">—</span>
     </a>
     <a class="nav-item" onclick="showSection('violations')">
-      <i class="fa fa-map-marker-alt"></i> التعديات
+      <i class="fa fa-map-marker-alt"></i> التواجدات
+    </a>
+    <a class="nav-item" onclick="showSection('decisions')">
+      <i class="fa fa-gavel"></i> القرارات الوزارية
+    </a>
+    <a class="nav-item" onclick="showSection('satellite')">
+      <i class="fa fa-satellite"></i> صور الأقمار
     </a>
     <div class="nav-section">النظام</div>
     <a class="nav-item" onclick="showSection('logs')">
@@ -257,7 +263,7 @@
         <div class="stat-card blue">
           <i class="fa fa-water stat-icon"></i>
           <div class="stat-val" id="s-total">—</div>
-          <div class="stat-lbl">إجمالي التعديات</div>
+          <div class="stat-lbl">إجمالي التواجدات</div>
           <div class="stat-sub" id="s-approved">—</div>
         </div>
         <div class="stat-card gold">
@@ -331,7 +337,7 @@
       <div class="card">
         <div class="card-head">
           <i class="fa fa-filter" style="color:var(--primary)"></i>
-          <h3>إدارة التعديات</h3>
+          <h3>إدارة التواجدات</h3>
           <div class="filter-bar">
             <select id="vf-status" onchange="loadViolationsAdmin()">
               <option value="">الكل</option>
@@ -376,6 +382,41 @@
           </div>
         </div>
         <div id="logs-container"></div>
+      </div>
+    </div>
+
+    <!-- ══ القرارات الوزارية ══ -->
+    <div id="sec-decisions" style="display:none">
+      <div class="card">
+        <div class="card-head">
+          <i class="fa fa-gavel" style="color:var(--primary)"></i>
+          <h3>إدارة القرارات الوزارية</h3>
+          <button class="btn-sm btn-primary" onclick="openAddDecision()">
+            <i class="fa fa-plus"></i> قرار جديد
+          </button>
+        </div>
+        <div id="decisions-table">
+          <div style="padding:20px;text-align:center;color:#aaa;">جاري التحميل…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ صور الأقمار ══ -->
+    <div id="sec-satellite" style="display:none">
+      <div class="card">
+        <div class="card-head">
+          <i class="fa fa-satellite" style="color:var(--primary)"></i>
+          <h3>صور الأقمار الصناعية — أرشيف</h3>
+          <div class="filter-bar">
+            <select id="sat-gov-filter" onchange="loadSatelliteAdmin()">
+              <option value="">كل المحافظات</option>
+            </select>
+            <input type="text" id="sat-search" placeholder="بحث برمز التواجد…" oninput="loadSatelliteAdmin()">
+          </div>
+        </div>
+        <div id="satellite-admin-content" style="padding:18px;">
+          <div style="text-align:center;color:#aaa;padding:20px;">جاري التحميل…</div>
+        </div>
       </div>
     </div>
 
@@ -455,6 +496,64 @@
   </div><!-- /content -->
 </div><!-- /main -->
 
+<!-- DECISION MODAL -->
+<div class="modal-overlay" id="decision-modal">
+  <div class="modal-box" style="width:650px;">
+    <div class="modal-head">
+      <span style="font-weight:700" id="decision-modal-title">قرار جديد</span>
+      <span onclick="closeDecisionModal()" style="cursor:pointer;opacity:.8;">✕</span>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="dm-id">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label>رقم القرار *</label>
+          <input type="text" id="dm-number" placeholder="مثال: 14717 لسنة 1987">
+        </div>
+        <div class="form-group">
+          <label>أساس القرار</label>
+          <select id="dm-basis" style="width:100%;padding:9px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+            <option value="">— اختر —</option>
+            <option value="148">ترخيص</option>
+            <option value="149">مخالفة</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الترتيب</label>
+          <input type="number" id="dm-order" placeholder="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>تاريخ البداية *</label>
+          <input type="date" id="dm-date-from">
+        </div>
+        <div class="form-group">
+          <label>تاريخ النهاية</label>
+          <input type="date" id="dm-date-to">
+          <small style="color:#888;font-size:.65rem;">اتركه فارغاً إذا كان سارياً</small>
+        </div>
+        <div class="form-group">
+          <label>الفئة السنوية (جنيه/م²) *</label>
+          <input type="number" id="dm-rate-year" step="0.0001" placeholder="0.0000">
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label>ملاحظات</label>
+          <input type="text" id="dm-notes" placeholder="ملاحظات حول القرار">
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-foot">
+      <button class="btn-sm btn-primary" onclick="saveDecision()" style="flex:1;padding:9px">
+        <i class="fa fa-save"></i> حفظ
+      </button>
+      <button class="btn-sm" onclick="closeDecisionModal()"
+        style="padding:9px 16px;background:#fff;border:1.5px solid #ddd;border-radius:6px;cursor:pointer;font-family:inherit">
+        إلغاء
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- USER MODAL -->
 <div class="modal-overlay" id="user-modal">
   <div class="modal-box">
@@ -530,7 +629,8 @@ function showSection(name) {
 
   var titles = {
     overview:'نظرة عامة', users:'إدارة المستخدمين',
-    violations:'إدارة التعديات', logs:'سجل الأنشطة', reports:'التقارير'
+    violations:'إدارة التواجدات', logs:'سجل الأنشطة', reports:'التقارير',
+    decisions:'القرارات الوزارية', satellite:'صور الأقمار الصناعية'
   };
   document.getElementById('section-title').textContent = titles[name] || name;
   currentSection = name;
@@ -539,6 +639,8 @@ function showSection(name) {
   if (name === 'violations') loadViolationsAdmin();
   if (name === 'logs')       loadLogs();
   if (name === 'reports')    loadReportGovs();
+  if (name === 'decisions')  loadDecisions();
+  if (name === 'satellite') loadSatelliteAdmin();
 }
 
 // ── OVERVIEW ──────────────────────────────────────────
@@ -885,7 +987,7 @@ function loadReportGovs() {
     .then(function(d) {
       var el = document.getElementById('quick-stats');
       var rows = [
-        ['إجمالي التعديات', (d.total||0).toLocaleString('ar')],
+        ['إجمالي التواجدات', (d.total||0).toLocaleString('ar')],
         ['معتمدة', (d.approved||0).toLocaleString('ar')],
         ['في الانتظار', (d.pending||0).toLocaleString('ar')],
         ['مرفوضة', (d.rejected||0).toLocaleString('ar')],
@@ -912,6 +1014,463 @@ function exportReport(fmt) {
   window.open(qs, '_blank');
 }
 
+// ── SATELLITE ADMIN ──────────────────────────────────
+function loadSatelliteAdmin() {
+  var el = document.getElementById('satellite-admin-content');
+  el.innerHTML = '<div style="text-align:center;color:#aaa;padding:20px;"><i class="fa fa-spinner fa-spin"></i> جاري التحميل…</div>';
+  // تحميل قائمة المحافظات للفلتر
+  fetch('/admin-dashboard/api/govs/').then(function(r){return r.json()}).then(function(d){
+    var sel = document.getElementById('sat-gov-filter');
+    if (d.govs && sel.options.length <= 1) {
+      sel.innerHTML = '<option value="">كل المحافظات</option>';
+      d.govs.forEach(function(g){
+        var o = document.createElement('option'); o.value = g.pcode; o.textContent = g.name_ar; sel.appendChild(o);
+      });
+    }
+  });
+  fetch('/admin-dashboard/api/stats/')
+    .then(function(r) { return r.json(); })
+    .then(function(stats) {
+      var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">';
+      html += '<div class="stat-card blue"><div class="stat-icon"><i class="fa fa-satellite"></i></div>' +
+        '<div class="stat-val">' + (stats.total||0).toLocaleString('ar') + '</div>' +
+        '<div class="stat-lbl">إجمالي التواجدات</div></div>';
+      html += '<div class="stat-card green"><div class="stat-icon"><i class="fa fa-images"></i></div>' +
+        '<div class="stat-val">—</div>' +
+        '<div class="stat-lbl">صور أقمار متاحة</div></div>';
+      html += '<div class="stat-card green"><div class="stat-icon"><i class="fa fa-images"></i></div>' +
+        '<div class="stat-val">—</div>' +
+        '<div class="stat-lbl">صور أقمار متاحة</div></div>';
+      html += '</div>';
+
+      html += '<div style="margin-top:14px;">' +
+        '<p style="font-size:.82rem;color:#555;">يمكنك فتح أي تواجد على الخريطة الرئيسية واختيار تبويب <strong>🛰️ قمر صناعي</strong> لعرض صور الأقمار من Sentinel Hub.</p></div>';
+
+      el.innerHTML = html;
+    });
+}
+
+// ── DECISIONS ────────────────────────────────────────
+function loadDecisions() {
+  fetch('/api/decisions/')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var el = document.getElementById('decisions-table');
+      if (!d.decisions || !d.decisions.length) {
+        el.innerHTML = '<div style="padding:20px;text-align:center;color:#aaa;"><i class="fa fa-gavel" style="font-size:1.5rem;opacity:.4;"></i><br>لا توجد قرارات بعد</div>';
+        return;
+      }
+      el.innerHTML = '<table><thead><tr>' +
+        '<th>#</th><th>رقم القرار</th><th>الأساس</th><th>تاريخ البداية</th><th>تاريخ النهاية</th>' +
+        '<th>الفئة السنوية</th><th>الحالة</th><th>إجراءات</th>' +
+        '</tr></thead><tbody>' +
+        d.decisions.map(function(dec) {
+          var isActive = dec.is_active;
+          var statusHtml = isActive
+            ? '<span class="badge badge-green">ساري</span>'
+            : '<span class="badge badge-red">منتهي</span>';
+          var dateTo = dec.date_to || '—';
+          var basisLabel = dec.basis === '148' ? '<span style="color:#27ae60;">ترخيص</span>'
+                         : dec.basis === '149' ? '<span style="color:#e74c3c;">مخالفة</span>'
+                         : '<span style="color:#aaa;">—</span>';
+          var pdfBtn = dec.pdf_url
+            ? '<a href="' + dec.pdf_url + '" target="_blank" style="padding:4px 6px;background:#e67e22;color:#fff;border-radius:4px;cursor:pointer;font-size:.72rem;text-decoration:none;" title="عرض PDF"><i class="fa fa-file-pdf"></i></a>'
+            : '<span style="color:#ccc;font-size:.7rem;">—</span>';
+          return '<tr>' +
+            '<td>' + dec.order + '</td>' +
+            '<td><strong>' + dec.decision_number + '</strong></td>' +
+            '<td>' + basisLabel + '</td>' +
+            '<td>' + dec.date_from + '</td>' +
+            '<td>' + dateTo + '</td>' +
+            '<td>' + parseFloat(dec.rate_per_year).toFixed(4) + '</td>' +
+            '<td>' + statusHtml + '</td>' +
+            '<td style="white-space:nowrap;">' +
+            pdfBtn +
+            '<button onclick="uploadDecisionPdf(' + dec.id + ')" style="padding:4px 6px;background:#f39c12;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.72rem;margin-right:2px;" title="رفع PDF"><i class="fa fa-upload"></i></button>' +
+            '<button onclick="importDecisionExcel(' + dec.id + ',\'' + dec.decision_number.replace(/'/g,"\\'") + '\')" style="padding:4px 6px;background:#1abc9c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.72rem;margin-right:2px;" title="استيراد من Excel"><i class="fa fa-file-excel"></i></button>' +
+            '<button onclick="manageUsageRates(' + dec.id + ',\'' + dec.decision_number.replace(/'/g,"\\'") + '\')" style="padding:4px 6px;background:#9b59b6;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.72rem;margin-right:2px;" title="أنواع الاستغلال"><i class="fa fa-list"></i></button>' +
+            '<button onclick="editDecision(' + dec.id + ')" style="padding:4px 6px;background:#3498db;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.72rem;margin-right:2px;" title="تعديل"><i class="fa fa-pen"></i></button>' +
+            '<button onclick="deleteDecision(' + dec.id + ',\'' + dec.decision_number.replace(/'/g,"\\'") + '\')" style="padding:4px 6px;background:#e74c3c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.72rem;" title="حذف"><i class="fa fa-trash"></i></button>' +
+            '</td></tr>';
+        }).join('') + '</tbody></table>';
+    })
+    .catch(function() {
+      document.getElementById('decisions-table').innerHTML = '<div style="padding:20px;text-align:center;color:#e74c3c;">خطأ في تحميل القرارات</div>';
+    });
+}
+
+function openAddDecision() {
+  document.getElementById('decision-modal-title').textContent = 'قرار وزاري جديد';
+  document.getElementById('dm-id').value = '';
+  document.getElementById('dm-number').value = '';
+  document.getElementById('dm-basis').value = '';
+  document.getElementById('dm-order').value = '0';
+  document.getElementById('dm-date-from').value = '';
+  document.getElementById('dm-date-to').value = '';
+  document.getElementById('dm-rate-year').value = '';
+  document.getElementById('dm-notes').value = '';
+  document.getElementById('decision-modal').classList.add('open');
+}
+
+function editDecision(id) {
+  fetch('/api/decisions/')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var dec = d.decisions.find(function(x) { return x.id === id; });
+      if (!dec) { showToast('القرار غير موجود', 'error'); return; }
+      document.getElementById('decision-modal-title').textContent = 'تعديل: ' + dec.decision_number;
+      document.getElementById('dm-id').value = dec.id;
+      document.getElementById('dm-number').value = dec.decision_number;
+      document.getElementById('dm-basis').value = dec.basis || '';
+      document.getElementById('dm-order').value = dec.order;
+      document.getElementById('dm-date-from').value = dec.date_from;
+      document.getElementById('dm-date-to').value = dec.date_to || '';
+      document.getElementById('dm-rate-year').value = dec.rate_per_year;
+      document.getElementById('dm-notes').value = dec.notes || '';
+      document.getElementById('decision-modal').classList.add('open');
+    });
+}
+
+function saveDecision() {
+  var id = document.getElementById('dm-id').value;
+  var data = {
+    decision_number: document.getElementById('dm-number').value.trim(),
+    basis: document.getElementById('dm-basis').value || null,
+    order: parseInt(document.getElementById('dm-order').value) || 0,
+    date_from: document.getElementById('dm-date-from').value,
+    date_to: document.getElementById('dm-date-to').value || null,
+    rate_per_year: document.getElementById('dm-rate-year').value,
+    notes: document.getElementById('dm-notes').value.trim(),
+  };
+  if (id) data.id = parseInt(id);
+  if (!data.decision_number || !data.date_from || !data.rate_per_year) {
+    showToast('الحقول المطلوبة: رقم القرار، تاريخ البداية، الفئة السنوية', 'error');
+    return;
+  }
+  fetch('/api/decisions/', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      closeDecisionModal();
+      loadDecisions();
+      showToast(res.message, 'success');
+    } else {
+      showToast(res.error || 'خطأ في الحفظ', 'error');
+    }
+  });
+}
+
+function deleteDecision(id, label) {
+  if (!confirm('هل أنت متأكد من حذف القرار "' + label + '"؟')) return;
+  fetch('/api/decisions/', {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+    body: JSON.stringify({id: id})
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      loadDecisions();
+      showToast(res.message, 'success');
+    } else {
+      showToast(res.error || 'خطأ في الحذف', 'error');
+    }
+  });
+}
+
+function closeDecisionModal() {
+  document.getElementById('decision-modal').classList.remove('open');
+}
+
+// ── EXCEL IMPORT ───────────────────────────────────────
+var _excelImportDecisionId = null;
+var _excelImportGroups = null;
+
+function importDecisionExcel(id, label) {
+  _excelImportDecisionId = id;
+  _excelImportGroups = null;
+  document.getElementById('eim-decision-id').value = id;
+  document.getElementById('eim-label').textContent = label;
+  document.getElementById('eim-file').value = '';
+  document.getElementById('eim-upload-step').style.display = 'block';
+  document.getElementById('eim-preview-step').style.display = 'none';
+  document.getElementById('eim-progress').style.display = 'none';
+  document.getElementById('excel-import-modal').classList.add('open');
+}
+function closeExcelImportModal() {
+  document.getElementById('excel-import-modal').classList.remove('open');
+}
+function resetExcelImport() {
+  document.getElementById('eim-upload-step').style.display = 'block';
+  document.getElementById('eim-preview-step').style.display = 'none';
+  document.getElementById('eim-file').value = '';
+}
+function previewExcelImport() {
+  var fileInput = document.getElementById('eim-file');
+  if (!fileInput.files.length) {
+    showToast('يرجى اختيار ملف Excel أولاً', 'error');
+    return;
+  }
+  var formData = new FormData();
+  formData.append('excel_file', fileInput.files[0]);
+  formData.append('action', 'preview');
+  
+  document.getElementById('eim-progress').style.display = 'block';
+  document.getElementById('eim-progress').textContent = 'جارٍ قراءة الملف…';
+  
+  var id = document.getElementById('eim-decision-id').value;
+  fetch('/api/decisions/' + id + '/import-excel/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': getCsrfToken()},
+    body: formData
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    document.getElementById('eim-progress').style.display = 'none';
+    if (res.groups) {
+      _excelImportGroups = res.groups;
+      renderExcelPreview(res.groups, res.total);
+      document.getElementById('eim-upload-step').style.display = 'none';
+      document.getElementById('eim-preview-step').style.display = 'block';
+    } else {
+      showToast(res.error || 'خطأ في قراءة الملف', 'error');
+    }
+  })
+  .catch(function() {
+    document.getElementById('eim-progress').style.display = 'none';
+    showToast('فشل الاتصال', 'error');
+  });
+}
+function renderExcelPreview(groups, total) {
+  document.getElementById('eim-count').textContent = total;
+  var tbody = document.getElementById('eim-tbody');
+  tbody.innerHTML = '';
+  groups.forEach(function(g) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><strong>' + esc(g.usage_name) + '</strong></td>' +
+      '<td>' + esc(g.region_text || '—') + '</td>' +
+      '<td>' + (g.rate_value != null ? g.rate_value : '—') + '</td>' +
+      '<td>' + esc(g.unit) + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+function doExcelImport() {
+  if (!_excelImportGroups) return;
+  var fileInput = document.getElementById('eim-file');
+  if (!fileInput.files.length) return;
+  
+  var formData = new FormData();
+  formData.append('excel_file', fileInput.files[0]);
+  formData.append('action', 'import');
+  
+  document.getElementById('eim-progress').style.display = 'block';
+  document.getElementById('eim-progress').textContent = 'جارٍ الاستيراد…';
+  
+  var id = document.getElementById('eim-decision-id').value;
+  fetch('/api/decisions/' + id + '/import-excel/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': getCsrfToken()},
+    body: formData
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    document.getElementById('eim-progress').style.display = 'none';
+    if (res.success) {
+      closeExcelImportModal();
+      loadDecisions();
+      showToast(res.message, 'success');
+    } else {
+      showToast(res.error || 'خطأ في الاستيراد', 'error');
+    }
+  })
+  .catch(function() {
+    document.getElementById('eim-progress').style.display = 'none';
+    showToast('فشل الاتصال', 'error');
+  });
+}
+
+// ── PDF UPLOAD ────────────────────────────────────────
+var _pdfDecisionId = null;
+function uploadDecisionPdf(id) {
+  _pdfDecisionId = id;
+  document.getElementById('pum-decision-id').value = id;
+  document.getElementById('pum-label').textContent = 'القرار #' + id;
+  document.getElementById('pum-file').value = '';
+  document.getElementById('pum-progress').style.display = 'none';
+  document.getElementById('pdf-upload-modal').classList.add('open');
+}
+function closePdfUploadModal() {
+  document.getElementById('pdf-upload-modal').classList.remove('open');
+  _pdfDecisionId = null;
+}
+function doUploadPdf() {
+  var fileInput = document.getElementById('pum-file');
+  if (!fileInput.files.length) {
+    showToast('يرجى اختيار ملف PDF أولاً', 'error');
+    return;
+  }
+  var formData = new FormData();
+  formData.append('pdf_file', fileInput.files[0]);
+  document.getElementById('pum-progress').style.display = 'block';
+  document.getElementById('pum-progress').textContent = 'جاري الرفع…';
+  var id = document.getElementById('pum-decision-id').value;
+  fetch('/api/decisions/' + id + '/upload-pdf/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': getCsrfToken()},
+    body: formData
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    document.getElementById('pum-progress').style.display = 'none';
+    if (res.success) {
+      closePdfUploadModal();
+      loadDecisions();
+      showToast('تم رفع PDF بنجاح', 'success');
+    } else {
+      showToast(res.error || 'خطأ في الرفع', 'error');
+    }
+  })
+  .catch(function() {
+    document.getElementById('pum-progress').style.display = 'none';
+    showToast('فشل الاتصال', 'error');
+  });
+}
+
+// ── USAGE RATES ───────────────────────────────────────
+function manageUsageRates(id, label) {
+  document.getElementById('urm-decision-id').value = id;
+  document.getElementById('urm-label').textContent = label;
+  document.getElementById('urm-add-type').innerHTML = '<option value="">— نوع الاستغلال —</option>';
+  document.getElementById('urm-add-region').innerHTML = '<option value="">— المنطقة —</option>';
+  document.getElementById('urm-add-rate').value = '';
+  document.getElementById('urm-tbody').innerHTML = '';
+  document.getElementById('urm-empty').style.display = 'none';
+  fetch('/api/decisions/' + id + '/usage-rates/')
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    // fill available types
+    var sel = document.getElementById('urm-add-type');
+    (res.available_types || []).forEach(function(t) {
+      var opt = document.createElement('option');
+      opt.value = t.id;
+      opt.textContent = t.name + (t.decision ? ' [' + t.decision + ']' : '');
+      sel.appendChild(opt);
+    });
+    // fill regions
+    var regSel = document.getElementById('urm-add-region');
+    (res.regions || []).forEach(function(r) {
+      var opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = r.name;
+      regSel.appendChild(opt);
+    });
+    renderUsageRates(res.rates || []);
+  });
+  document.getElementById('usage-rates-modal').classList.add('open');
+}
+function closeUsageRatesModal() {
+  document.getElementById('usage-rates-modal').classList.remove('open');
+}
+function renderUsageRates(rates) {
+  var tbody = document.getElementById('urm-tbody');
+  tbody.innerHTML = '';
+  if (!rates.length) {
+    document.getElementById('urm-empty').style.display = 'block';
+    return;
+  }
+  document.getElementById('urm-empty').style.display = 'none';
+  rates.forEach(function(r) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><strong>' + esc(r.usage_type_name) + '</strong></td>' +
+      '<td>' + esc(r.region_name || '—') + '</td>' +
+      '<td><input type="number" step="0.0001" class="urm-field" data-id="' + r.id + '" data-field="rate" value="' + (r.rate != null ? r.rate : '') + '" style="width:90px;padding:4px;border:1px solid #ddd;border-radius:4px;font-size:.75rem;"></td>' +
+      '<td><input type="text" class="urm-field" data-id="' + r.id + '" data-field="unit" value="' + esc(r.unit || '') + '" style="width:100px;padding:4px;border:1px solid #ddd;border-radius:4px;font-size:.75rem;"></td>' +
+      '<td>' +
+      '<button onclick="saveUsageRateRow(' + r.id + ')" style="padding:3px 6px;background:#27ae60;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.7rem;" title="حفظ"><i class="fa fa-save"></i></button> ' +
+      '<button onclick="deleteUsageRateRow(' + r.id + ')" style="padding:3px 6px;background:#e74c3c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.7rem;" title="حذف"><i class="fa fa-trash"></i></button>' +
+      '</td>';
+    tbody.appendChild(tr);
+  });
+}
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function saveUsageRateRow(id) {
+  var data = {id: id};
+  var fields = ['rate','unit'];
+  fields.forEach(function(f) {
+    var inp = document.querySelector('.urm-field[data-id="' + id + '"][data-field="' + f + '"]');
+    if (inp) data[f] = inp.value;
+  });
+  var decisionId = document.getElementById('urm-decision-id').value;
+  fetch('/api/decisions/' + decisionId + '/usage-rates/', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      showToast(res.message, 'success');
+    } else {
+      showToast(res.error || 'خطأ في الحفظ', 'error');
+    }
+  });
+}
+function addUsageRate() {
+  var typeSel = document.getElementById('urm-add-type');
+  var regionSel = document.getElementById('urm-add-region');
+  var rateInp = document.getElementById('urm-add-rate');
+  var usageTypeId = typeSel.value;
+  if (!usageTypeId) { showToast('اختر نوع استغلال', 'error'); return; }
+  var decisionId = document.getElementById('urm-decision-id').value;
+  var data = {
+    usage_type_id: usageTypeId,
+    region_id: regionSel.value || null,
+    rate: rateInp.value || null,
+    unit: 'جنيه للمتر المسطح سنويا'
+  };
+  fetch('/api/decisions/' + decisionId + '/usage-rates/', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      manageUsageRates(decisionId, document.getElementById('urm-label').textContent);
+      showToast('تمت الإضافة', 'success');
+    } else {
+      showToast(res.error || 'خطأ في الإضافة', 'error');
+    }
+  });
+}
+function deleteUsageRateRow(id) {
+  if (!confirm('إلغاء تفعيل سعر هذا النوع؟')) return;
+  var decisionId = document.getElementById('urm-decision-id').value;
+  fetch('/api/decisions/' + decisionId + '/usage-rates/', {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+    body: JSON.stringify({id: id})
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      manageUsageRates(decisionId, document.getElementById('urm-label').textContent);
+      showToast(res.message, 'success');
+    } else {
+      showToast(res.error || 'خطأ في الحذف', 'error');
+    }
+  });
+}
+
 // ── CSRF ─────────────────────────────────────────────
 function getCsrfToken() {
   var match = document.cookie.match(/csrftoken=([^;]+)/);
@@ -934,5 +1493,132 @@ function showToast(msg, type) {
 // ── INIT ──────────────────────────────────────────────
 loadOverview();
 </script>
+<!-- EXCEL IMPORT MODAL -->
+<div class="modal-overlay" id="excel-import-modal">
+  <div class="modal-box" style="width:900px;max-height:90vh;overflow-y:auto;">
+    <div class="modal-head">
+      <span style="font-weight:700">استيراد من Excel — القرار: <span id="eim-label"></span></span>
+      <span onclick="closeExcelImportModal()" style="cursor:pointer;opacity:.8;">✕</span>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="eim-decision-id">
+      <!-- Upload step -->
+      <div id="eim-upload-step">
+        <div class="form-group">
+          <label>اختر ملف Excel</label>
+          <input type="file" id="eim-file" accept=".xlsx,.xls" style="width:100%;padding:8px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+        </div>
+        <div id="eim-progress" style="display:none;margin-top:10px;text-align:center;color:#888;font-size:.82rem;">جارٍ قراءة الملف…</div>
+        <button class="btn-sm btn-primary" onclick="previewExcelImport()" style="margin-top:8px;padding:9px 20px;">
+          <i class="fa fa-eye"></i> معاينة
+        </button>
+      </div>
+      <!-- Preview step -->
+      <div id="eim-preview-step" style="display:none;">
+        <div style="background:#f8f9fa;padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:.82rem;">
+          تم العثور على <strong id="eim-count">0</strong> نوع استغلال
+          <button class="btn-sm btn-primary" onclick="doExcelImport()" style="margin-right:12px;padding:6px 14px;">
+            <i class="fa fa-download"></i> استيراد الكل
+          </button>
+          <button class="btn-sm" onclick="resetExcelImport()" style="padding:6px 14px;background:#fff;border:1.5px solid #ddd;border-radius:6px;cursor:pointer;font-family:inherit;font-size:.78rem;">
+            اختيار ملف آخر
+          </button>
+        </div>
+        <div id="eim-table-wrapper" style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+            <thead>
+              <tr>
+                <th>نوع الاستغلال</th>
+                <th>المنطقة</th>
+                <th>السعر</th>
+                <th>الوحدة</th>
+              </tr>
+            </thead>
+            <tbody id="eim-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot" id="eim-foot">
+      <button class="btn-sm" onclick="closeExcelImportModal()" style="padding:9px 16px;background:#fff;border:1.5px solid #ddd;border-radius:6px;cursor:pointer;font-family:inherit">
+        إغلاق
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF UPLOAD MODAL -->
+<div class="modal-overlay" id="pdf-upload-modal">
+  <div class="modal-box" style="width:500px;">
+    <div class="modal-head">
+      <span style="font-weight:700">رفع ملف PDF للقرار: <span id="pum-label"></span></span>
+      <span onclick="closePdfUploadModal()" style="cursor:pointer;opacity:.8;">✕</span>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pum-decision-id">
+      <div class="form-group">
+        <label>اختر ملف PDF</label>
+        <input type="file" id="pum-file" accept=".pdf" style="width:100%;padding:8px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+      </div>
+      <div id="pum-progress" style="display:none;margin-top:10px;text-align:center;color:#888;font-size:.82rem;">جاري الرفع…</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-sm btn-primary" onclick="doUploadPdf()" style="flex:1;padding:9px">
+        <i class="fa fa-upload"></i> رفع
+      </button>
+      <button class="btn-sm" onclick="closePdfUploadModal()"
+        style="padding:9px 16px;background:#fff;border:1.5px solid #ddd;border-radius:6px;cursor:pointer;font-family:inherit">
+        إلغاء
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- USAGE RATES MODAL -->
+<div class="modal-overlay" id="usage-rates-modal">
+  <div class="modal-box" style="width:950px;max-height:90vh;overflow-y:auto;">
+    <div class="modal-head">
+      <span style="font-weight:700">أنواع الاستغلال — القرار: <span id="urm-label"></span></span>
+      <span onclick="closeUsageRatesModal()" style="cursor:pointer;opacity:.8;">✕</span>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="urm-decision-id">
+      <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select id="urm-add-type" style="padding:8px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+          <option value="">— نوع الاستغلال —</option>
+        </select>
+        <select id="urm-add-region" style="padding:8px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+          <option value="">— المنطقة —</option>
+        </select>
+        <input type="number" id="urm-add-rate" step="0.0001" placeholder="السعر" style="width:100px;padding:8px;border:1.5px solid #d0d7e3;border-radius:6px;font-family:inherit;font-size:.82rem;">
+        <button class="btn-sm btn-primary" onclick="addUsageRate()" style="white-space:nowrap;">
+          <i class="fa fa-plus"></i> إضافة
+        </button>
+      </div>
+      <div id="urm-table-wrapper" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+          <thead>
+            <tr>
+              <th>نوع الاستغلال</th>
+              <th>المنطقة</th>
+              <th>السعر</th>
+              <th>الوحدة</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody id="urm-tbody"></tbody>
+        </table>
+      </div>
+      <div id="urm-empty" style="text-align:center;padding:20px;color:#aaa;display:none;">لا توجد أنواع استغلال مضافة بعد</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-sm" onclick="closeUsageRatesModal()"
+        style="padding:9px 16px;background:#fff;border:1.5px solid #ddd;border-radius:6px;cursor:pointer;font-family:inherit">
+        إغلاق
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

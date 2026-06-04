@@ -1,0 +1,173 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "Page not found (404)" [level=1] [ref=e3]
+    - table [ref=e4]:
+      - rowgroup [ref=e5]:
+        - 'row "Request Method: GET" [ref=e6]':
+          - rowheader "Request Method:" [ref=e7]
+          - cell "GET" [ref=e8]
+        - 'row "Request URL: http://127.0.0.1:7070/map/" [ref=e9]':
+          - rowheader "Request URL:" [ref=e10]
+          - cell "http://127.0.0.1:7070/map/" [ref=e11]
+  - main [ref=e12]:
+    - paragraph [ref=e13]:
+      - text: Using the URLconf defined in
+      - code [ref=e14]: nile_violations.urls
+      - text: ", Django tried these URL patterns, in this order:"
+    - list [ref=e15]:
+      - listitem [ref=e16]:
+        - code [ref=e17]: admin/
+      - listitem [ref=e18]:
+        - code
+        - code [ref=e19]: "[name='map']"
+      - listitem [ref=e20]:
+        - code
+        - code [ref=e21]: login/ [name='login']
+      - listitem [ref=e22]:
+        - code
+        - code [ref=e23]: logout/ [name='logout']
+      - listitem [ref=e24]:
+        - code
+        - code [ref=e25]: test/ [name='map_test']
+      - listitem [ref=e26]:
+        - code
+        - code [ref=e27]: admin-dashboard/ [name='admin_dashboard']
+      - listitem [ref=e28]:
+        - code
+        - code [ref=e29]: api/violations/ [name='violations_api']
+      - listitem [ref=e30]:
+        - code
+        - code [ref=e31]: api/violations/pending/ [name='pending_violations']
+      - listitem [ref=e32]:
+        - code
+        - code [ref=e33]: api/violations/<int:pk>/ [name='violation_detail']
+      - listitem [ref=e34]:
+        - code
+        - code [ref=e35]: api/violations/<int:pk>/edit/ [name='edit_violation']
+      - listitem [ref=e36]:
+        - code
+        - code [ref=e37]: api/violations/<int:pk>/approve/ [name='approve_violation']
+      - listitem [ref=e38]:
+        - code
+        - code [ref=e39]: api/violations/<int:pk>/notes/ [name='violation_notes']
+      - listitem [ref=e40]:
+        - code
+        - code [ref=e41]: api/violations/<int:pk>/images/ [name='upload_image']
+      - listitem [ref=e42]:
+        - code
+        - code [ref=e43]: api/violations/<int:pk>/survey-map/ [name='upload_survey_map']
+      - listitem [ref=e44]:
+        - code
+        - code [ref=e45]: api/violations/<int:pk>/survey-map/view/ [name='serve_survey_map']
+      - listitem [ref=e46]:
+        - code
+        - code [ref=e47]: api/violations/geojson/ [name='violations_geojson']
+      - listitem [ref=e48]:
+        - code
+        - code [ref=e49]: api/geo/<str:gov_pcode>/ [name='geo_gov_api']
+      - listitem [ref=e50]:
+        - code
+        - code [ref=e51]: api/filter-options/ [name='filter_options_api']
+      - listitem [ref=e52]:
+        - code
+        - code [ref=e53]: api/govs-summary/ [name='govs_summary_api']
+      - listitem [ref=e54]:
+        - code
+        - code [ref=e55]: api/shapefile/preview/ [name='shapefile_preview']
+      - listitem [ref=e56]:
+        - code
+        - code [ref=e57]: api/shapefile/import/ [name='shapefile_import']
+      - listitem [ref=e58]:
+        - code
+        - code [ref=e59]: api/violations/<int:pk>/usages/ [name='usage_list']
+      - listitem [ref=e60]:
+        - code
+        - code [ref=e61]: api/violations/<int:pk>/usages/add/ [name='usage_add']
+      - listitem [ref=e62]:
+        - code
+        - code [ref=e63]: api/violations/<int:pk>/usages/<int:usage_id>/approve/ [name='usage_approve']
+      - listitem [ref=e64]:
+        - code
+        - code [ref=e65]: api/violations/<int:pk>/usages/calculate/ [name='usage_calculate']
+      - listitem [ref=e66]:
+        - code
+        - code [ref=e67]: api/violations/<int:pk>/usages/covering-decisions/ [name='covering_decisions']
+      - listitem [ref=e68]:
+        - code
+        - code [ref=e69]: api/usage-types/ [name='usage_types']
+      - listitem [ref=e70]:
+        - code
+        - code [ref=e71]: api/violations/<int:pk>/usages/<int:usage_id>/print/ [name='usage_print_single']
+      - listitem [ref=e72]:
+        - code
+        - code [ref=e73]: api/violations/<int:pk>/usages/print-all/ [name='usage_print_all']
+      - listitem [ref=e74]:
+        - code
+        - code [ref=e75]: api/export/excel/ [name='export_excel']
+      - listitem [ref=e76]:
+        - code
+        - code [ref=e77]: api/export/pdf/ [name='export_pdf']
+      - listitem [ref=e78]:
+        - code
+        - code [ref=e79]: admin-dashboard/api/stats/ [name='admin_stats']
+      - listitem [ref=e80]:
+        - code
+        - code [ref=e81]: admin-dashboard/api/users/ [name='admin_users']
+      - listitem [ref=e82]:
+        - code
+        - code [ref=e83]: admin-dashboard/api/users/<int:user_id>/ [name='admin_user_detail']
+      - listitem [ref=e84]:
+        - code
+        - code [ref=e85]: admin-dashboard/api/users/<int:user_id>/toggle/ [name='admin_toggle_user']
+      - listitem [ref=e86]:
+        - code
+        - code [ref=e87]: admin-dashboard/api/logs/ [name='admin_logs']
+      - listitem [ref=e88]:
+        - code
+        - code [ref=e89]: admin-dashboard/api/logs/export/ [name='admin_logs_export']
+      - listitem [ref=e90]:
+        - code
+        - code [ref=e91]: admin-dashboard/api/govs/ [name='admin_govs']
+      - listitem [ref=e92]:
+        - code
+        - code [ref=e93]: api/decisions/ [name='decisions_api']
+      - listitem [ref=e94]:
+        - code
+        - code [ref=e95]: api/decisions/<int:pk>/upload-pdf/ [name='decision_upload_pdf']
+      - listitem [ref=e96]:
+        - code
+        - code [ref=e97]: api/decisions/<int:pk>/import-excel/ [name='import_decision_excel']
+      - listitem [ref=e98]:
+        - code
+        - code [ref=e99]: api/decisions/<int:pk>/usage-rates/ [name='decision_usage_rates']
+      - listitem [ref=e100]:
+        - code
+        - code [ref=e101]: api/chatbot/ [name='chatbot']
+      - listitem [ref=e102]:
+        - code
+        - code [ref=e103]: api/satellite/search/ [name='satellite_search']
+      - listitem [ref=e104]:
+        - code
+        - code [ref=e105]: api/satellite/compare/ [name='satellite_compare']
+      - listitem [ref=e106]:
+        - code
+        - code [ref=e107]: api/satellite/change/ [name='satellite_change']
+      - listitem [ref=e108]:
+        - code
+        - code [ref=e109]: api/satellite/report/<int:pk>/ [name='satellite_report']
+      - listitem [ref=e110]:
+        - code
+        - code [ref=e111]: satellite/report/<int:pk>/ [name='satellite_report_html']
+      - listitem [ref=e112]:
+        - code [ref=e113]: ^media/(?P<path>.*)$
+    - paragraph [ref=e114]:
+      - text: The current path,
+      - code [ref=e115]: map/
+      - text: ", didn’t match any of these."
+  - contentinfo [ref=e116]:
+    - paragraph [ref=e117]:
+      - text: You’re seeing this error because you have
+      - code [ref=e118]: DEBUG = True
+      - text: in your Django settings file. Change that to
+      - code [ref=e119]: "False"
+      - text: ", and Django will display a standard 404 page."

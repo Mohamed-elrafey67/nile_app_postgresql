@@ -43,15 +43,15 @@
     </div>
 
     <div class="header">
-        <h1>نظام توثيق أراضي طرح النهر</h1>
-        <h2>سجل استغلال قطعة أرض</h2>
+        <h1>نظام توثيق تواجدات طرح النهر</h1>
+        <h2>سجل استغلال تواجد</h2>
         <div class="meta">تم الطباعة: {{ print_date|date:"Y/m/d H:i" }}</div>
     </div>
 
-    <!-- بيانات قطعة الأرض -->
+    <!-- بيانات التواجد -->
     <div class="section">
-        <div class="section-title">📍 بيانات قطعة الأرض</div>
-        <div class="row"><span class="label">كود القطعة:</span><span class="value">{{ violation.code }}</span></div>
+        <div class="section-title">📍 بيانات التواجد</div>
+        <div class="row"><span class="label">كود التواجد:</span><span class="value">{{ violation.code }}</span></div>
         <div class="row"><span class="label">المحافظة:</span><span class="value">{{ violation.governorate.name_ar|default:"—" }}</span></div>
         <div class="row"><span class="label">المركز:</span><span class="value">{{ violation.district_name|default:"—" }}</span></div>
         <div class="row"><span class="label">القرية:</span><span class="value">{{ violation.village|default:"—" }}</span></div>
@@ -146,7 +146,7 @@
     </div>
 
     <div style="margin-top:30px;text-align:center;font-size:9pt;color:#888;border-top:1px solid #ddd;padding-top:10px;">
-        <p>نظام توثيق أراضي طرح النهر | وزارة الموارد المائية والري</p>
+        <p>نظام توثيق تواجدات طرح النهر | وزارة الموارد المائية والري</p>
     </div>
 </body>
 </html>
