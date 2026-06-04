@@ -5,5 +5,23 @@ __pycache__/
 staticfiles/
 media/
 *.log
+# Test / debug artifacts
+test_*
+tmp_*.py
+ar_test_out.txt
+current_state.txt
+dakahlia_state.txt
+decisions_mockup.html
+legend_*.png
+server_out.log
+server_pid.txt
+pyarmor.*.log
+data_dump.json
+# Playwright test recordings
+.playwright-mcp/
+# PyArmor
+.pyarmor/
+# OpenCode config
+opencode.json
 # Large ZIP archives
 *.zip
