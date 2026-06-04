@@ -174,7 +174,7 @@ class SatelliteImage(models.Model):
 
 class ViolationImage(models.Model):
     violation   = models.ForeignKey(Violation, on_delete=models.CASCADE,
-                                    related_name='images', verbose_name='التواج')
+                                    related_name='images', verbose_name='التواجد')
     image       = models.ImageField(upload_to='violations/%Y/%m/', verbose_name='الصورة')
     caption     = models.CharField(max_length=200, blank=True, verbose_name='وصف الصورة')
     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL,
@@ -191,7 +191,7 @@ class ViolationImage(models.Model):
 
 class ViolationNote(models.Model):
     violation  = models.ForeignKey(Violation, on_delete=models.CASCADE,
-                                   related_name='notes', verbose_name='التواج')
+                                   related_name='notes', verbose_name='التواجد')
     user       = models.ForeignKey(User, on_delete=models.SET_NULL,
                                    null=True, verbose_name='المستخدم')
     text       = models.TextField(verbose_name='نص الملاحظة')
@@ -440,7 +440,7 @@ class ViolationUsage(models.Model):
     ]
 
     violation       = models.ForeignKey('Violation', on_delete=models.CASCADE,
-                                        related_name='usages', verbose_name='التواج')
+                                        related_name='usages', verbose_name='التواجد')
     usage_type      = models.ForeignKey(UsageType, on_delete=models.PROTECT,
                                         null=True, blank=True, verbose_name='نوع الاستغلال')
 
