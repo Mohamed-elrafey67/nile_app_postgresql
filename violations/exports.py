@@ -22,12 +22,15 @@ import os
 # ── Arabic text RTL reordering for ReportLab ───────────────────────────
 import re as _re
 def ar(text):
-    """Reorder Arabic text RTL for visual display in ReportLab.
+    """Reshape + reorder Arabic text for visual display in ReportLab.
+    Returns visual-order text (LTR) — use TA_LEFT for alignment.
     Strips <b> tags (bold not needed — use separate styles)."""
     try:
         from bidi.algorithm import get_display
+        import arabic_reshaper
         clean = _re.sub(r'</?b>', '', text)
-        return get_display(clean)
+        reshaped = arabic_reshaper.reshape(clean)
+        return get_display(reshaped)
     except ImportError:
         return text
 
@@ -273,7 +276,7 @@ def export_pdf(records, filters=None, user=None):
     )
     normal_style = ParagraphStyle(
         'ArabicNormal', fontName=font_name, fontSize=8,
-        alignment=TA_RIGHT,
+        alignment=TA_LEFT,
     )
 
     elements = []
@@ -291,10 +294,8 @@ def export_pdf(records, filters=None, user=None):
     elements.append(Paragraph(meta, subtitle_style))
     elements.append(Spacer(1, 0.3*cm))
 
-    # Table headers
-    headers = [col[1] for col in COLUMNS]
-
-    # Table data
+    # Table data (reversed for RTL layout)
+    headers = [ar(col[1]) for col in COLUMNS][::-1]
     data = [headers]
     total_area = 0
     for rec in records:
@@ -305,20 +306,20 @@ def export_pdf(records, filters=None, user=None):
                 val = STATUS_AR.get(str(val), val)
             elif field in ('area_nile_bank','area_public','area_outside','area_total'):
                 val = f"{float(val or 0):.1f}"
-            row.append(str(val)[:30])
-        data.append(row)
+            row.append(ar(str(val)[:30]))
+        data.append(row[::-1])
         total_area += float(rec.get('area_total', 0) or 0)
 
-    # Totals row
+    # Totals row (reversed for RTL)
     totals = [ar('الإجمالي')] + [''] * 9 + [f'{total_area:.1f}', '']
-    data.append(totals)
+    data.append(totals[::-1])
 
-    # Column widths proportional
+    # Column widths proportional (reversed for RTL)
     col_widths = [
         1.5*cm, 2.2*cm, 2.2*cm, 2.8*cm, 3.2*cm,
         3.5*cm, 2.8*cm, 2.0*cm, 2.0*cm, 2.0*cm,
         2.2*cm, 1.6*cm,
-    ]
+    ][::-1]
 
     table = Table(data, colWidths=col_widths, repeatRows=1)
 
@@ -367,6 +368,26 @@ def export_pdf(records, filters=None, user=None):
 # ══════════════════════════════════════════════════════════════════
 # 🛰️ SATELLITE REPORT
 # ══════════════════════════════════════════════════════════════════
+def _resolve_media_path(url_or_path):
+    """Convert a media URL or path to an absolute local filesystem path."""
+    from django.conf import settings
+    if not url_or_path:
+        return None
+    # Already an absolute local path
+    if os.path.isabs(url_or_path):
+        return url_or_path
+    # Strip MEDIA_URL prefix if present
+    path = url_or_path
+    mu = str(settings.MEDIA_URL)
+    if path.startswith(mu):
+        path = path[len(mu):]
+    # Strip leading slash
+    path = path.lstrip('/')
+    # Normalize separators
+    path = path.replace('/', os.sep)
+    abs_path = os.path.join(settings.MEDIA_ROOT, path)
+    return abs_path
+
 def export_satellite_report(violation, years):
     """تقرير PDF مقارن باستخدام صور الأقمار الصناعية"""
     from django.conf import settings
@@ -404,8 +425,8 @@ def export_satellite_report(violation, years):
     sub_style = ParagraphStyle('S', fontName=font_name, fontSize=9,
         textColor=colors.grey, alignment=TA_CENTER, spaceAfter=4)
     h3_style = ParagraphStyle('H3', fontName=font_name, fontSize=10,
-        textColor=colors.HexColor('#0D3B6E'), alignment=TA_RIGHT, spaceAfter=6)
-    normal = ParagraphStyle('N', fontName=font_name, fontSize=9, alignment=TA_RIGHT)
+        textColor=colors.HexColor('#0D3B6E'), alignment=TA_LEFT, spaceAfter=6)
+    normal = ParagraphStyle('N', fontName=font_name, fontSize=9, alignment=TA_LEFT)
 
     elements = []
     now = datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -442,9 +463,9 @@ def export_satellite_report(violation, years):
     # ── Images Section ──
     elements.append(Paragraph(ar('الصور الفضائية'), h3_style))
     for img in result.get('images', []):
-        abs_path = os.path.join(settings.MEDIA_ROOT,
-            img['image_url'].replace(settings.MEDIA_URL, '').replace('/', os.sep))
-        if os.path.exists(abs_path):
+        img_url = img.get('image_url', '')
+        abs_path = _resolve_media_path(img_url)
+        if abs_path and os.path.exists(abs_path):
             img_w = 14*cm
             elements.append(Paragraph(ar(f'سنة {img["year"]}'), sub_style))
             elements.append(Image(abs_path, width=img_w, height=img_w*0.85))
@@ -461,11 +482,10 @@ def export_satellite_report(violation, years):
                 f'مساحة تقديرية: {ch["est_area_m2"]:,.1f} م²'
             )
             elements.append(Paragraph(ar(text), normal))
-            if ch.get('heatmap_url'):
-                hp = os.path.join(settings.MEDIA_ROOT,
-                    ch['heatmap_url'].replace(settings.MEDIA_URL, '').replace('/', os.sep))
-                if os.path.exists(hp):
-                    elements.append(Image(hp, width=12*cm, height=12*cm*0.85))
+            hp_url = ch.get('heatmap_url', '')
+            hp_path = _resolve_media_path(hp_url)
+            if hp_path and os.path.exists(hp_path):
+                elements.append(Image(hp_path, width=12*cm, height=12*cm*0.85))
             elements.append(Spacer(1, 0.2*cm))
 
     # ── Statistics Table ──

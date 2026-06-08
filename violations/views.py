@@ -1144,6 +1144,21 @@ def export_pdf_view(request):
 
 
 # ══════════════════════════════════════════════════════════════════
+# PRESENTATION EXPORT — عرض تقديمي يشرح التطبيق
+# ══════════════════════════════════════════════════════════════════
+def export_presentation_view(request):
+    from .presentation import generate_app_presentation
+    prs = generate_app_presentation()
+    buf = io.BytesIO()
+    prs.save(buf)
+    buf.seek(0)
+    log_action(request, 'export', 'PPT — عرض تقديمي')
+    response = HttpResponse(buf.read(), content_type='application/vnd.openxmlformats-officedocument.presentationml.presentation')
+    response['Content-Disposition'] = 'attachment; filename="nile_app_presentation.pptx"'
+    return response
+
+
+# ══════════════════════════════════════════════════════════════════
 # USAGE TRACKING — تتبع الاستغلال وحساب مقابل الانتفاع
 # ══════════════════════════════════════════════════════════════════
 from .models import MinistryDecision, UsageType, ViolationUsage
@@ -1780,7 +1795,7 @@ def _query_violations(filters: dict, intent: str, limit: int) -> dict:
 
     if intent == 'count':
         total = Violation.objects.filter(vq).count()
-        return {'response': f'عدد المخالفات: {total}', 'data': {'count': total}, 'type': 'count'}
+        return {'response': f'عدد التواجدات: {total}', 'data': {'count': total}, 'type': 'count'}
 
     qs = Violation.objects.filter(vq).select_related('governorate')[:limit]
     rows = []
@@ -1793,7 +1808,7 @@ def _query_violations(filters: dict, intent: str, limit: int) -> dict:
         })
 
     count = Violation.objects.filter(vq).count()
-    summary = f'عرض {len(rows)} من {count} مخالفة' if count > limit else f'عدد المخالفات: {count}'
+    summary = f'عرض {len(rows)} من {count} تواجد' if count > limit else f'عدد التواجدات: {count}'
     return {'response': summary, 'data': rows, 'type': 'violation_list'}
 
 

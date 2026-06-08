@@ -282,7 +282,7 @@ def _build_human_text(entities: dict) -> str:
         parts.append('متوسط')
 
     if entities.get('obj') == 'violation':
-        parts.append('المخالفات')
+        parts.append('التواجدات')
     elif entities.get('obj') == 'usage':
         parts.append('الاستغلالات')
     elif entities.get('obj') == 'usage_value':
@@ -332,7 +332,7 @@ def _detail_violation(code: str) -> dict:
             'response': f'{v.code} — {v.occupant} — {gov}'
         }
     except Violation.DoesNotExist:
-        return {'type': 'text', 'data': None, 'response': f'لا توجد مخالفة بالرمز {code}'}
+        return {'type': 'text', 'data': None, 'response': f'لا يوجد تواجد بالرمز {code}'}
 
 
 def parse(text: str) -> dict:

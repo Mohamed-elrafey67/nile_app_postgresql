@@ -911,12 +911,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 }).addTo(map);
 
 L.control.layers({
-  'صورة جوية (Esri)': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom:19}),
-  'قمر صناعي (DE Africa)': L.tileLayer.wms('https://ows.digitalearth.africa/wms', {
-    layers: 's2_l2a_c1', time: '2025-06-01', format: 'image/png',
-    transparent: false, maxZoom: 19,
-    attribution: 'Sentinel-2 L2A ● Digital Earth Africa'
-  }),
+  'صورة جوية': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom:19}),
   'خريطة عادية': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19})
 }, {}, {position: 'bottomleft'}).addTo(map);
 
@@ -1010,7 +1005,7 @@ function switchDetailTab(name, el) {
 }
 
 // ══════════════════════════════════════════
-// 🛰️ صور الأقمار الصناعية — Sentinel Hub / DE Africa
+// 🛰️ صور الأقمار الصناعية — Sentinel Hub
 // ══════════════════════════════════════════
 var _satData = {};
 
@@ -1031,45 +1026,9 @@ function loadSatelliteView(violationId) {
 
 function renderSourceSelector(panel) {
   var html = '<div style="display:flex;flex-direction:column;gap:10px;font-size:.82rem;">';
-  html += '<div style="font-weight:700;color:#0d3b6e;"><i class="fa fa-satellite"></i> صور الأقمار الصناعية</div>';
-  html += '<div style="background:#f0f4ff;padding:8px 12px;border-radius:8px;border:1px solid #d0ddf5;">';
-  html += '<div style="margin-bottom:6px;color:#0d3b6e;font-weight:600;">🌍 Digital Earth Africa</div>';
-  html += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
-  html += '<button onclick="loadDeAfricaWms(\'2024\')" style="flex:1;background:#0d3b6e;color:#fff;border:none;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:.78rem;">2024</button>';
-  html += '<button onclick="loadDeAfricaWms(\'2025\')" style="flex:1;background:#0d3b6e;color:#fff;border:none;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:.78rem;">2025</button>';
-  html += '<button onclick="loadDeAfricaWms(\'2026\')" style="flex:1;background:#0d3b6e;color:#fff;border:none;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:.78rem;">2026</button>';
-  html += '</div>';
-  html += '<div style="margin-top:6px;font-size:.72rem;color:#666;">اختر السنة لعرض صورة Sentinel-2 مباشرة من DE Africa</div>';
-  html += '</div>';
-  html += '<div style="background:#f5f7fa;padding:8px 12px;border-radius:8px;border:1px solid #e0e8f0;">';
-  html += '<div style="margin-bottom:4px;color:#555;font-weight:600;">🛰️ Sentinel Hub (القديم)</div>';
-  html += '<button onclick="loadSentinelView(panel)" style="background:#fff;border:1px solid #ccc;border-radius:6px;padding:8px;cursor:pointer;font-size:.78rem;width:100%;">تحميل صور Sentinel Hub</button>';
-  html += '</div>';
-  html += '<div id="de-africa-result"></div>';
-  html += '</div>';
+  html += '<div style="font-weight:700;color:#0d3b6e;"><i class="fa fa-satellite"></i> صور الأقمار الصناعية</div></div>';
   panel.innerHTML = html;
-}
-
-function loadDeAfricaWms(year) {
-  removeSatLayers();
-  var lat = _satData.lat, lng = _satData.lng;
-  var bbox = [lng - 0.008, lat - 0.008, lng + 0.008, lat + 0.008];
-  var url = 'https://ows.digitalearth.africa/wms?version=1.3.0' +
-    '&layers=s2_l2a_c1' +
-    '&time=' + year + '-06-01' +
-    '&bbox=' + bbox.join(',') +
-    '&width=1024&height=1024&format=image/png&crs=EPSG:4326';
-  var bounds = [[bbox[1], bbox[0]], [bbox[3], bbox[2]]];
-  var layer = L.imageOverlay(url, bounds, {opacity: 0.8});
-  layer.addTo(map);
-  map.fitBounds(bounds, {maxZoom: 16, padding: [20, 20]});
-  _satLayers['de-africa-' + year] = layer;
-  var panel = document.getElementById('de-africa-result');
-  panel.innerHTML = '<div style="margin-top:8px;padding:8px;background:#e8f5e9;border-radius:6px;font-size:.78rem;color:#2e7d32;">' +
-    '✅ تم تحميل صورة Sentinel-2 (' + year + ') — <a href="#" onclick="removeSatLayers();return false;" style="color:#e74c3c;">إخفاء</a>' +
-    '</div>';
-  updateSatControl();
-  closeAllModals();
+  loadSentinelView(panel);
 }
 
 // ── Sentinel Hub (الموجود) ──────────────────────────
@@ -3393,7 +3352,7 @@ function toggleChat() {
   if (_chatOpen) {
     document.getElementById('chat-input').focus();
     if (_chatMessages.length === 0) {
-      addChatMessage('bot', 'مرحباً! اسألني عن المخالفات والاستغلالات.\nمثلاً:\n• كم مخالفة في الوراق\n• إجمالي مقابل الانتفاع في أسوان\n• تفاصيل المخالفة MN028\n• وريني الاستغلالات بتاعة MN028\n• مخالفات قيمتها اكتر من 10 آلاف');
+      addChatMessage('bot', 'مرحباً! اسألني عن التواجدات والاستغلالات.\nمثلاً:\n• كم تواجد في الوراق\n• إجمالي مقابل الانتفاع في أسوان\n• تفاصيل التواجد MN028\n• وريني الاستغلالات بتاعة MN028\n• تواجدات قيمتها اكتر من 10 آلاف');
     }
   }
 }
@@ -3470,7 +3429,7 @@ function handleChatResponse(d) {
     var html = '<div style="font-weight:700;margin-bottom:6px;">' + (d.response || '') + '</div>';
     html += '<table style="width:100%;font-size:.7rem;border-collapse:collapse;">' +
       '<tr style="background:#f0f4f8;font-weight:600;">' +
-      '<th style="padding:2px 4px;border:1px solid #ddd;">المخالفة</th>' +
+      '<th style="padding:2px 4px;border:1px solid #ddd;">التواجد</th>' +
       '<th style="padding:2px 4px;border:1px solid #ddd;">المستغل</th>' +
       '<th style="padding:2px 4px;border:1px solid #ddd;">النوع</th>' +
       '<th style="padding:2px 4px;border:1px solid #ddd;">المساحة</th>' +
@@ -3603,7 +3562,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div id="chat-messages"></div>
   <div id="chat-status"><i class="fa fa-spinner fa-spin"></i> جاري البحث...</div>
   <div id="chat-footer">
-    <input id="chat-input" placeholder="اسأل عن المخالفات..." maxlength="500">
+    <input id="chat-input" placeholder="اسأل عن التواجدات..." maxlength="500">
     <button id="chat-send" onclick="sendChatMessage()"><i class="fa fa-paper-plane"></i></button>
   </div>
 </div>

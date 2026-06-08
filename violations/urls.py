@@ -62,6 +62,7 @@ urlpatterns = [
     path('api/decisions/<int:pk>/import-excel/', views.import_decision_excel, name='import_decision_excel'),
     path('api/decisions/<int:pk>/usage-rates/', views.decision_usage_rates, name='decision_usage_rates'),
     path('api/chatbot/',                         views.chatbot_api,           name='chatbot'),
+    path('api/export/presentation/', views.export_presentation_view, name='export_presentation'),
     path('api/satellite/search/',                 views.satellite_search_api,  name='satellite_search'),
     path('api/satellite/compare/',                views.satellite_compare_api, name='satellite_compare'),
     path('api/satellite/change/',                 views.satellite_change_api,  name='satellite_change'),
